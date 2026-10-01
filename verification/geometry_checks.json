@@ -1,0 +1,694 @@
+[
+  {
+    "asset": "01_brand_logo",
+    "blend_reopened": true,
+    "roots_hierarchy_pivots_checked": true,
+    "mesh_uvs_present": true,
+    "asset_browser_thumbnail": true,
+    "external_unpacked_dependencies": 0,
+    "glb_reimported": true,
+    "names_parents_material_names_match": true,
+    "source": {
+      "triangles": 345644,
+      "bounds": [
+        [
+          -0.800000011920929,
+          -0.0020000000949949026,
+          -1.725706084698686e-07
+        ],
+        [
+          0.800000011920929,
+          0.0020000452641397715,
+          0.5996610522270203
+        ]
+      ],
+      "materials": [
+        "SVG_Gradient_Full_Logo_Path_00",
+        "SVG_Gradient_Full_Logo_Path_01",
+        "SVG_Gradient_Full_Logo_Path_02",
+        "SVG_Gradient_Full_Logo_Path_03",
+        "SVG_Gradient_Full_Logo_Path_04",
+        "SVG_Gradient_Full_Logo_Path_05",
+        "SVG_Gradient_Full_Logo_Path_06",
+        "SVG_Gradient_Full_Logo_Path_07",
+        "SVG_Gradient_Full_Logo_Path_08",
+        "SVG_Gradient_Full_Logo_Path_09",
+        "SVG_Gradient_Full_Logo_Path_10",
+        "SVG_Gradient_Full_Logo_Path_11",
+        "SVG_Gradient_Full_Logo_Path_12",
+        "SVG_Gradient_Full_Logo_Path_13"
+      ]
+    },
+    "glb": {
+      "triangles": 345644,
+      "bounds": [
+        [
+          -0.800000011920929,
+          -0.0020000808872282505,
+          -1.7268834540118405e-07
+        ],
+        [
+          0.800000011920929,
+          0.0020000003278255463,
+          0.599661111831665
+        ]
+      ],
+      "materials": [
+        "SVG_Gradient_Full_Logo_Path_00",
+        "SVG_Gradient_Full_Logo_Path_01",
+        "SVG_Gradient_Full_Logo_Path_02",
+        "SVG_Gradient_Full_Logo_Path_03",
+        "SVG_Gradient_Full_Logo_Path_04",
+        "SVG_Gradient_Full_Logo_Path_05",
+        "SVG_Gradient_Full_Logo_Path_06",
+        "SVG_Gradient_Full_Logo_Path_07",
+        "SVG_Gradient_Full_Logo_Path_08",
+        "SVG_Gradient_Full_Logo_Path_09",
+        "SVG_Gradient_Full_Logo_Path_10",
+        "SVG_Gradient_Full_Logo_Path_11",
+        "SVG_Gradient_Full_Logo_Path_12",
+        "SVG_Gradient_Full_Logo_Path_13"
+      ]
+    },
+    "world_vertex_error_m": 1.3935201081949344e-07
+  },
+  {
+    "asset": "02_keys",
+    "blend_reopened": true,
+    "roots_hierarchy_pivots_checked": true,
+    "mesh_uvs_present": true,
+    "asset_browser_thumbnail": true,
+    "external_unpacked_dependencies": 0,
+    "glb_reimported": true,
+    "names_parents_material_names_match": true,
+    "source": {
+      "triangles": 5616,
+      "bounds": [
+        [
+          -0.04749999940395355,
+          -0.019999999552965164,
+          0.04249999672174454
+        ],
+        [
+          0.07500000298023224,
+          0.021000001579523087,
+          0.26499998569488525
+        ]
+      ],
+      "materials": [
+        "Brass",
+        "Metal",
+        "SVG_Gradient_Fob_TH_Path_00",
+        "Terracotta"
+      ]
+    },
+    "glb": {
+      "triangles": 5616,
+      "bounds": [
+        [
+          -0.04749999940395355,
+          -0.020000001415610313,
+          0.04249999672174454
+        ],
+        [
+          0.07500000298023224,
+          0.021000003442168236,
+          0.26499998569488525
+        ]
+      ],
+      "materials": [
+        "Brass",
+        "Metal",
+        "SVG_Gradient_Fob_TH_Path_00",
+        "Terracotta"
+      ]
+    },
+    "world_vertex_error_m": 3.089637345965457e-08
+  },
+  {
+    "asset": "03_entrance",
+    "blend_reopened": true,
+    "roots_hierarchy_pivots_checked": true,
+    "mesh_uvs_present": true,
+    "asset_browser_thumbnail": true,
+    "external_unpacked_dependencies": 0,
+    "glb_reimported": true,
+    "names_parents_material_names_match": true,
+    "source": {
+      "triangles": 4936,
+      "bounds": [
+        [
+          -0.5800000429153442,
+          -0.09100000560283661,
+          0.0
+        ],
+        [
+          0.5800000429153442,
+          0.09000000357627869,
+          2.2200000286102295
+        ]
+      ],
+      "materials": [
+        "Brass",
+        "Cream",
+        "Ink",
+        "Navy",
+        "Oak",
+        "Screen"
+      ]
+    },
+    "glb": {
+      "triangles": 4936,
+      "bounds": [
+        [
+          -0.5800000429153442,
+          -0.09100000560283661,
+          0.0
+        ],
+        [
+          0.5800000429153442,
+          0.09000000357627869,
+          2.2200000286102295
+        ]
+      ],
+      "materials": [
+        "Brass",
+        "Cream",
+        "Ink",
+        "Navy",
+        "Oak",
+        "Screen"
+      ]
+    },
+    "world_vertex_error_m": 6.006850128414953e-08
+  },
+  {
+    "asset": "04_luggage",
+    "blend_reopened": true,
+    "roots_hierarchy_pivots_checked": true,
+    "mesh_uvs_present": true,
+    "asset_browser_thumbnail": true,
+    "external_unpacked_dependencies": 0,
+    "glb_reimported": true,
+    "names_parents_material_names_match": true,
+    "source": {
+      "triangles": 5500,
+      "bounds": [
+        [
+          -0.2004999965429306,
+          -0.13300000131130219,
+          0.012000001966953278
+        ],
+        [
+          0.2004999965429306,
+          0.12250000238418579,
+          0.8984999656677246
+        ]
+      ],
+      "materials": [
+        "Ink",
+        "Metal",
+        "Navy",
+        "Terracotta"
+      ]
+    },
+    "glb": {
+      "triangles": 5500,
+      "bounds": [
+        [
+          -0.2004999965429306,
+          -0.13300000131130219,
+          0.01199999637901783
+        ],
+        [
+          0.2004999965429306,
+          0.12250000238418579,
+          0.8984999656677246
+        ]
+      ],
+      "materials": [
+        "Ink",
+        "Metal",
+        "Navy",
+        "Terracotta"
+      ]
+    },
+    "world_vertex_error_m": 1.053671194739536e-08
+  },
+  {
+    "asset": "05_lounge",
+    "blend_reopened": true,
+    "roots_hierarchy_pivots_checked": true,
+    "mesh_uvs_present": true,
+    "asset_browser_thumbnail": true,
+    "external_unpacked_dependencies": 0,
+    "glb_reimported": true,
+    "names_parents_material_names_match": true,
+    "source": {
+      "triangles": 7992,
+      "bounds": [
+        [
+          -1.0099999904632568,
+          -1.3799999952316284,
+          0.0
+        ],
+        [
+          1.0099999904632568,
+          0.4350000023841858,
+          0.9503806829452515
+        ]
+      ],
+      "materials": [
+        "Cream",
+        "Ink",
+        "Linen",
+        "Navy",
+        "Oak",
+        "Terracotta"
+      ]
+    },
+    "glb": {
+      "triangles": 7992,
+      "bounds": [
+        [
+          -1.0099999904632568,
+          -1.3799999952316284,
+          0.0
+        ],
+        [
+          1.0099999904632568,
+          0.4350000023841858,
+          0.9503806829452515
+        ]
+      ],
+      "materials": [
+        "Cream",
+        "Ink",
+        "Linen",
+        "Navy",
+        "Oak",
+        "Terracotta"
+      ]
+    },
+    "world_vertex_error_m": 6.664001972467304e-08
+  },
+  {
+    "asset": "06_bedroom",
+    "blend_reopened": true,
+    "roots_hierarchy_pivots_checked": true,
+    "mesh_uvs_present": true,
+    "asset_browser_thumbnail": true,
+    "external_unpacked_dependencies": 0,
+    "glb_reimported": true,
+    "names_parents_material_names_match": true,
+    "source": {
+      "triangles": 9332,
+      "bounds": [
+        [
+          -1.25,
+          -1.0499999523162842,
+          0.0
+        ],
+        [
+          1.25,
+          1.0899999141693115,
+          1.2799999713897705
+        ]
+      ],
+      "materials": [
+        "Brass",
+        "Cream",
+        "Linen",
+        "Navy",
+        "Oak",
+        "Terracotta",
+        "White"
+      ]
+    },
+    "glb": {
+      "triangles": 9332,
+      "bounds": [
+        [
+          -1.25,
+          -1.0499999523162842,
+          0.0
+        ],
+        [
+          1.25,
+          1.0899999141693115,
+          1.2799999713897705
+        ]
+      ],
+      "materials": [
+        "Brass",
+        "Cream",
+        "Linen",
+        "Navy",
+        "Oak",
+        "Terracotta",
+        "White"
+      ]
+    },
+    "world_vertex_error_m": 0
+  },
+  {
+    "asset": "07_workspace",
+    "blend_reopened": true,
+    "roots_hierarchy_pivots_checked": true,
+    "mesh_uvs_present": true,
+    "asset_browser_thumbnail": true,
+    "external_unpacked_dependencies": 0,
+    "glb_reimported": true,
+    "names_parents_material_names_match": true,
+    "source": {
+      "triangles": 6996,
+      "bounds": [
+        [
+          -0.6000000238418579,
+          -1.0749999284744263,
+          0.0
+        ],
+        [
+          0.6000000238418579,
+          0.30000001192092896,
+          1.0089999437332153
+        ]
+      ],
+      "materials": [
+        "Cream",
+        "Ink",
+        "Linen",
+        "Metal",
+        "Navy",
+        "Oak",
+        "Screen",
+        "Terracotta"
+      ]
+    },
+    "glb": {
+      "triangles": 6996,
+      "bounds": [
+        [
+          -0.6000000238418579,
+          -1.0749999284744263,
+          0.0
+        ],
+        [
+          0.6000000238418579,
+          0.30000001192092896,
+          1.0089999437332153
+        ]
+      ],
+      "materials": [
+        "Cream",
+        "Ink",
+        "Linen",
+        "Metal",
+        "Navy",
+        "Oak",
+        "Screen",
+        "Terracotta"
+      ]
+    },
+    "world_vertex_error_m": 5.972094641037984e-08
+  },
+  {
+    "asset": "08_apartment",
+    "blend_reopened": true,
+    "roots_hierarchy_pivots_checked": true,
+    "mesh_uvs_present": true,
+    "asset_browser_thumbnail": true,
+    "external_unpacked_dependencies": 0,
+    "glb_reimported": true,
+    "names_parents_material_names_match": true,
+    "source": {
+      "triangles": 2528,
+      "bounds": [
+        [
+          -1.975000023841858,
+          -1.75,
+          -0.14000000059604645
+        ],
+        [
+          1.9600000381469727,
+          1.8700000047683716,
+          2.6000001430511475
+        ]
+      ],
+      "materials": [
+        "Cream",
+        "Glass",
+        "Navy",
+        "Oak",
+        "Warm_BG"
+      ]
+    },
+    "glb": {
+      "triangles": 2528,
+      "bounds": [
+        [
+          -1.975000023841858,
+          -1.75,
+          -0.14000000059604645
+        ],
+        [
+          1.9600000381469727,
+          1.8700000047683716,
+          2.6000001430511475
+        ]
+      ],
+      "materials": [
+        "Cream",
+        "Glass",
+        "Navy",
+        "Oak",
+        "Warm_BG"
+      ]
+    },
+    "world_vertex_error_m": 0
+  },
+  {
+    "asset": "09_building",
+    "blend_reopened": true,
+    "roots_hierarchy_pivots_checked": true,
+    "mesh_uvs_present": true,
+    "asset_browser_thumbnail": true,
+    "external_unpacked_dependencies": 0,
+    "glb_reimported": true,
+    "names_parents_material_names_match": true,
+    "source": {
+      "triangles": 8092,
+      "bounds": [
+        [
+          -0.8500000238418579,
+          -0.42500001192092896,
+          0.0
+        ],
+        [
+          0.8500000238418579,
+          0.44999998807907104,
+          1.9600000381469727
+        ]
+      ],
+      "materials": [
+        "Cream",
+        "Navy",
+        "Oak",
+        "Terracotta",
+        "Warm_BG",
+        "White"
+      ]
+    },
+    "glb": {
+      "triangles": 8092,
+      "bounds": [
+        [
+          -0.8500000238418579,
+          -0.42500001192092896,
+          0.0
+        ],
+        [
+          0.8500000238418579,
+          0.44999998807907104,
+          1.9600000381469727
+        ]
+      ],
+      "materials": [
+        "Cream",
+        "Navy",
+        "Oak",
+        "Terracotta",
+        "Warm_BG",
+        "White"
+      ]
+    },
+    "world_vertex_error_m": 0
+  },
+  {
+    "asset": "10_calendar",
+    "blend_reopened": true,
+    "roots_hierarchy_pivots_checked": true,
+    "mesh_uvs_present": true,
+    "asset_browser_thumbnail": true,
+    "external_unpacked_dependencies": 0,
+    "glb_reimported": true,
+    "names_parents_material_names_match": true,
+    "source": {
+      "triangles": 37022,
+      "bounds": [
+        [
+          -0.1850000023841858,
+          -0.0210999995470047,
+          0.009999990463256836
+        ],
+        [
+          0.1850000023841858,
+          0.03150000050663948,
+          0.4189999997615814
+        ]
+      ],
+      "materials": [
+        "Brass",
+        "Cream",
+        "Navy",
+        "Red",
+        "Terracotta",
+        "Warm_BG",
+        "White"
+      ]
+    },
+    "glb": {
+      "triangles": 37022,
+      "bounds": [
+        [
+          -0.1850000023841858,
+          -0.0210999995470047,
+          0.009999990463256836
+        ],
+        [
+          0.1850000023841858,
+          0.03150000050663948,
+          0.4189999997615814
+        ]
+      ],
+      "materials": [
+        "Brass",
+        "Cream",
+        "Navy",
+        "Red",
+        "Terracotta",
+        "Warm_BG",
+        "White"
+      ]
+    },
+    "world_vertex_error_m": 3.0719530030864917e-08
+  },
+  {
+    "asset": "11_welcome",
+    "blend_reopened": true,
+    "roots_hierarchy_pivots_checked": true,
+    "mesh_uvs_present": true,
+    "asset_browser_thumbnail": true,
+    "external_unpacked_dependencies": 0,
+    "glb_reimported": true,
+    "names_parents_material_names_match": true,
+    "source": {
+      "triangles": 51024,
+      "bounds": [
+        [
+          -0.125,
+          -0.0142000000923872,
+          0.0
+        ],
+        [
+          0.125,
+          0.023000000044703484,
+          0.33000001311302185
+        ]
+      ],
+      "materials": [
+        "Cream",
+        "Navy",
+        "Red",
+        "SVG_Gradient_Welcome_TH_Path_00",
+        "Terracotta",
+        "White"
+      ]
+    },
+    "glb": {
+      "triangles": 51024,
+      "bounds": [
+        [
+          -0.125,
+          -0.014200006611645222,
+          0.0
+        ],
+        [
+          0.125,
+          0.023000000044703484,
+          0.33000001311302185
+        ]
+      ],
+      "materials": [
+        "Cream",
+        "Navy",
+        "Red",
+        "SVG_Gradient_Welcome_TH_Path_00",
+        "Terracotta",
+        "White"
+      ]
+    },
+    "world_vertex_error_m": 3.122362102203624e-08
+  },
+  {
+    "asset": "12_location",
+    "blend_reopened": true,
+    "roots_hierarchy_pivots_checked": true,
+    "mesh_uvs_present": true,
+    "asset_browser_thumbnail": true,
+    "external_unpacked_dependencies": 0,
+    "glb_reimported": true,
+    "names_parents_material_names_match": true,
+    "source": {
+      "triangles": 4192,
+      "bounds": [
+        [
+          -0.30000001192092896,
+          -0.30000001192092896,
+          0.0
+        ],
+        [
+          0.30000001192092896,
+          0.30000001192092896,
+          0.7099999785423279
+        ]
+      ],
+      "materials": [
+        "Cream",
+        "Navy",
+        "Terracotta"
+      ]
+    },
+    "glb": {
+      "triangles": 4192,
+      "bounds": [
+        [
+          -0.30000001192092896,
+          -0.30000001192092896,
+          0.0
+        ],
+        [
+          0.30000001192092896,
+          0.30000001192092896,
+          0.7100000381469727
+        ]
+      ],
+      "materials": [
+        "Cream",
+        "Navy",
+        "Terracotta"
+      ]
+    },
+    "world_vertex_error_m": 8.97168703772877e-08
+  }
+]

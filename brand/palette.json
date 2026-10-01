@@ -1,0 +1,26 @@
+{
+  "source": "https://tailorhomes.it/wp-content/themes/tailor-homes-theme/style.css?ver=4.2",
+  "retrieved": "2026-10-01",
+  "website_colors": {
+    "cream": "#F5F0E8",
+    "terracotta": "#B5473A",
+    "navy": "#1B2A4A",
+    "bg": "#ECEAE4",
+    "bg-warm": "#E5E1DA",
+    "bg-dark": "#D9D4CB",
+    "ink": "#1A1916",
+    "ink-mid": "#3A3830",
+    "ink-soft": "#8A8780",
+    "red": "#B8312F",
+    "white": "#F5F3EF"
+  },
+  "supplied_svg_gradient": [
+    "#7d141d",
+    "#ff1e27"
+  ],
+  "website_fonts": [
+    "DM Sans",
+    "Jost",
+    "Cormorant Garamond"
+  ]
+}

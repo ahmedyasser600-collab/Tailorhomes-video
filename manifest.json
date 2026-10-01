@@ -1,0 +1,532 @@
+{
+  "version": "1.0",
+  "blender": "4.5.9 LTS",
+  "coordinates": {
+    "source": "X right, -Y front, Z up",
+    "glb": "standard glTF Y up",
+    "units": "metres"
+  },
+  "brand": "brand/palette.json",
+  "assets": [
+    {
+      "id": "01_brand_logo",
+      "title": "Vector brand lockup",
+      "uses": "Brand reveals; original vector paths",
+      "blend": "assets/01_brand_logo.blend",
+      "glb": "exports/01_brand_logo.glb",
+      "preview": "previews/01_brand_logo.png",
+      "collection": "TH_01_brand_logo",
+      "root": "TH_01_brand_logo_ROOT",
+      "objects": [
+        "TH_01_brand_logo_ROOT",
+        "Logo_Emblem",
+        "Logo_Monogram",
+        "Logo_Wordmark",
+        "Logo_Descriptor",
+        "Full_Logo_Path_00",
+        "Full_Logo_Path_01",
+        "Full_Logo_Path_02",
+        "Full_Logo_Path_03",
+        "Full_Logo_Path_04",
+        "Full_Logo_Path_05",
+        "Full_Logo_Path_06",
+        "Full_Logo_Path_07",
+        "Full_Logo_Path_08",
+        "Full_Logo_Path_09",
+        "Full_Logo_Path_10",
+        "Full_Logo_Path_11",
+        "Full_Logo_Path_12",
+        "Full_Logo_Path_13"
+      ],
+      "movable_parts": [],
+      "dimensions_m": [
+        1.6,
+        0.004,
+        0.59966
+      ]
+    },
+    {
+      "id": "02_keys",
+      "title": "Branded key set",
+      "uses": "Arrival and property handover",
+      "blend": "assets/02_keys.blend",
+      "glb": "exports/02_keys.glb",
+      "preview": "previews/02_keys.png",
+      "collection": "TH_02_keys",
+      "root": "TH_02_keys_ROOT",
+      "objects": [
+        "TH_02_keys_ROOT",
+        "Key_Ring",
+        "Key_Fob_Pivot",
+        "Leather_Fob",
+        "Fob_Eyelet",
+        "Fob_TH_Path_00",
+        "Key_Pivot",
+        "Key_Head",
+        "Key_Shaft",
+        "Key_Tooth",
+        "Key_Tooth.001",
+        "Key_Tooth.002"
+      ],
+      "movable_parts": [
+        {
+          "name": "Key_Fob_Pivot",
+          "axis": "Y rotation radians",
+          "range": [
+            -0.3,
+            0.3
+          ]
+        },
+        {
+          "name": "Key_Pivot",
+          "axis": "Y rotation radians",
+          "range": [
+            -0.6,
+            0.6
+          ]
+        }
+      ],
+      "dimensions_m": [
+        0.1225,
+        0.041,
+        0.2225
+      ]
+    },
+    {
+      "id": "03_entrance",
+      "title": "Opening entrance door",
+      "uses": "Welcome transitions; smart access",
+      "blend": "assets/03_entrance.blend",
+      "glb": "exports/03_entrance.glb",
+      "preview": "previews/03_entrance.png",
+      "collection": "TH_03_entrance",
+      "root": "TH_03_entrance_ROOT",
+      "objects": [
+        "TH_03_entrance_ROOT",
+        "Door_Jamb",
+        "Door_Jamb.001",
+        "Door_Lintel",
+        "Door_Threshold",
+        "Door_Hinge",
+        "Door_Leaf",
+        "Door_Raised_Panel",
+        "Door_Raised_Panel.001",
+        "Door_Smart_Lock",
+        "Door_Lock_Display",
+        "Door_Handle_Base",
+        "Door_Handle",
+        "Door_Hinge_Barrel",
+        "Door_Hinge_Barrel.001",
+        "Door_Hinge_Barrel.002"
+      ],
+      "movable_parts": [
+        {
+          "name": "Door_Hinge",
+          "axis": "Z rotation radians",
+          "range": [
+            -1.75,
+            0.0
+          ]
+        }
+      ],
+      "dimensions_m": [
+        1.16,
+        0.181,
+        2.22
+      ]
+    },
+    {
+      "id": "04_luggage",
+      "title": "Cabin suitcase",
+      "uses": "Business stays and relocation",
+      "blend": "assets/04_luggage.blend",
+      "glb": "exports/04_luggage.glb",
+      "preview": "previews/04_luggage.png",
+      "collection": "TH_04_luggage",
+      "root": "TH_04_luggage_ROOT",
+      "objects": [
+        "TH_04_luggage_ROOT",
+        "Suitcase_Shell",
+        "Suitcase_Zip_Band",
+        "Suitcase_Rib",
+        "Suitcase_Rib.001",
+        "Suitcase_Rib.002",
+        "Suitcase_Rib.003",
+        "Suitcase_Rib.004",
+        "Suitcase_Rib.005",
+        "Suitcase_Rib.006",
+        "Suitcase_Wheel",
+        "Suitcase_Wheel.001",
+        "Suitcase_Wheel.002",
+        "Suitcase_Wheel.003",
+        "Suitcase_Telescopic_Handle",
+        "Handle_Rail",
+        "Handle_Rail.001",
+        "Handle_Grip",
+        "Suitcase_Carry_Handle"
+      ],
+      "movable_parts": [
+        {
+          "name": "Suitcase_Telescopic_Handle",
+          "axis": "Z translation metres",
+          "range": [
+            -0.23,
+            0.0
+          ]
+        }
+      ],
+      "dimensions_m": [
+        0.401,
+        0.2555,
+        0.8865
+      ]
+    },
+    {
+      "id": "05_lounge",
+      "title": "Lounge and coffee table",
+      "uses": "Comfort and home staging",
+      "blend": "assets/05_lounge.blend",
+      "glb": "exports/05_lounge.glb",
+      "preview": "previews/05_lounge.png",
+      "collection": "TH_05_lounge",
+      "root": "TH_05_lounge_ROOT",
+      "objects": [
+        "TH_05_lounge_ROOT",
+        "Sofa_Foot",
+        "Sofa_Foot.001",
+        "Sofa_Foot.002",
+        "Sofa_Foot.003",
+        "Sofa_Base",
+        "Sofa_Arm",
+        "Sofa_Arm.001",
+        "Sofa_Seat_Cushion",
+        "Sofa_Back_Cushion",
+        "Sofa_Seat_Cushion.001",
+        "Sofa_Back_Cushion.001",
+        "Accent_Cushion",
+        "Accent_Cushion.001",
+        "Coffee_Table_Top",
+        "Coffee_Table_Leg",
+        "Coffee_Table_Leg.001",
+        "Coffee_Table_Leg.002",
+        "Coffee_Table_Book"
+      ],
+      "movable_parts": [],
+      "dimensions_m": [
+        2.02,
+        1.815,
+        0.95876
+      ]
+    },
+    {
+      "id": "06_bedroom",
+      "title": "Bed and nightstands",
+      "uses": "Furnished stay and sleep comfort",
+      "blend": "assets/06_bedroom.blend",
+      "glb": "exports/06_bedroom.glb",
+      "preview": "previews/06_bedroom.png",
+      "collection": "TH_06_bedroom",
+      "root": "TH_06_bedroom_ROOT",
+      "objects": [
+        "TH_06_bedroom_ROOT",
+        "Bed_Foot",
+        "Bed_Foot.001",
+        "Bed_Foot.002",
+        "Bed_Foot.003",
+        "Bed_Base",
+        "Mattress",
+        "Upholstered_Headboard",
+        "Duvet",
+        "Bed_Runner",
+        "Pillow",
+        "Pillow.001",
+        "Nightstand",
+        "Lamp_Base",
+        "Lamp_Stem",
+        "Lamp_Shade",
+        "Nightstand.001",
+        "Lamp_Base.001",
+        "Lamp_Stem.001",
+        "Lamp_Shade.001"
+      ],
+      "movable_parts": [],
+      "dimensions_m": [
+        2.5,
+        2.14,
+        1.28
+      ]
+    },
+    {
+      "id": "07_workspace",
+      "title": "Desk and laptop",
+      "uses": "Corporate housing and study stays",
+      "blend": "assets/07_workspace.blend",
+      "glb": "exports/07_workspace.glb",
+      "preview": "previews/07_workspace.png",
+      "collection": "TH_07_workspace",
+      "root": "TH_07_workspace_ROOT",
+      "objects": [
+        "TH_07_workspace_ROOT",
+        "Desk_Top",
+        "Desk_Leg",
+        "Desk_Leg.001",
+        "Desk_Leg.002",
+        "Desk_Leg.003",
+        "Laptop_Base",
+        "Laptop_Screen_Hinge",
+        "Laptop_Lid",
+        "Laptop_Replaceable_Screen",
+        "Laptop_Demo_Label",
+        "Laptop_Keyboard",
+        "Laptop_Trackpad",
+        "Notebook",
+        "Desk_Mug",
+        "Mug_Handle",
+        "Chair_Leg",
+        "Chair_Leg.001",
+        "Chair_Leg.002",
+        "Chair_Leg.003",
+        "Chair_Seat",
+        "Chair_Back"
+      ],
+      "movable_parts": [
+        {
+          "name": "Laptop_Screen_Hinge",
+          "axis": "X rotation radians",
+          "range": [
+            -0.1,
+            1.5708
+          ]
+        }
+      ],
+      "dimensions_m": [
+        1.2,
+        1.375,
+        1.009
+      ]
+    },
+    {
+      "id": "08_apartment",
+      "title": "Cutaway apartment shell",
+      "uses": "Layout and room assembly",
+      "blend": "assets/08_apartment.blend",
+      "glb": "exports/08_apartment.glb",
+      "preview": "previews/08_apartment.png",
+      "collection": "TH_08_apartment",
+      "root": "TH_08_apartment_ROOT",
+      "objects": [
+        "TH_08_apartment_ROOT",
+        "Apartment_Floor",
+        "Apartment_Rear_Wall",
+        "Wall_Below_Window",
+        "Wall_Above_Window",
+        "Wall_Window_Side",
+        "Wall_Window_Side.001",
+        "Window_Jamb",
+        "Window_Jamb.001",
+        "Window_Frame",
+        "Window_Frame.001",
+        "Window_Mullion",
+        "Window_Glass",
+        "Right_Cutaway_Wall",
+        "Floor_Plank_Seam",
+        "Floor_Plank_Seam.001",
+        "Floor_Plank_Seam.002",
+        "Floor_Plank_Seam.003",
+        "Floor_Plank_Seam.004",
+        "Floor_Plank_Seam.005",
+        "Floor_Plank_Seam.006"
+      ],
+      "movable_parts": [],
+      "dimensions_m": [
+        3.935,
+        3.62,
+        2.74
+      ]
+    },
+    {
+      "id": "09_building",
+      "title": "Generic apartment facade",
+      "uses": "Property management and portfolios",
+      "blend": "assets/09_building.blend",
+      "glb": "exports/09_building.glb",
+      "preview": "previews/09_building.png",
+      "collection": "TH_09_building",
+      "root": "TH_09_building_ROOT",
+      "objects": [
+        "TH_09_building_ROOT",
+        "Building_Base",
+        "Building_Mass",
+        "Facade_Cornice",
+        "Facade_Cornice.001",
+        "Facade_Cornice.002",
+        "Facade_Cornice.003",
+        "Facade_Window_Trim",
+        "Facade_Window",
+        "Facade_Shutter",
+        "Facade_Shutter.001",
+        "Facade_Window_Trim.001",
+        "Facade_Window.001",
+        "Facade_Shutter.002",
+        "Facade_Shutter.003",
+        "Facade_Window_Trim.002",
+        "Facade_Window.002",
+        "Facade_Shutter.004",
+        "Facade_Shutter.005",
+        "Facade_Window_Trim.003",
+        "Facade_Window.003",
+        "Facade_Shutter.006",
+        "Facade_Shutter.007",
+        "Facade_Window_Trim.004",
+        "Facade_Window.004",
+        "Facade_Shutter.008",
+        "Facade_Shutter.009",
+        "Facade_Window_Trim.005",
+        "Facade_Window.005",
+        "Facade_Shutter.010",
+        "Facade_Shutter.011",
+        "Facade_Window_Trim.006",
+        "Facade_Window.006",
+        "Facade_Shutter.012",
+        "Facade_Shutter.013",
+        "Facade_Window_Trim.007",
+        "Facade_Window.007",
+        "Facade_Shutter.014",
+        "Facade_Shutter.015",
+        "Facade_Window_Trim.008",
+        "Facade_Window.008",
+        "Facade_Shutter.016",
+        "Facade_Shutter.017",
+        "Building_Entrance",
+        "Pitched_Roof"
+      ],
+      "movable_parts": [],
+      "dimensions_m": [
+        1.7,
+        0.875,
+        1.96
+      ]
+    },
+    {
+      "id": "10_calendar",
+      "title": "Booking calendar",
+      "uses": "Flexible stays; editable sample dates",
+      "blend": "assets/10_calendar.blend",
+      "glb": "exports/10_calendar.glb",
+      "preview": "previews/10_calendar.png",
+      "collection": "TH_10_calendar",
+      "root": "TH_10_calendar_ROOT",
+      "objects": [
+        "TH_10_calendar_ROOT",
+        "Calendar_Back",
+        "Calendar_Page_Edge",
+        "Calendar_Page_Edge.001",
+        "Calendar_Page_Edge.002",
+        "Calendar_Front_Page",
+        "Calendar_Page",
+        "Calendar_Title",
+        "Calendar_Sample_Label",
+        "Calendar_Day",
+        "Calendar_Day.001",
+        "Calendar_Day.002",
+        "Calendar_Day.003",
+        "Calendar_Day.004",
+        "Calendar_Day.005",
+        "Calendar_Day.006",
+        "Calendar_Day.007",
+        "Calendar_Booked_Cell",
+        "Calendar_Day.008",
+        "Calendar_Booked_Cell.001",
+        "Calendar_Day.009",
+        "Calendar_Booked_Cell.002",
+        "Calendar_Day.010",
+        "Calendar_Day.011",
+        "Calendar_Day.012",
+        "Calendar_Day.013",
+        "Calendar_Day.014",
+        "Calendar_Day.015",
+        "Calendar_Day.016",
+        "Calendar_Day.017",
+        "Calendar_Day.018",
+        "Calendar_Day.019",
+        "Calendar_Day.020",
+        "Calendar_Ring",
+        "Calendar_Ring.001"
+      ],
+      "movable_parts": [
+        {
+          "name": "Calendar_Front_Page",
+          "axis": "X rotation radians",
+          "range": [
+            0.0,
+            2.5
+          ]
+        }
+      ],
+      "dimensions_m": [
+        0.37,
+        0.0526,
+        0.409
+      ]
+    },
+    {
+      "id": "11_welcome",
+      "title": "Welcome folder",
+      "uses": "Guest welcome; opening cover",
+      "blend": "assets/11_welcome.blend",
+      "glb": "exports/11_welcome.glb",
+      "preview": "previews/11_welcome.png",
+      "collection": "TH_11_welcome",
+      "root": "TH_11_welcome_ROOT",
+      "objects": [
+        "TH_11_welcome_ROOT",
+        "Folder_Back",
+        "Welcome_Cover_Hinge",
+        "Folder_Cover",
+        "Welcome_TH_Path_00",
+        "Welcome_Title",
+        "Welcome_Label",
+        "Welcome_Inside_Card",
+        "Welcome_Inside_Title",
+        "Welcome_Inside_Demo"
+      ],
+      "movable_parts": [
+        {
+          "name": "Welcome_Cover_Hinge",
+          "axis": "Z rotation radians",
+          "range": [
+            -2.0,
+            0.0
+          ]
+        }
+      ],
+      "dimensions_m": [
+        0.25,
+        0.0372,
+        0.33
+      ]
+    },
+    {
+      "id": "12_location",
+      "title": "Padova location marker",
+      "uses": "Location and arrival sequences",
+      "blend": "assets/12_location.blend",
+      "glb": "exports/12_location.glb",
+      "preview": "previews/12_location.png",
+      "collection": "TH_12_location",
+      "root": "TH_12_location_ROOT",
+      "objects": [
+        "TH_12_location_ROOT",
+        "Pin_Platform",
+        "Location_Pin",
+        "Location_Label"
+      ],
+      "movable_parts": [],
+      "dimensions_m": [
+        0.6,
+        0.6,
+        0.71
+      ]
+    }
+  ]
+}

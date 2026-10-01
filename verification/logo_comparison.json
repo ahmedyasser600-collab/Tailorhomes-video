@@ -1,0 +1,4 @@
+{
+  "normalized_silhouette_iou": 0.9605743052344994,
+  "note": "Independently cropped alpha bounds, resampled. Raster anti-aliasing and fine distressed details affect pixel scores; original SVG curves retained."
+}
