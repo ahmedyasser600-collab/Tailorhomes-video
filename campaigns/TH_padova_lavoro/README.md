@@ -58,7 +58,7 @@ P=campaigns/TH_padova_lavoro
 python $P/blender/build_shots.py            # or: blender -b --factory-startup --python ...
 # 2. Render plates (resumable; existing frames are skipped)
 python $P/blender/render_shots.py -- --tier preview      # 540x960, 16 spp
-python $P/blender/render_shots.py -- --tier final        # 1080x1920, 48 spp
+python $P/blender/render_shots.py -- --tier final        # 1080x1920, 16 spp, ~38 s/frame on 4 CPU cores
 #    add --scenes S3_interni or --frames 1,50 to limit; --overwrite to redo
 # 3. Logo raster from the supplied SVG (only needed once)
 python $P/scripts/render_logo.py

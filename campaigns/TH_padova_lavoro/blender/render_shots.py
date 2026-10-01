@@ -4,7 +4,7 @@
     python render_shots.py -- --tier final --scenes S3_interni
     python render_shots.py -- --tier preview --frames 1,40,90 --scenes S1_arrivo --out stills
 
-Tiers: preview = 50 % (540x960), 16 samples; final = 100 % (1080x1920), 48 samples.
+Tiers: preview = 50 % (540x960), final = 100 % (1080x1920); both 16 samples (tested against 48).
 Both use adaptive sampling + OpenImageDenoise. Existing frames are skipped
 unless --overwrite, so an interrupted render can simply be restarted.
 Output: ../renders/<tier>/<scene>/f_0001.png (scene-local frame numbers).
@@ -17,7 +17,7 @@ from pathlib import Path
 import bpy
 
 HERE = Path(__file__).resolve().parent
-TIERS = {"preview": (50, 16), "final": (100, 48)}
+TIERS = {"preview": (50, 16), "final": (100, 16)}   # 16 spp + OIDN: no visible gain from 48 spp at 2.5x the time
 
 argv = sys.argv[sys.argv.index("--") + 1:] if "--" in sys.argv else sys.argv[1:]
 ap = argparse.ArgumentParser()

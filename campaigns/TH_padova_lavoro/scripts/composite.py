@@ -125,6 +125,18 @@ def alpha_paste(dst, src, xy, opacity):
 
 
 def wrap(text, f, maxw, draw):
+    """Greedy wrap; a two-line result is re-split to balance the lines (no orphans)."""
+    lines = _greedy(text, f, maxw, draw)
+    if len(lines) == 2:
+        words = text.split()
+        splits = [(" ".join(words[:i]), " ".join(words[i:])) for i in range(1, len(words))]
+        fits = [sp for sp in splits if max(draw.textlength(x, font=f) for x in sp) <= maxw]
+        if fits:
+            lines = list(min(fits, key=lambda sp: max(draw.textlength(x, font=f) for x in sp)))
+    return lines
+
+
+def _greedy(text, f, maxw, draw):
     words, lines, cur = text.split(), [], ""
     for w_ in words:
         trial = (cur + " " + w_).strip()

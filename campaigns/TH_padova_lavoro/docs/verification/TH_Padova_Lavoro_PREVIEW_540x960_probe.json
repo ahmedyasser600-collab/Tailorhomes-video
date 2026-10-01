@@ -1,0 +1,25 @@
+{
+  "file": "TH_Padova_Lavoro_PREVIEW_540x960.mp4",
+  "size_mb": 1.96,
+  "container_duration_s": 30.0,
+  "video": {
+    "codec": "h264",
+    "profile": "High",
+    "width": 540,
+    "height": 960,
+    "fps": "30/1",
+    "pix_fmt": "yuv420p",
+    "decoded_frames": 900,
+    "duration_s": 30.0
+  },
+  "audio": {
+    "codec": "aac",
+    "sample_rate": "48000",
+    "channels": 2,
+    "duration_s": 30.0,
+    "integrated_lufs": -13.9,
+    "true_peak_dbfs": -1.4
+  },
+  "av_duration_diff_s": 0.0,
+  "contact_sheet": "docs/verification/TH_Padova_Lavoro_PREVIEW_540x960_contact_sheet.png"
+}

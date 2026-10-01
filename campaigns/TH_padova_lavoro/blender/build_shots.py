@@ -314,7 +314,7 @@ def s2():
         key(cam, "location", f, Vector(loc))
     for f, loc in [(1, (0.0, -2.05, 1.16)), (F(7.0), (0.0, -2.0, 1.18)), (F(7.9), (0.0, 0.0, 1.12)), (F(8.7), (0.0, 0.5, 1.08)), (F(10.2), (0.0, 3.0, 0.75))]:
         key(tgt, "location", f, Vector(loc))
-    for f, d in [(1, 0.80), (F(7.0), 0.75), (F(7.9), 2.7), (F(8.7), 2.3), (F(10.2), 3.3)]:
+    for f, d in [(1, 0.80), (F(7.0), 0.75), (F(7.9), 2.7), (F(8.7), 4.6), (F(10.2), 3.8)]:   # door, then sofa
         key(cam.data.dof, "focus_distance", f, d)
     smooth(cam)
     smooth(tgt)
@@ -434,8 +434,8 @@ def s4():
     smooth(cover)
 
     cam, tgt = camera(sc, st, lens=50, dof=4.0)
-    pts = [(1, (0.42, -1.55, 1.62), (0.0, 0.02, 0.98)),
-           (F(s["push"]), (0.30, -1.30, 1.55), (0.05, 0.0, 0.95)),
+    pts = [(1, (0.42, -1.55, 1.62), (0.0, 0.02, 1.07)),          # aimed high: calendar sits below the headline panel
+           (F(s["push"]), (0.30, -1.30, 1.55), (0.05, 0.0, 1.03)),
            (sc.frame_end, (0.30, -0.62, 1.38), (0.17, -0.06, 0.82))]
     for f, c, t in pts:
         key(cam, "location", f, Vector(c))
