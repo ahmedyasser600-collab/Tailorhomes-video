@@ -186,7 +186,16 @@ def captions(img, t):
 
 def logo_bug(img, t):
     a = sm((t - 0.3) / 0.4) * (1 - sm((t - 24.6) / 0.4))
-    alpha_paste(img, SYMBOL_BUG, (p(X0), p(262)), 0.92 * a)
+    if a <= 0:
+        return
+    # small cream badge so the red monogram reads over dark (door) and light plates alike
+    layer = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    pad = p(12)
+    x, y = p(X0), p(262)
+    ImageDraw.Draw(layer).rounded_rectangle((x, y, x + SYMBOL_BUG.width + 2 * pad, y + SYMBOL_BUG.height + 2 * pad),
+                                            radius=p(8), fill=PAL["cream"] + (round(225 * a),))
+    img.alpha_composite(layer)
+    alpha_paste(img, SYMBOL_BUG, (x + pad, y + pad), a)
 
 
 def illustrative_label(img, t):
