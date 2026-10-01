@@ -1,0 +1,22 @@
+{
+  "vo_edit.wav": {
+    "integrated_lufs": -19.4,
+    "true_peak_dbfs": -3.0
+  },
+  "music_bed_full.wav": {
+    "integrated_lufs": -26.6,
+    "true_peak_dbfs": -12.0
+  },
+  "music_bed_ducked.wav": {
+    "integrated_lufs": -31.2,
+    "true_peak_dbfs": -14.8
+  },
+  "sfx.wav": {
+    "integrated_lufs": -35.8,
+    "true_peak_dbfs": -19.1
+  },
+  "TH_padova_mix.wav": {
+    "integrated_lufs": -13.9,
+    "true_peak_dbfs": -1.5
+  }
+}

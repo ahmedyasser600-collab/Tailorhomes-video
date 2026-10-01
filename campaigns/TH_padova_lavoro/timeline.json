@@ -1,0 +1,308 @@
+{
+  "title": "Tailor Homes - A Padova per lavoro. A casa, con Tailor Homes.",
+  "width": 1080,
+  "height": 1920,
+  "fps": 30,
+  "duration": 30.0,
+  "handle_frames": 8,
+  "scenes": {
+    "S1_arrivo": {
+      "start": 0.0,
+      "end": 5.0,
+      "assets": [
+        "04_luggage",
+        "12_location"
+      ]
+    },
+    "S2_chiavi_porta": {
+      "start": 5.0,
+      "end": 10.0,
+      "assets": [
+        "02_keys",
+        "03_entrance"
+      ]
+    },
+    "S3_interni": {
+      "start": 10.0,
+      "end": 19.0,
+      "assets": [
+        "08_apartment",
+        "05_lounge",
+        "06_bedroom",
+        "04_luggage",
+        "07_workspace"
+      ],
+      "beats": {
+        "move1": 12.3,
+        "bed_drop": 13.0,
+        "bag_in": 14.1,
+        "move2": 15.5,
+        "desk_drop": 16.15,
+        "laptop_open": 17.2,
+        "pullback": 11.7
+      }
+    },
+    "S4_calendario_benvenuto": {
+      "start": 19.0,
+      "end": 25.0,
+      "assets": [
+        "10_calendar",
+        "11_welcome"
+      ],
+      "beats": {
+        "page_drop": 19.3,
+        "folder_open": 21.3,
+        "push": 22.4
+      }
+    },
+    "S5_logo_cta": {
+      "start": 25.0,
+      "end": 30.0,
+      "assets": [
+        "brand/01-noBgColor.svg (rasterised, unmodified)"
+      ]
+    }
+  },
+  "transitions": [
+    {
+      "at": 5.0,
+      "type": "dissolve",
+      "frames": 10
+    },
+    {
+      "at": 10.0,
+      "type": "light_through_door",
+      "frames": 14
+    },
+    {
+      "at": 19.0,
+      "type": "dissolve",
+      "frames": 12
+    },
+    {
+      "at": 25.0,
+      "type": "dissolve_to_card",
+      "frames": 14
+    }
+  ],
+  "headlines": [
+    {
+      "text": "A Padova per lavoro?",
+      "in": 0.35,
+      "out": 4.75
+    },
+    {
+      "text": "Trova il tuo spazio.",
+      "in": 5.35,
+      "out": 9.55
+    },
+    {
+      "text": "Spazio per vivere e lavorare.",
+      "in": 10.45,
+      "out": 18.7
+    },
+    {
+      "text": "Soggiorni brevi e medi.",
+      "in": 19.35,
+      "out": 24.7
+    }
+  ],
+  "end_card": {
+    "tagline": [
+      "A Padova per lavoro.",
+      "A casa, con Tailor Homes."
+    ],
+    "cta": "Scopri le soluzioni su tailorhomes.it",
+    "logo_in": 25.25,
+    "tagline_in": 25.9,
+    "cta_in": 26.4
+  },
+  "voiceover": {
+    "file": "audio/vo/vo_take2_julian_source.mp3",
+    "alternate": "audio/vo/vo_take1_elena_source.mp3",
+    "note": "Segment boundaries refer to take 2. If the take is replaced, update src times (silence detection) and keep film_start values.",
+    "segments": [
+      {
+        "text": "A Padova per lavoro?",
+        "src": [
+          0.0,
+          1.24
+        ],
+        "film_start": 0.8
+      },
+      {
+        "text": "Trova uno spazio da chiamare casa.",
+        "src": [
+          1.54,
+          3.45
+        ],
+        "film_start": 5.5
+      },
+      {
+        "text": "Con Tailor Homes, scopri appartamenti arredati per soggiorni brevi e medi.",
+        "src": [
+          3.78,
+          8.15
+        ],
+        "film_start": 10.3
+      },
+      {
+        "text": "Spazio per rilassarti, vivere e lavorare, anche quando sei lontano da casa.",
+        "src": [
+          8.55,
+          13.0
+        ],
+        "film_start": 15.0
+      },
+      {
+        "text": "Viaggi da solo o cerchi una soluzione per il tuo team?",
+        "src": [
+          13.49,
+          16.46
+        ],
+        "film_start": 20.0
+      },
+      {
+        "text": "Scopri le proposte su tailorhomes punto it.",
+        "src": [
+          16.93,
+          19.8
+        ],
+        "film_start": 25.7
+      }
+    ]
+  },
+  "captions": [
+    {
+      "in": 0.8,
+      "out": 2.4,
+      "lines": [
+        "A Padova per lavoro?"
+      ]
+    },
+    {
+      "in": 5.5,
+      "out": 7.7,
+      "lines": [
+        "Trova uno spazio",
+        "da chiamare casa."
+      ]
+    },
+    {
+      "in": 10.3,
+      "out": 13.05,
+      "lines": [
+        "Con Tailor Homes, scopri",
+        "appartamenti arredati"
+      ]
+    },
+    {
+      "in": 13.05,
+      "out": 14.9,
+      "lines": [
+        "per soggiorni brevi e medi."
+      ]
+    },
+    {
+      "in": 15.0,
+      "out": 17.78,
+      "lines": [
+        "Spazio per rilassarti,",
+        "vivere e lavorare,"
+      ]
+    },
+    {
+      "in": 17.84,
+      "out": 19.9,
+      "lines": [
+        "anche quando sei",
+        "lontano da casa."
+      ]
+    },
+    {
+      "in": 20.0,
+      "out": 23.2,
+      "lines": [
+        "Viaggi da solo o cerchi",
+        "una soluzione per il tuo team?"
+      ]
+    },
+    {
+      "in": 25.7,
+      "out": 28.9,
+      "lines": [
+        "Scopri le proposte",
+        "su tailorhomes.it"
+      ]
+    }
+  ],
+  "sfx": [
+    {
+      "at": 0.45,
+      "type": "roll",
+      "dur": 1.7,
+      "gain_db": -30
+    },
+    {
+      "at": 1.95,
+      "type": "soft_thud",
+      "gain_db": -26
+    },
+    {
+      "at": 4.95,
+      "type": "whoosh",
+      "gain_db": -30
+    },
+    {
+      "at": 5.95,
+      "type": "jingle",
+      "gain_db": -30
+    },
+    {
+      "at": 7.25,
+      "type": "latch",
+      "gain_db": -30
+    },
+    {
+      "at": 9.8,
+      "type": "whoosh",
+      "gain_db": -29
+    },
+    {
+      "at": 10.9,
+      "type": "soft_thud",
+      "gain_db": -30
+    },
+    {
+      "at": 13.75,
+      "type": "soft_thud",
+      "gain_db": -30
+    },
+    {
+      "at": 16.9,
+      "type": "soft_thud",
+      "gain_db": -30
+    },
+    {
+      "at": 19.6,
+      "type": "page",
+      "gain_db": -30
+    },
+    {
+      "at": 21.35,
+      "type": "page",
+      "gain_db": -31
+    },
+    {
+      "at": 24.95,
+      "type": "whoosh",
+      "gain_db": -31
+    }
+  ],
+  "safe_area": {
+    "top": 250,
+    "bottom": 420,
+    "right": 150,
+    "left": 60
+  }
+}
