@@ -31,11 +31,11 @@ PHRASES = [
     "And if you're a UniPD or Erasmus student,",
     "you get fifteen percent off your booking.",
     "Just verify your student card on WhatsApp.",
-    "Your Padova.",
-    "Your space.",
+    "Your stay,",
+    "tailored to you.",
     "Tailor Homes.",
 ]
-EMPHASIS = {"fifteen percent": 5, "Your Padova.": 7, "Your space.": 8}
+EMPHASIS = {"fifteen percent": 5, "Your stay,": 7, "tailored to you.": 8}
 
 
 def run(cmd):

@@ -30,12 +30,12 @@ Decoded at 2 fps across the whole film, and at 10 fps around every transition.
 
 - `out/tailorhomes-students-final.mp4` was checked with ffprobe:
   - H.264 High, 1080×1920, 60 fps, yuv420p, CRF 16.
-  - 1940 frames, 32.33 s.
-  - AAC audio, 32.32 s.
+  - 1897 frames, 31.62 s (after revision 1).
+  - AAC audio, 31.62 s.
 - A frame sheet was decoded every 2 s and matches the animatic.
 - `out/tailorhomes-students-poster.png` (1080×1920):
   - Top: two real apartments (S. Eufemia, Via Nullo).
-  - Navy offer band: “UNIPD & ERASMUS STUDENTS”, *Your Padova. Your space.*, a −15% pill and the URL.
+  - Navy offer band: “UNIPD & ERASMUS STUDENTS”, *Your stay, tailored to you.*, a −15% pill and the URL.
 
 ## Open items (not closed by this review)
 

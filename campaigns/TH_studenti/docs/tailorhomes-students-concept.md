@@ -1,4 +1,4 @@
-# Film 02 — “Your Padova. Your space.” Concept
+# Film 02 — “Your stay, tailored to you.” Concept
 
 **Audience:** UniPD students, incoming Erasmus students, and international
 students looking for a furnished place in Padova.
@@ -78,7 +78,7 @@ space. No glow, particles, glass, gradients or bounce.
 | 4 | Benefits | “…ready for your stay.” | Cream editorial: three real rooms as tiles (Vicolo Romano bedroom, Via Nullo kitchen, Colore & Design reading corner) + labels FURNISHED · KITCHEN · READING CORNER |
 | 5 | Discount | “And if you're a UniPD or Erasmus student, you get fifteen percent off your booking.” | Navy; label “UNIPD & ERASMUS STUDENTS”; the coral −15% pill lands on “fifteen percent”; “15% off your booking.” |
 | 6 | Claim | “Just verify your student card on WhatsApp.” | Student card → chat bubble → check → −15%; “Verify your student card / via WhatsApp” |
-| 7 | Close | “Your Padova. Your space. Tailor Homes.” | 3×3 mosaic of all apartments → collapses into cream end card: logo, “Your Padova. Your space.”, 15% STUDENT DISCOUNT, tailorhomes.it/studenti/ |
+| 7 | Close | “Your stay, tailored to you. Tailor Homes.” | 3×3 mosaic of all apartments → collapses into cream end card: logo, “Your stay, tailored to you.”, 15% STUDENT DISCOUNT, tailorhomes.it/studenti/ |
 
 ## Open questions and blockers
 

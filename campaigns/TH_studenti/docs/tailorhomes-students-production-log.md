@@ -91,3 +91,10 @@ Details in `docs/tailorhomes-students-review.md`.
 4. Run `python scripts/render.py --mode final` and `python scripts/make_poster.py`.
 
 The whole edit re-times to the real delivery; no frame timings are hand-entered.
+
+## Revision 1 (client feedback)
+
+- **Opening:** the photo no longer drifts, lifts or zooms. It stays fixed behind a window that opens over the stairs and armchairs, then window and photo rise together in one move into the full photo frame of the next scene.
+- **Tagline:** “Your Padova. Your space.” is replaced by **“Your stay, tailored to you.”** (a nod to the Tailor name). It appears in the mosaic centre cell, on the end card and on the poster.
+- **Scratch voice-over:** regenerated with the new line (same preset voice, about 1 credit). The edit re-timed automatically, so the film is now 31.62 s.
+- **Supplied voice-over:** should read the new line: “…Just verify your student card on WhatsApp. Your stay, tailored to you. Tailor Homes.”

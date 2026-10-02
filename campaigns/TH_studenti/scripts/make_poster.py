@@ -19,7 +19,7 @@ ImageDraw.Draw(img).rectangle((0, 760, R.W, 766), fill=R.CREAM)
 # navy offer band
 R.tracked(img, (92, 1330), "UNIPD & ERASMUS STUDENTS", R.font(R.LABEL, 32), R.SALMON, 0.28)
 ImageDraw.Draw(img).rectangle((92, 1378, 262, 1381), fill=R.SALMON)
-R.reveal_lines(img, ["Your Padova.", "Your space."], R.font(R.SERIF, 104), 86, 1400, 108, 99, 0, R.CREAM)
+R.reveal_lines(img, ["Your stay,", "tailored to you."], R.font(R.SERIF, 104), 86, 1400, 108, 99, 0, R.CREAM)
 R.pill(img, 800, 1490, 240, 128, R.CORAL, "−15%", R.font(R.SANS_B, 72), R.CREAM)
 R.tracked(img, (92, 1665), "TAILORHOMES.IT/STUDENTI", R.font(R.LABEL, 30), R.CREAM, 0.22)
 out = C / "out" / "tailorhomes-students-poster.png"

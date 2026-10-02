@@ -32,10 +32,10 @@ ROWS = [
      "Quiet UI click on the check"),
     ("mosaic", [7], "3×3 mosaic: SE5, VN5, VR2, SE2, CD2, SE3, VN2, VN1 + text cell",
      "Tiles pop in diagonally (fast, no bounce), then collapse to the centre.",
-     "Mosaic collapses into the end card", "*Your Padova.* (centre cell)", "Soft tick cluster + whoosh"),
+     "Mosaic collapses into the end card", "*Your stay,* (centre cell)", "Soft tick cluster + whoosh"),
     ("endcard", [8, 9], "Cream end card with the supplied logo",
-     "“Your Padova.” → “Your space.” (coral) on the VO; logo fades in on “Tailor Homes”; pill and URL reveal, underline draws. Held 3.2 s after the last word.",
-     "—", "*Your Padova. Your space.* / 15% STUDENT DISCOUNT / tailorhomes.it/studenti/", "Final chord, 2.2 s fade"),
+     "“Your stay,” → “tailored to you.” (coral) on the VO; logo fades in on “Tailor Homes”; pill and URL reveal, underline draws. Held 3.2 s after the last word.",
+     "—", "*Your stay, tailored to you.* / 15% STUDENT DISCOUNT / tailorhomes.it/studenti/", "Final chord, 2.2 s fade"),
 ]
 
 lines = [f"# Film 02 shotlist — timed to `{TM['source']}`",

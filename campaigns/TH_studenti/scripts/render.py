@@ -278,14 +278,18 @@ def s_open(img, t):
     img.paste(Image.new("RGB", (W, H), NAVY), (0, 0))
     out = a1 - 0.85                                   # expansion starts
     kx = expo_io(prog(t, out, 0.85))
-    # photo panel: opens from a line, then expands to full frame (continues into variety1)
+    # the photo is never re-cropped, zoomed or panned: a window onto it opens from a line over
+    # the stairs and armchairs, then window and photo rise together in one move to the full frame
     ko = expo_out(prog(t, 1.25, 1.0))
-    ph, pw = 640 * ko, 900
-    cy = 1170 - 40 * ease_io(prog(t, 1.25, out - 1.25))       # gentle lift while it waits
-    rect = (lerp(90, 0, kx), lerp(cy - ph / 2, 0, kx), lerp(90 + pw, 1080, kx), lerp(cy + ph / 2, BAND, kx))
-    zoom = 1.12 - 0.07 * ease_io(prog(t, 1.25, out - 1.25 + 0.85))
-    panel(img, "SE1", R(*rect), zoom=zoom, dx=0.035 * (1 - ease_io(prog(t, 1.25, out - 1.25 + 0.85))) * (1 - kx),
-          radius=lerp(10, 0, kx))
+    ph = round(p(BAND))
+    still = view("SE1", W, ph, 1.05)                 # identical to variety1's first frame
+    cy, hh, off = 990, 260, 430 * (1 - kx)           # off: photo top while the window is small
+    x0, y0 = lerp(90, 0, kx), lerp(cy - hh * ko, 0, kx)
+    x1, y1 = lerp(990, 1080, kx), lerp(cy + hh * ko, BAND, kx)
+    if ko > 0 and y1 - y0 > 2:
+        m = Image.new("L", (W, ph), 0)
+        ImageDraw.Draw(m).rounded_rectangle(R(x0, y0 - off, x1, y1 - off), radius=p(lerp(10, 0, kx)), fill=255)
+        img.paste(still, (0, round(p(off))), m)
     # type
     lab_a = ease_out(prog(t, 0.25, 0.5)) * (1 - ease_io(prog(t, out - 0.1, 0.35)))
     tracked(img, (p(92), p(318) + (1 - ease_out(prog(t, 0.25, 0.5))) * p(14)), "UNIPD · ERASMUS",
@@ -454,7 +458,7 @@ MOSAIC = ["SE5", "VN5", "VR2", "SE2", None, "CD2", "SE3", "VN2", "VN1"]
 
 
 def s_mosaic(img, t):
-    """Fast but calm mosaic of all apartments; centre cell carries 'Your Padova.'"""
+    """Fast but calm mosaic of all apartments; centre cell carries 'Your stay,'"""
     a, b = SC["mosaic"]
     img.paste(Image.new("RGB", (W, H), CREAM), (0, 0))
     gx0, gy0, gw, gh, gap = 60, 270, 870, 1230, 12
@@ -474,16 +478,16 @@ def s_mosaic(img, t):
         rect = (cx_ - sw / 2, cy_ - sh / 2, cx_ + sw / 2, cy_ + sh / 2)
         if pid:
             panel(img, pid, R(*rect), zoom=1.1, radius=6, alpha=ki * (1 - kc))
-    reveal_lines(img, ["Your", "Padova."], font(SERIF, 86), p(gx0 + gw / 2), p(gy0 + gh / 2 - 92), p(88), t,
+    reveal_lines(img, ["Your", "stay,"], font(SERIF, 86), p(gx0 + gw / 2), p(gy0 + gh / 2 - 92), p(88), t,
                  P(7) - 0.05, NAVY, align="center", t_out=b - 0.3)
 
 
 def s_end(img, t):
     a, b = SC["endcard"]
     img.paste(Image.new("RGB", (W, H), CREAM), (0, 0))
-    reveal_lines(img, ["Your Padova."], font(SERIF, 128), p(CX), p(700), p(130), t, a + 0.02, NAVY, align="center",
+    reveal_lines(img, ["Your stay,"], font(SERIF, 128), p(CX), p(700), p(130), t, a + 0.02, NAVY, align="center",
                  stagger=0.0, dur=0.45)
-    reveal_lines(img, ["Your space."], font(SERIF, 128), p(CX), p(840), p(130), t, P(8) - 0.05, CORAL,
+    reveal_lines(img, ["tailored to you."], font(SERIF, 128), p(CX), p(840), p(130), t, P(8) - 0.05, CORAL,
                  align="center")
     kl = ease_out(prog(t, P(9) - 0.1, 0.7))
     logo(img, CX, 430 + (1 - kl) * 10, 640, kl)

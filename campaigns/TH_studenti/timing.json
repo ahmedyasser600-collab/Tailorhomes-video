@@ -1,170 +1,170 @@
 {
   "source": "audio/voice/scratch/SCRATCH_students_vo.wav",
   "is_master": false,
-  "vo_duration": 28.64,
+  "vo_duration": 27.92,
   "lead_in": 0.5,
-  "film_duration": 32.34,
+  "film_duration": 31.62,
   "phrases": [
     {
       "i": 0,
       "text": "Coming to Padova for UniPD or Erasmus?",
       "vo_start": 0.0,
-      "vo_end": 3.589,
+      "vo_end": 3.396,
       "start": 0.5,
-      "end": 4.089
+      "end": 3.896
     },
     {
       "i": 1,
       "text": "Find a space that feels like yours from day one.",
-      "vo_start": 4.253,
-      "vo_end": 7.834,
-      "start": 4.753,
-      "end": 8.334
+      "vo_start": 4.101,
+      "vo_end": 7.663,
+      "start": 4.601,
+      "end": 8.163
     },
     {
       "i": 2,
       "text": "Tailor Homes offers furnished apartments across Padova,",
-      "vo_start": 8.663,
-      "vo_end": 12.4,
-      "start": 9.163,
-      "end": 12.9
+      "vo_start": 8.278,
+      "vo_end": 11.847,
+      "start": 8.778,
+      "end": 12.347
     },
     {
       "i": 3,
       "text": "ready for your stay.",
-      "vo_start": 12.667,
-      "vo_end": 13.959,
-      "start": 13.167,
-      "end": 14.459
+      "vo_start": 12.024,
+      "vo_end": 13.261,
+      "start": 12.524,
+      "end": 13.761
     },
     {
       "i": 4,
       "text": "And if you're a UniPD or Erasmus student,",
-      "vo_start": 14.551,
-      "vo_end": 17.663,
-      "start": 15.051,
-      "end": 18.163
+      "vo_start": 13.993,
+      "vo_end": 16.88,
+      "start": 14.493,
+      "end": 17.38
     },
     {
       "i": 5,
       "text": "you get fifteen percent off your booking.",
-      "vo_start": 17.977,
-      "vo_end": 20.322,
-      "start": 18.477,
-      "end": 20.822
+      "vo_start": 17.159,
+      "vo_end": 19.793,
+      "start": 17.659,
+      "end": 20.293
     },
     {
       "i": 6,
       "text": "Just verify your student card on WhatsApp.",
-      "vo_start": 20.984,
-      "vo_end": 23.613,
-      "start": 21.484,
-      "end": 24.113
+      "vo_start": 20.342,
+      "vo_end": 22.921,
+      "start": 20.842,
+      "end": 23.421
     },
     {
       "i": 7,
-      "text": "Your Padova.",
-      "vo_start": 24.429,
-      "vo_end": 25.503,
-      "start": 24.929,
-      "end": 26.003
+      "text": "Your stay,",
+      "vo_start": 23.615,
+      "vo_end": 24.502,
+      "start": 24.115,
+      "end": 25.002
     },
     {
       "i": 8,
-      "text": "Your space.",
-      "vo_start": 25.853,
-      "vo_end": 26.853,
-      "start": 26.353,
-      "end": 27.353
+      "text": "tailored to you.",
+      "vo_start": 24.853,
+      "vo_end": 26.024,
+      "start": 25.353,
+      "end": 26.524
     },
     {
       "i": 9,
       "text": "Tailor Homes.",
-      "vo_start": 27.462,
-      "vo_end": 28.64,
-      "start": 27.962,
-      "end": 29.14
+      "vo_start": 26.755,
+      "vo_end": 27.92,
+      "start": 27.255,
+      "end": 28.42
     }
   ],
   "emphasis": {
-    "fifteen percent": 18.935,
-    "Your Padova.": 24.929,
-    "Your space.": 26.353
+    "fifteen percent": 18.173,
+    "Your stay,": 24.115,
+    "tailored to you.": 25.353
   },
   "scenes": {
     "open": [
       0.0,
-      4.603
+      4.451
     ],
     "variety1": [
-      4.603,
-      6.973
+      4.451,
+      6.809
     ],
     "variety2": [
-      6.973,
-      9.113
+      6.809,
+      8.728
     ],
     "split": [
-      9.113,
-      12.817
+      8.728,
+      12.174
     ],
     "benefits": [
-      12.817,
-      14.951
+      12.174,
+      14.393
     ],
     "discount": [
-      14.951,
-      21.284
+      14.393,
+      20.642
     ],
     "claim": [
-      21.284,
-      24.479
+      20.642,
+      23.665
     ],
     "mosaic": [
-      24.479,
-      26.303
+      23.665,
+      25.303
     ],
     "endcard": [
-      26.303,
-      32.34
+      25.303,
+      31.62
     ]
   },
   "pauses": [
     [
-      3.589,
-      4.253
+      3.396,
+      4.101
     ],
     [
-      7.834,
-      8.663
+      7.663,
+      8.278
     ],
     [
-      12.4,
-      12.667
+      11.847,
+      12.024
     ],
     [
-      13.959,
-      14.551
+      13.261,
+      13.993
     ],
     [
-      17.663,
-      17.977
+      16.88,
+      17.159
     ],
     [
-      20.322,
-      20.984
+      19.793,
+      20.342
     ],
     [
-      23.613,
-      24.429
+      22.921,
+      23.615
     ],
     [
-      25.503,
-      25.853
+      24.502,
+      24.853
     ],
     [
-      26.853,
-      27.462
+      26.024,
+      26.755
     ]
   ]
 }
