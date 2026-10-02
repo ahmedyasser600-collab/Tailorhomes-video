@@ -1,0 +1,6 @@
+# Drive originals (re-download via docs/tailorhomes-apartment-inventory.md); masters in source/selected are kept
+source/drive/
+# regenerable
+out/stills/
+audio/mix/*_prelimiter.wav
+__pycache__/

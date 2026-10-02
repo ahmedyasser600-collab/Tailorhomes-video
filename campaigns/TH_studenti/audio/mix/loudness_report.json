@@ -1,0 +1,23 @@
+{
+  "voice_source": "audio/voice/scratch/SCRATCH_students_vo.wav",
+  "vo.wav": {
+    "integrated_lufs": -17.6,
+    "true_peak_dbfs": -3.0
+  },
+  "music_full.wav": {
+    "integrated_lufs": -28.2,
+    "true_peak_dbfs": -12.0
+  },
+  "music_ducked.wav": {
+    "integrated_lufs": -37.9,
+    "true_peak_dbfs": -22.0
+  },
+  "sfx.wav": {
+    "integrated_lufs": -35.0,
+    "true_peak_dbfs": -18.0
+  },
+  "tailorhomes-students-mix.wav": {
+    "integrated_lufs": -14.0,
+    "true_peak_dbfs": -2.3
+  }
+}
