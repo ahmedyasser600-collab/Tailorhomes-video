@@ -1,0 +1,23 @@
+{
+  "voice_source": "audio/voice/tailorhomes-proprietari-vo.wav",
+  "vo.wav": {
+    "integrated_lufs": -18.4,
+    "true_peak_dbfs": -3.0
+  },
+  "music_full.wav": {
+    "integrated_lufs": -21.4,
+    "true_peak_dbfs": -8.0
+  },
+  "music_ducked.wav": {
+    "integrated_lufs": -29.0,
+    "true_peak_dbfs": -15.2
+  },
+  "sfx.wav": {
+    "integrated_lufs": -41.5,
+    "true_peak_dbfs": -29.0
+  },
+  "tailorhomes-proprietari-mix.wav": {
+    "integrated_lufs": -14.0,
+    "true_peak_dbfs": -1.5
+  }
+}

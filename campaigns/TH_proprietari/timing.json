@@ -1,0 +1,156 @@
+{
+  "source": "audio/voice/tailorhomes-proprietari-vo.wav",
+  "is_master": true,
+  "vo_duration": 26.56,
+  "lead_in": 0.5,
+  "film_duration": 30.46,
+  "phrases": [
+    {
+      "i": 0,
+      "text": "Hai una casa a Padova?",
+      "vo_start": 0.0,
+      "vo_end": 1.392,
+      "start": 0.5,
+      "end": 1.892
+    },
+    {
+      "i": 1,
+      "text": "Tailor Homes se ne prende cura, ogni giorno.",
+      "vo_start": 2.117,
+      "vo_end": 4.952,
+      "start": 2.617,
+      "end": 5.452
+    },
+    {
+      "i": 2,
+      "text": "Pulizie, manutenzione, ospiti: ci pensiamo noi.",
+      "vo_start": 5.642,
+      "vo_end": 8.378,
+      "start": 6.142,
+      "end": 8.878
+    },
+    {
+      "i": 3,
+      "text": "Valorizziamo la tua casa, con home staging e fotografia professionale.",
+      "vo_start": 8.659,
+      "vo_end": 14.75,
+      "start": 9.159,
+      "end": 15.25
+    },
+    {
+      "i": 4,
+      "text": "Gestiamo canali online, marketing e distribuzione.",
+      "vo_start": 15.309,
+      "vo_end": 18.555,
+      "start": 15.809,
+      "end": 19.055
+    },
+    {
+      "i": 5,
+      "text": "E ti affianchiamo nella consulenza immobiliare, legale e fiscale.",
+      "vo_start": 18.883,
+      "vo_end": 22.675,
+      "start": 19.383,
+      "end": 23.175
+    },
+    {
+      "i": 6,
+      "text": "La tua casa, su misura.",
+      "vo_start": 23.352,
+      "vo_end": 25.028,
+      "start": 23.852,
+      "end": 25.528
+    },
+    {
+      "i": 7,
+      "text": "Tailor Homes.",
+      "vo_start": 25.577,
+      "vo_end": 26.56,
+      "start": 26.077,
+      "end": 27.06
+    }
+  ],
+  "emphasis": {
+    "su misura": 24.799
+  },
+  "scenes": {
+    "open": [
+      0.0,
+      5.842
+    ],
+    "ch1": [
+      5.842,
+      8.859
+    ],
+    "ch2": [
+      8.859,
+      15.509
+    ],
+    "ch3": [
+      15.509,
+      19.083
+    ],
+    "ch4": [
+      19.083,
+      23.552
+    ],
+    "close": [
+      23.552,
+      25.827
+    ],
+    "endcard": [
+      25.827,
+      30.46
+    ]
+  },
+  "pauses": [
+    [
+      1.392,
+      2.117
+    ],
+    [
+      3.888,
+      4.115
+    ],
+    [
+      4.952,
+      5.642
+    ],
+    [
+      6.282,
+      6.56
+    ],
+    [
+      7.463,
+      7.686
+    ],
+    [
+      8.378,
+      8.659
+    ],
+    [
+      9.573,
+      10.363
+    ],
+    [
+      11.792,
+      12.103
+    ],
+    [
+      14.75,
+      15.309
+    ],
+    [
+      18.555,
+      18.883
+    ],
+    [
+      22.675,
+      23.352
+    ],
+    [
+      25.028,
+      25.577
+    ]
+  ]
+}
