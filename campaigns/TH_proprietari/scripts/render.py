@@ -7,16 +7,19 @@
 Shared type, easing and photo helpers come from Film 02 (campaigns/TH_studenti/scripts/render.py);
 this file only defines Film 03's own layout and scenes. All timing comes from ../timing.json.
 Photography: real Tailor Homes photos (crop/scale only), full-bleed, one slow steady push per
-photo - no pans, drifts or re-crops. Claims: tailorhomes.it/our-servies/ (see docs).
+photo - no pans, drifts or re-crops. Layout: cream double hairline frame, navy rising from the
+bottom, centred type directly on the photo (same system as the cover, scripts/make_cover.py). Claims: tailorhomes.it/our-servies/ (see docs).
 """
 import argparse
 import importlib.util
 import json
 import subprocess
 import sys
+
+import numpy as np
 from pathlib import Path
 
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageFilter
 
 C = Path(__file__).resolve().parents[1]
 ap = argparse.ArgumentParser()
@@ -42,6 +45,23 @@ W, H, FPS, S = F.W, F.H, F.FPS, F.S
 F.FOCUS.update({"SE6": (0.46, 0.5), "SE7": (0.5, 0.55), "SE1": (0.40, 0.6), "VN1": (0.55, 0.6), "VR1": (0.62, 0.6), "VR2": (0.42, 0.55), "CD2": (0.6, 0.55),
                 "SE2": (0.52, 0.5), "SE5": (0.62, 0.55), "VN2": (0.5, 0.6), "VN5": (0.5, 0.6),
                 "SE4": (0.45, 0.6), "CD1": (0.5, 0.6), "SE3": (0.55, 0.6)})
+
+def logo_mono(img, cx, cy, width, alpha, colour=CREAM, shadow=0.45):
+    """The supplied logo as a one-colour (reversed) mark for use directly on photos: same artwork,
+    recoloured, with a soft low-contrast shadow so it holds on both sky and foliage."""
+    if alpha <= 0:
+        return
+    w = round(p(width))
+    lg = F.LOGO.resize((w, round(F.LOGO.height * w / F.LOGO.width)), Image.LANCZOS)
+    a = lg.getchannel("A").point(lambda v: round(v * alpha))
+    pos = (round(p(cx) - lg.width / 2), round(p(cy) - lg.height / 2))
+    sh = Image.new("RGBA", lg.size, (12, 18, 34, 0))
+    sh.putalpha(a.filter(ImageFilter.GaussianBlur(p(6))).point(lambda v: round(v * shadow)))
+    img.alpha_composite(sh, (pos[0], pos[1] + round(p(2))))
+    solid = Image.new("RGBA", lg.size, colour + (0,))
+    solid.putalpha(a)
+    img.alpha_composite(solid, pos)
+
 
 TM = json.loads((C / "timing.json").read_text())
 SC, PH = TM["scenes"], TM["phrases"]
@@ -88,8 +108,8 @@ def photo_layer(t):
     return img
 
 
-# ------------------------------------------------------------------ the navy caption card
-BOX = (60, 1160, 930, 1420)
+# ------------------------------------------------------------------ hairline layout (matches the cover)
+TX = 510                          # text axis: centred, nudged left of the Reels action buttons
 CHAPTERS = [  # scene, numeral, title (site wording), services (site wording)
     ("ch1", "01", "Operatività e gestione", "PULIZIE · MANUTENZIONE · OSPITI"),
     ("ch2", "02", "Valorizzazione", "HOME STAGING · FOTOGRAFIA"),
@@ -98,95 +118,81 @@ CHAPTERS = [  # scene, numeral, title (site wording), services (site wording)
 ]
 
 
-def card(img, t):
-    """Navy card: opens left->right at the start, closes right->left into the end card."""
-    a_in = expo_out(prog(t, 0.3, 0.8))
-    a_out = expo_io(prog(t, SC["endcard"][0] - 0.05, 0.6))
-    k = a_in * (1 - a_out)
-    if k <= 0:
-        return 0.0
-    x0, y0, x1, y1 = BOX
-    lay = Image.new("RGBA", img.size, (0, 0, 0, 0))
-    ImageDraw.Draw(lay).rectangle(R(x0, y0, lerp(x0, x1, k), y1), fill=NAVY + (242,))
+def scrim(img, t):
+    """Navy rising from the bottom edge; on the end card it climbs higher to hold the sign-off."""
+    k = ease_io(prog(t, SC["endcard"][0] - 0.1, 0.9))
+    y0 = lerp(700, 440, k)
+    span = lerp(460, 520, k)
+    ys = np.arange(H) / S
+    a = np.clip((ys - y0) / span, 0, 1) ** 1.2 * 0.95
+    a = np.where(ys < y0, 0, a)
+    alpha = Image.fromarray(np.repeat((a * 255).astype(np.uint8)[:, None], W, 1), "L")
+    lay = Image.new("RGBA", (W, H), NAVY + (0,))
+    lay.putalpha(alpha)
     img.alpha_composite(lay)
-    return k
+
+
+def hairlines(img, t):
+    k = ease_out(prog(t, 0.2, 0.9))
+    if k <= 0:
+        return
+    lay = Image.new("RGBA", img.size, (0, 0, 0, 0))
+    d = ImageDraw.Draw(lay)
+    d.rectangle(R(40, 40, 1039, 1879), outline=CREAM + (round(255 * k),), width=max(1, round(p(3))))
+    d.rectangle(R(54, 54, 1025, 1865), outline=CREAM + (round(150 * k),), width=1)
+    img.alpha_composite(lay)
 
 
 def chapter(img, t, scene, num, title, items):
     a, b = SC[scene]
     out = b - 0.32
-    reveal_lines(img, [num], font(SERIF, 124), p(96), p(1176), p(124), t, a + 0.12, SALMON, t_out=out)
-    hl = ease_out(prog(t, a + 0.15, 0.5)) * (1 - ease_io(prog(t, out, 0.35)))
-    if hl > 0:
-        ImageDraw.Draw(img).rectangle(R(214, 1196, 216, 1196 + 190 * hl), fill=SALMON)
-    reveal_lines(img, [title], font(SANS_B, 50), p(240), p(1206), p(60), t, a + 0.2, CREAM, t_out=out, stagger=0.05)
+    reveal_lines(img, [num], font(SERIF, 120), p(TX), p(1102), p(120), t, a + 0.1, SALMON, t_out=out, align="center")
+    rl = 80 * ease_out(prog(t, a + 0.2, 0.5)) * (1 - ease_io(prog(t, out, 0.35)))
+    if rl > 1:
+        ImageDraw.Draw(img).rectangle(R(TX - rl / 2, 1262, TX + rl / 2, 1264), fill=SALMON)
+    reveal_lines(img, [title], font(SANS_B, 56), p(TX), p(1290), p(64), t, a + 0.2, CREAM, t_out=out, stagger=0.05,
+                 align="center")
     ki = ease_out(prog(t, a + 0.55, 0.5)) * (1 - ease_io(prog(t, out + 0.05, 0.3)))
     if ki > 0:
-        tracked(img, (p(242), p(1312) + (1 - ki) * p(10)), items, font(LABEL, 27), SALMON, 0.18, ki)
+        tracked(img, (p(TX), p(1388) + (1 - ki) * p(10)), items, font(LABEL, 27), SALMON, 0.2, ki, align="center")
 
 
 def captions(img, t):
-    if card(img, t) <= 0:
-        return
-    f_it = font(SERIF, 88)
+    f_it = font(SERIF, 104)
     if t < SC["open"][1]:
-        tracked(img, (p(98), p(1192)), "PER PROPRIETARI", font(LABEL, 24), SALMON, 0.3,
-                ease_out(prog(t, 0.7, 0.4)) * (1 - ease_io(prog(t, SC["open"][1] - 0.45, 0.3))))
-        reveal_lines(img, ["Hai una casa", "a Padova?"], f_it, p(94), p(1232), p(86), t, P(0) - 0.05, CREAM,
-                     t_out=P(1) - 0.55)
-        reveal_lines(img, ["Ce ne prendiamo cura,", "ogni giorno."], f_it, p(94), p(1232), p(86), t, P(1) - 0.05,
-                     CREAM, t_out=SC["open"][1] - 0.45)
+        tracked(img, (p(TX), p(1150)), "PER PROPRIETARI", font(LABEL, 28), SALMON, 0.3,
+                ease_out(prog(t, 0.6, 0.5)) * (1 - ease_io(prog(t, SC["open"][1] - 0.45, 0.3))), align="center")
+        reveal_lines(img, ["Hai una casa", "a Padova?"], f_it, p(TX), p(1205), p(104), t, P(0) - 0.05, CREAM,
+                     t_out=P(1) - 0.55, align="center")
+        reveal_lines(img, ["Ce ne prendiamo cura,", "ogni giorno."], f_it, p(TX), p(1205), p(104), t, P(1) - 0.05,
+                     CREAM, t_out=SC["open"][1] - 0.45, align="center")
     for sc, num, title, items in CHAPTERS:
         a, b = SC[sc]
         if a <= t < b:
             chapter(img, t, sc, num, title, items)
     a, b = SC["close"]
-    if a <= t < b + 0.2:
-        reveal_lines(img, ["La tua casa,"], f_it, p(94), p(1206), p(86), t, a + 0.1, CREAM, t_out=b - 0.35)
-        reveal_lines(img, ["su misura."], f_it, p(94), p(1292), p(86), t, P(6) + 0.6, SALMON, t_out=b - 0.3)
-
-
-# ------------------------------------------------------------------ end card
-WIN = (150, 290, 930, 850)       # final window onto the (unmoving) last photo
-
-
-def endcard(img, photo, t):
-    a = SC["endcard"][0]
-    k = expo_io(prog(t, a + 0.1, 1.1))
-    if k <= 0:
-        img.alpha_composite(photo)
-        return
-    img.paste(Image.new("RGBA", (W, H), CREAM + (255,)), (0, 0))
-    x0, y0, x1, y1 = WIN
-    rect = R(lerp(0, x0, k), lerp(0, y0, k), lerp(1080, x1, k), lerp(1920, y1, k))
-    m = Image.new("L", (W, H), 0)
-    ImageDraw.Draw(m).rounded_rectangle(rect, radius=p(lerp(0, 8, k)), fill=255)
-    img.paste(photo, (0, 0), m)
-    cx = (x0 + x1) / 2
-    f = font(SERIF, 96)
-    reveal_lines(img, ["La tua casa,"], f, p(cx), p(905), p(96), t, a + 0.95, NAVY, align="center", stagger=0.06)
-    reveal_lines(img, ["su misura."], f, p(cx), p(1000), p(96), t, a + 1.15, CORAL, align="center", stagger=0.06)
-    kl = ease_out(prog(t, a + 1.45, 0.7))
-    logo(img, cx, 1238 + (1 - kl) * 10, 560, kl)
-    ku = ease_out(prog(t, a + 1.9, 0.5))
-    fu = font(SANS, 50)
-    url = "tailorhomes.it"
-    tw = tlen(url, fu)
-    tl = Image.new("RGBA", img.size, (0, 0, 0, 0))
-    ImageDraw.Draw(tl).text((p(cx) - tw / 2, p(1385) + (1 - ku) * p(10)), url, font=fu, fill=NAVY + (round(255 * ku),))
-    img.alpha_composite(tl)
-    ul = tw * ease_io(prog(t, a + 2.2, 0.6))
-    if ul > 1:
-        ImageDraw.Draw(img).rectangle((p(cx) - tw / 2, p(1458), p(cx) - tw / 2 + ul, p(1461)), fill=SALMON)
+    if a <= t < b:                     # tagline on the last photo...
+        reveal_lines(img, ["La tua casa,"], f_it, p(TX), p(1205), p(104), t, a + 0.1, CREAM, t_out=b - 0.3,
+                     align="center")
+        reveal_lines(img, ["su misura."], f_it, p(TX), p(1309), p(104), t, P(6) + 0.6, SALMON, t_out=b - 0.25,
+                     align="center")
+    if t >= SC["endcard"][0]:          # ...then the sign-off, same layout as the cover
+        e = SC["endcard"][0]
+        reveal_lines(img, ["La tua casa,"], f_it, p(TX), p(990), p(104), t, e + 0.25, CREAM, align="center")
+        reveal_lines(img, ["su misura."], f_it, p(TX), p(1094), p(104), t, e + 0.4, SALMON, align="center")
+        rl = 80 * ease_out(prog(t, e + 0.7, 0.5))
+        if rl > 1:
+            ImageDraw.Draw(img).rectangle(R(TX - rl / 2, 1240, TX + rl / 2, 1241), fill=SALMON)
+        logo_mono(img, TX, 1340, 420, ease_out(prog(t, e + 0.85, 0.7)), shadow=0)
+        tracked(img, (p(TX), p(1452)), "TAILORHOMES.IT", font(LABEL, 30), CREAM, 0.28,
+                ease_out(prog(t, e + 1.3, 0.5)), align="center")
 
 
 def frame(t):
     img = Image.new("RGBA", (W, H), NAVY + (255,))
-    photo = photo_layer(t)
-    if t >= SC["endcard"][0]:
-        endcard(img, photo, t)
-    else:
-        img.alpha_composite(photo)
+    img.alpha_composite(photo_layer(t))
+    scrim(img, t)
+    hairlines(img, t)
     captions(img, t)
     fi = clamp(t / 0.5)                     # fade up from navy
     if fi < 1:

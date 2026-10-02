@@ -49,22 +49,22 @@ def hairline():
     """Full-bleed photo inside a fine cream double frame; type directly on a soft navy base."""
     img = R.view(PHOTO, W, H, 1.04).convert("RGBA")
     g = lay()
-    ImageDraw.Draw(g).rectangle((0, 820, W, H), fill=R.NAVY + (255,))
+    ImageDraw.Draw(g).rectangle((0, 700, W, H), fill=R.NAVY + (255,))
     mask = Image.new("L", (W, H), 0)
-    for y in range(820, H):                                     # navy rises from the bottom edge
-        a = min(1.0, (y - 820) / 480) ** 1.2 * 0.95
+    for y in range(700, H):                                     # navy rises from the bottom edge
+        a = min(1.0, (y - 700) / 460) ** 1.2 * 0.95
         ImageDraw.Draw(mask).line((0, y, W, y), fill=round(255 * a))
     g.putalpha(mask)
     img.alpha_composite(g)
     d = ImageDraw.Draw(img)
     d.rectangle((40, 40, W - 41, H - 41), outline=R.CREAM, width=3)
     d.rectangle((54, 54, W - 55, H - 55), outline=R.CREAM + (150,), width=1)
-    d.rounded_rectangle((350, 300, 730, 440), radius=8, fill=R.CREAM + (255,))
-    R.logo(img, 540, 370, 320, 1.0)
-    R.tracked(img, (540, 1238), "PER PROPRIETARI", R.font(R.LABEL, 30), R.SALMON, 0.3, align="center")
-    R.reveal_lines(img, HEAD, R.font(R.SERIF, 132), 540, 1290, 128, 99, 0, R.CREAM, align="center")
-    R.reveal_lines(img, [SUB], R.font(R.SERIF, 54), 540, 1560, 58, 99, 0, R.SALMON, align="center")
-    R.tracked(img, (540, 1652), "TAILORHOMES.IT", R.font(R.LABEL, 27), R.CREAM, 0.28, align="center")
+    R.tracked(img, (540, 1118), "PER PROPRIETARI", R.font(R.LABEL, 30), R.SALMON, 0.3, align="center")
+    R.reveal_lines(img, HEAD, R.font(R.SERIF, 132), 540, 1170, 128, 99, 0, R.CREAM, align="center")
+    R.reveal_lines(img, [SUB], R.font(R.SERIF, 54), 540, 1440, 58, 99, 0, R.SALMON, align="center")
+    ImageDraw.Draw(img).rectangle((500, 1540, 580, 1541), fill=R.SALMON)
+    R.logo_mono(img, 540, 1625, 420, 1.0, shadow=0)              # cream one-colour logo, no chip
+    R.tracked(img, (540, 1735), "TAILORHOMES.IT", R.font(R.LABEL, 27), R.CREAM, 0.28, align="center")
     return img
 
 

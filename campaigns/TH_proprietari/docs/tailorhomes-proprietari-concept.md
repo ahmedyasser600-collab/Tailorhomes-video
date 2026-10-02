@@ -69,3 +69,13 @@ python scripts/render.py --mode final
 ## Revision 2
 - The opening uses two Drive photos not shown in Film 02: S. Eufemia **SE6** (house exterior with garden, “-2.jpg”) and **SE7** (front door, “-11.jpg”). They are resized only and added to `TH_studenti/source/selected` and `photos.json`.
 - The cover uses SE6 with the headline *Più valore alla tua casa.* and the line *Gestione, staging e marketing a Padova.*
+
+## Revision 3: hairline system (client pick)
+- The navy caption card is replaced with the cover's **hairline** layout:
+  - a cream double frame line around the whole video
+  - navy rising from the bottom edge
+  - centred type set directly on the photo, on axis x = 510 to clear the Reels action buttons
+- The cream end card with the framed photo is replaced by a cover-style sign-off on the last photo: *La tua casa, su misura.* / logo / TAILORHOMES.IT.
+- The logo is the supplied artwork used as a **one-colour cream (reversed)** mark, with no chip. The original red linework does not hold on photos or navy.
+- Cormorant Italic grave accents (à è ì ò ù) are drawn by `itext()` in `TH_studenti/scripts/render.py`, because the font's own graves are near-vertical (“Più” read as “Piu'”).
+- Cover: `scripts/make_cover.py hairline`.
