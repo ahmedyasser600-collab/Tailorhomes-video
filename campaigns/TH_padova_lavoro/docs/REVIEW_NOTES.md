@@ -6,7 +6,7 @@
 |---|---|
 | 3D shots (Blender) | Done. 4 scenes, 814 frames incl. handles |
 | Review preview 540×960 | Done: `preview/TH_Padova_Lavoro_PREVIEW_540x960.mp4` |
-| Final 1080×1920 | Rendering (Cycles, 16 spp + denoise, ~35 s/frame, about 8 h) |
+| Final 1080×1920 | Done: `final/TH_Padova_Lavoro_1080x1920.mp4` (Cycles 16 spp + OIDN, 814 frames at 27–43 s each) |
 | Narration | AI-generated (Higgsfield / ElevenLabs engine). **Not yet listened to by a person** |
 | Music | Original synthesised bed, owned outright. **Not yet listened to by a person** |
 | Subtitles | Done: `subtitles/TH_Padova_Lavoro_it.srt`, also burned in |
@@ -39,6 +39,13 @@
   900 frames, 30.0 s, AAC 48 kHz stereo, with zero A/V duration difference. A
   one-frame-per-second contact sheet of the decoded file was inspected
   (`docs/verification/`).
+- **Exported final.** ffprobe and a full decode give H.264 High, 1080×1920, 30 fps,
+  yuv420p, 900 frames, 30.0 s, 8.5 MB; AAC 48 kHz stereo, −13.9 LUFS, −1.5 dBTP,
+  zero A/V duration difference. All 814 rendered PNGs were validated as
+  1080×1920. Its one-frame-per-second contact sheet and four full-resolution frames
+  extracted from the MP4 (8.8, 16.5, 23.9 and 28.0 s) were inspected. Both
+  post-preview fixes are confirmed: the lounge is in focus at 8–10 s, and the
+  calendar sits below the headline panel.
 - **Claims.** No prices, availability, ratings, testimonials or guarantees. The
   calendar dates and folder are the library’s “ESEMPIO” sample props. “Rendering
   3D illustrativo” is shown over the interiors.
@@ -66,4 +73,6 @@
 - The S2→S3 transition is a match dissolve from the warm interior to the neutral
   dollhouse lighting, so there is a brief shift in colour temperature, as intended.
 - The S2 focus fix and the S4 framing change are in the final render only; the
-  preview predates them.
+  540×960 preview predates them.
+- The final render was interrupted twice by container restarts and resumed from
+  the completed frames. Every frame was validated after each resume.
