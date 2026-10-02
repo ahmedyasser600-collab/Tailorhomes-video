@@ -68,6 +68,22 @@ Re-encoded and re-verified: 900 frames, 30.0 s, A/V aligned, −13.9 LUFS. The
 contact sheet was inspected again. The preview is now also built from the final
 plates, so it matches the final.
 
+## 3D prop lettering fix (client feedback, 2 Oct)
+
+The text modelled on the library props rendered with broken glyphs: “SOGGIO?NO”, a
+garbled “ESEMPIO”, “Benv=nuti”, and solid A's in “PADOVA”. Blender's FONT objects
+fill some letter counters incorrectly at these tiny sizes; the same faults appeared
+with Google's overlap-free font files, so the cause is not the font. “PADOVA” also
+floated about 2 cm above its platform, which cast a ghost shadow.
+`build_shots.py → text_to_cards()` now hides every FONT object and replaces it with
+a flat card carrying the same words, typeset with Pillow in Jost or Cormorant
+Garamond in the original colours, laid on the surface (`blender/label_textures/`).
+Shots 1 and 4 were re-rendered at 1080×1920. Shot 2 has no lettering, and the laptop
+“DEMO” label in shot 3 is too small to be visible, so neither was re-rendered.
+Verified on full-resolution frames extracted from the encoded final (4.5, 20.2, 21.0
+and 24.3 s): every label reads correctly. Final: 900 frames, 30.0 s, A/V aligned,
+−13.9 LUFS / −1.5 dBTP.
+
 ## Not verified — needs a person
 
 1. **Listen to the narration.** Check pronunciation of “Tailor Homes” and
