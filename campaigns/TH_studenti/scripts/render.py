@@ -111,6 +111,43 @@ def tlen(s, f):
     return _md.textlength(s, font=f)
 
 
+# Cormorant Garamond Italic v4.001 draws the grave accents (à è ì ò ù) almost vertical, so "Più"
+# reads like "Piu'". itext() draws those letters as base letter + the font's own acute accent,
+# mirrored into a grave. Other text goes straight to ImageDraw.text.
+GRAVE = {"à": "a", "è": "e", "ì": "ı", "ò": "o", "ù": "u"}
+_acc = {}
+
+
+def _grave(f):
+    if f not in _acc:
+        size = (f.size * 2, f.size * 2)
+        a, b = Image.new("L", size, 0), Image.new("L", size, 0)
+        ImageDraw.Draw(a).text((f.size // 2, 0), "é", font=f, fill=255)
+        ImageDraw.Draw(b).text((f.size // 2, 0), "e", font=f, fill=255)
+        acc = ImageChops.subtract(a, b)
+        bx, be = acc.getbbox(), b.getbbox()
+        mark = acc.crop(bx).transpose(Image.FLIP_LEFT_RIGHT)
+        # accent centre relative to the base letter's ink centre (x) and to the drawing origin (y)
+        _acc[f] = (mark, (bx[0] + bx[2]) / 2 - (be[0] + be[2]) / 2, bx[1])
+    return _acc[f]
+
+
+def itext(d, xy, s, font, fill):
+    if not any(c in GRAVE for c in s):
+        d.text(xy, s, font=font, fill=fill)
+        return
+    mark, dx, top = _grave(font)
+    x, y = xy
+    for c in s:
+        base = GRAVE.get(c, c)
+        d.text((x, y), base, font=font, fill=fill)
+        if c in GRAVE:
+            ib = font.getbbox(base)
+            cx = x + (ib[0] + ib[2]) / 2 + dx * 0.15 - mark.width * 0.55   # centred over the bowl
+            d.bitmap((round(cx - mark.width / 2), round(y + top)), mark, fill=fill)
+        x += tlen(base, font)
+
+
 def tracked(img, xy, text, f, fill, track_em=0.28, alpha=1.0, align="left"):
     """Uppercase label with letter-spacing."""
     sp = f.size * track_em
@@ -150,7 +187,7 @@ def reveal_lines(img, lines, f, x, y, lh, t, t_in, colour, t_out=None, align="le
             a = clamp((t - t_in - idx * stagger) / 0.18) * (1 - ko)
             if a > 0:
                 wi = Image.new("RGBA", (int(ww + p(30)), int(asc + desc + p(30))), (0, 0, 0, 0))
-                ImageDraw.Draw(wi).text((p(8), p(6)), w, font=f, fill=colour + (round(255 * a),))
+                itext(ImageDraw.Draw(wi), (p(8), p(6)), w, f, colour + (round(255 * a),))
                 wy = ly + dy - p(6)
                 c0, c1 = max(0, round(top - wy)), min(wi.height, round(bot - wy))
                 if c1 > c0:
