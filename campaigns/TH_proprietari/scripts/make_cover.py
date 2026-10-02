@@ -8,15 +8,15 @@ from pathlib import Path
 from PIL import Image, ImageDraw
 
 C = Path(__file__).resolve().parents[1]
-HEAD = sys.argv[1].split("|") if len(sys.argv) > 1 else ["Hai una casa", "a Padova?"]
-SUB = sys.argv[2] if len(sys.argv) > 2 else "La tua casa, su misura."
+HEAD = sys.argv[1].split("|") if len(sys.argv) > 1 else ["Più valore", "alla tua casa."]
+SUB = sys.argv[2] if len(sys.argv) > 2 else "Gestione, staging e marketing a Padova."
 NAME = sys.argv[3] if len(sys.argv) > 3 else "tailorhomes-proprietari-cover.png"
 sys.argv = [sys.argv[0], "--mode", "final"]
 spec = importlib.util.spec_from_file_location("r3", C / "scripts" / "render.py")
 R = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(R)
 
-img = R.view("SE1", R.W, R.H, 1.04).convert("RGBA")
+img = R.view("SE6", R.W, R.H, 1.04).convert("RGBA")
 d = ImageDraw.Draw(img)
 # logo on a cream chip
 d.rounded_rectangle((300, 300, 780, 476), radius=10, fill=R.CREAM + (255,))

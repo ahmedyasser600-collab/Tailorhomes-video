@@ -243,5 +243,31 @@
     "height": 3360,
     "orientation": "landscape",
     "selected": false
+  },
+  {
+    "id": "SE6",
+    "drive_id": "13A7Epa_4Qzp8KOklVbg_GQuzPUrXOajw",
+    "title": "2026-05-VIA SANT'EUFEMIA-TAILOR HOMES-2.jpg",
+    "property": "S. Eufemia",
+    "room": "exterior with garden",
+    "width": 5567,
+    "height": 3716,
+    "orientation": "landscape",
+    "selected": true,
+    "master": "source/selected/SE6.jpg",
+    "note": "added for Film 03 (proprietari)"
+  },
+  {
+    "id": "SE7",
+    "drive_id": "170eUk4P3XTNbaBfWq_afO4X-DusphV4v",
+    "title": "2026-05-VIA SANT'EUFEMIA-TAILOR HOMES-11.jpg",
+    "property": "S. Eufemia",
+    "room": "front door open onto living area",
+    "width": 5998,
+    "height": 4004,
+    "orientation": "landscape",
+    "selected": true,
+    "master": "source/selected/SE7.jpg",
+    "note": "added for Film 03 (proprietari)"
   }
 ]

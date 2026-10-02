@@ -39,7 +39,7 @@ prog, lerp, clamp, ease_io, ease_out, expo_out, expo_io = F.prog, F.lerp, F.clam
 NAVY, CREAM, SALMON, CORAL = F.NAVY, F.CREAM, F.SALMON, F.CORAL
 SERIF, LABEL, SANS, SANS_B = F.SERIF, F.LABEL, F.SANS, F.SANS_B
 W, H, FPS, S = F.W, F.H, F.FPS, F.S
-F.FOCUS.update({"SE1": (0.40, 0.6), "VN1": (0.55, 0.6), "VR1": (0.62, 0.6), "VR2": (0.42, 0.55), "CD2": (0.6, 0.55),
+F.FOCUS.update({"SE6": (0.46, 0.5), "SE7": (0.5, 0.55), "SE1": (0.40, 0.6), "VN1": (0.55, 0.6), "VR1": (0.62, 0.6), "VR2": (0.42, 0.55), "CD2": (0.6, 0.55),
                 "SE2": (0.52, 0.5), "SE5": (0.62, 0.55), "VN2": (0.5, 0.6), "VN5": (0.5, 0.6),
                 "SE4": (0.45, 0.6), "CD1": (0.5, 0.6), "SE3": (0.55, 0.6)})
 
@@ -61,7 +61,7 @@ def mid(name):
 # (switch time, photo). Each photo cross-dissolves in over XF and pushes in slowly and evenly.
 XF = 0.6
 TIMELINE = [
-    (0.0, "SE1"), (P(1) - 0.25, "VN1"),
+    (0.0, "SE6"), (P(1) - 0.25, "SE7"),
     (SC["ch1"][0], "VR1"), (mid("ch1") + 0.2, "CD2"),
     (SC["ch2"][0], "VR2"), (mid("ch2"), "SE5"),
     (SC["ch3"][0], "VN2"), (mid("ch3"), "VN5"),

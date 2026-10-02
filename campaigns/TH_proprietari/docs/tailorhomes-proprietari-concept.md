@@ -33,7 +33,7 @@ The client approved this script. It is read by an ElevenLabs preset voice (“Gi
 ## Shotlist (times come from `timing.json`)
 | Scene | Photos | Card |
 |---|---|---|
-| open | S. Eufemia living room → Via Nullo living room | PER PROPRIETARI / *Hai una casa a Padova?* → *Ce ne prendiamo cura, ogni giorno.* |
+| open | S. Eufemia house exterior with garden → front door opening onto the living area | PER PROPRIETARI / *Hai una casa a Padova?* → *Ce ne prendiamo cura, ogni giorno.* |
 | ch1 | Vicolo Romano bedroom → Colore & Design kitchen | 01 Operatività e gestione: PULIZIE · MANUTENZIONE · OSPITI |
 | ch2 | Vicolo Romano table setting → S. Eufemia hammock loft | 02 Valorizzazione: HOME STAGING · FOTOGRAFIA |
 | ch3 | Via Nullo dining → table detail | 03 Marketing e performance: CANALI ONLINE · DISTRIBUZIONE |
@@ -65,3 +65,7 @@ python scripts/render.py --mode final
 ## Revision 1
 - ch2 opens on the Vicolo Romano table setting instead of the S. Eufemia orange wall, at the client's request.
 - Cover added: `out/tailorhomes-proprietari-cover.png` (`scripts/make_cover.py`). Its key content sits inside the central 3:4 area for the profile-grid crop.
+
+## Revision 2
+- The opening uses two Drive photos not shown in Film 02: S. Eufemia **SE6** (house exterior with garden, “-2.jpg”) and **SE7** (front door, “-11.jpg”). They are resized only and added to `TH_studenti/source/selected` and `photos.json`.
+- The cover uses SE6 with the headline *Più valore alla tua casa.* and the line *Gestione, staging e marketing a Padova.*
