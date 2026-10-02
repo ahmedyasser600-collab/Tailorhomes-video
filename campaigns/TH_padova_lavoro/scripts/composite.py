@@ -1,5 +1,5 @@
-"""Composite the Tailor Homes reel: 3D renders + transitions + headlines, logo,
-captions, end card, then encode with the audio mix.
+"""Composite the Tailor Homes reel: 3D renders + transitions + kinetic headlines,
+logo, captions, end card, then encode with the audio mix.
 
     python composite.py --tier preview          # 540x960 review MP4
     python composite.py --tier final            # 1080x1920 master MP4
@@ -7,7 +7,9 @@ captions, end card, then encode with the audio mix.
     python composite.py --tier final --safe-guides --stills 450
 
 Layout is designed in 1080x1920 coordinates and scaled for the preview.
-All text is 2D overlay; nothing is baked into the 3D renders.
+All text is 2D overlay; nothing is baked into the 3D renders. Text sits directly
+on the picture (no boxes): its colour follows the brightness of the plate behind
+it (navy on light, cream on dark) and a soft shadow keeps it legible.
 Requires Pillow, numpy and ffmpeg.
 """
 import argparse
@@ -20,15 +22,17 @@ from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 C = Path(__file__).resolve().parents[1]
 REPO = C.parents[1]
-FONTS = REPO / "brand" / "fonts"
+FONT_DIRS = [C / "fonts", REPO / "brand" / "fonts"]      # campaign bold weights, then library regulars
 TL = json.loads((C / "timeline.json").read_text())
 FPS, HANDLE = TL["fps"], TL["handle_frames"]
 NFRAMES = int(TL["duration"] * FPS)
 PAL = {k: tuple(int(v[i:i + 2], 16) for i in (1, 3, 5)) for k, v in
        json.loads((REPO / "brand" / "palette.json").read_text())["website_colors"].items()}
+ACCENT_ON_DARK = (240, 163, 145)                      # lighter terracotta for cream-on-dark mode
 SAFE = TL["safe_area"]
 X0, X1 = SAFE["left"], 1080 - SAFE["right"]          # 60 .. 930
 TEXT_CX = 520                                         # optical centre inside the safe area
+HEAD_Y = 272                                          # top of the headline block (just below the top UI zone)
 
 ap = argparse.ArgumentParser()
 ap.add_argument("--tier", default="preview", choices=["preview", "final"])
@@ -39,28 +43,53 @@ A = ap.parse_args()
 S = 0.5 if A.tier == "preview" else 1.0
 W, H = round(1080 * S), round(1920 * S)
 
+_fonts = {}
+
 
 def font(name, size):
-    return ImageFont.truetype(str(FONTS / name), max(8, round(size * S)))
+    key = (name, size)
+    if key not in _fonts:
+        path = next(d / name for d in FONT_DIRS if (d / name).exists())
+        _fonts[key] = ImageFont.truetype(str(path), max(8, round(size * S)))
+    return _fonts[key]
 
 
-F_HEAD = lambda: font("CormorantGaramond-Regular.ttf", 92)
-F_CAP = lambda: font("DMSans-Regular.ttf", 44)
-F_LABEL = lambda: font("Jost-Regular.ttf", 24)
+F_HEAD = lambda: font("Jost-Bold.ttf", 108)
+F_CAP = lambda: font("DMSans-Bold.ttf", 46)
+F_LABEL = lambda: font("DMSans-Medium.ttf", 24)
+
+
+def clamp(x):
+    return min(1.0, max(0.0, x))
 
 
 def sm(x):
-    x = min(1.0, max(0.0, x))
+    x = clamp(x)
     return x * x * (3 - 2 * x)
 
 
 def ease_out(x):
-    x = min(1.0, max(0.0, x))
+    x = clamp(x)
     return 1 - (1 - x) ** 3
+
+
+def ease_in(x):
+    x = clamp(x)
+    return x ** 3
+
+
+def ease_out_back(x, c1=1.5):
+    x = clamp(x)
+    c3 = c1 + 1
+    return 1 + c3 * (x - 1) ** 3 + c1 * (x - 1) ** 2
 
 
 def p(v):
     return round(v * S)
+
+
+def mix_rgb(a, b, k):
+    return tuple(round(a[i] + (b[i] - a[i]) * k) for i in range(3))
 
 
 # ------------------------------------------------------------------ 3D plates
@@ -71,7 +100,9 @@ _cache = {}
 def plate(scene, film_frame):
     info = TL["scenes"][scene]
     local = film_frame - round(info["start"] * FPS) + HANDLE + 1
-    path = C / "renders" / A.tier / scene / f"f_{local:04d}.png"
+    path = C / "renders" / "final" / scene / f"f_{local:04d}.png"     # full-res plates (downscaled for preview)
+    if not path.exists():
+        path = C / "renders" / A.tier / scene / f"f_{local:04d}.png"
     if scene == "S5_logo_cta":
         return end_card(film_frame)
     if path not in _cache:
@@ -101,6 +132,41 @@ def base_frame(ff):
     return plate(scene, ff).copy()
 
 
+# ------------------------------------------------------------------ adaptive contrast
+class Tone:
+    """0 = light background (navy text), 1 = dark background (cream text).
+    Smoothed over time when frames are processed in order, so colour changes glide."""
+
+    def __init__(self):
+        self.k, self.last = None, None
+
+    def update(self, img, box, ff):
+        x0, y0, x1, y1 = (p(v) for v in box)
+        lum = np.asarray(img.crop((x0, y0, x1, y1)).convert("L"), dtype=np.float32).mean() / 255
+        target = 1.0 if lum < 0.55 else 0.0            # decisive: navy or cream, never a grey in between
+        if self.k is None or self.last != ff - 1:
+            self.k = target
+        else:
+            self.k += (target - self.k) * 0.15         # ~0.3 s glide when the background changes
+        self.last = ff
+        return self.k
+
+
+HEAD_TONE, BUG_TONE = Tone(), Tone()
+
+
+def soft_shadow(layer, dark_k, strength=1.0):
+    """Shadow (on light text) or glow (on dark text) built from the layer's own alpha: no boxes."""
+    a = layer.getchannel("A")
+    blur = a.filter(ImageFilter.GaussianBlur(p(16)))
+    tight = a.filter(ImageFilter.GaussianBlur(p(4)))
+    glow_rgb = mix_rgb(PAL["cream"], (12, 16, 28), dark_k)
+    op = (0.55 + 0.25 * dark_k) * strength
+    sh = Image.new("RGBA", layer.size, glow_rgb + (0,))
+    sh.putalpha(Image.blend(blur, tight, 0.35).point(lambda v: round(min(255, v * 1.6) * op)))
+    return sh
+
+
 # ------------------------------------------------------------------ assets
 LOGO = Image.open(C / "brand_renders" / "TH_full_logo_2400.png").convert("RGBA")
 SYMBOL = Image.open(C / "brand_renders" / "TH_symbol_800.png").convert("RGBA")
@@ -112,7 +178,7 @@ def scaled(im, width):
     return im.resize((w, round(im.height * w / im.width)), Image.LANCZOS)
 
 
-SYMBOL_BUG = scaled(SYMBOL, 96)
+SYMBOL_BUG = scaled(SYMBOL, 104)
 LOGO_CARD = scaled(LOGO, 780)
 
 
@@ -124,98 +190,146 @@ def alpha_paste(dst, src, xy, opacity):
     dst.alpha_composite(s, (round(xy[0]), round(xy[1])))
 
 
-def wrap(text, f, maxw, draw):
-    """Greedy wrap; a two-line result is re-split to balance the lines (no orphans)."""
-    lines = _greedy(text, f, maxw, draw)
-    if len(lines) == 2:
-        words = text.split()
-        splits = [(" ".join(words[:i]), " ".join(words[i:])) for i in range(1, len(words))]
-        fits = [sp for sp in splits if max(draw.textlength(x, font=f) for x in sp) <= maxw]
-        if fits:
-            lines = list(min(fits, key=lambda sp: max(draw.textlength(x, font=f) for x in sp)))
-    return lines
+_measure = ImageDraw.Draw(Image.new("L", (8, 8)))
 
 
-def _greedy(text, f, maxw, draw):
-    words, lines, cur = text.split(), [], ""
-    for w_ in words:
-        trial = (cur + " " + w_).strip()
-        if draw.textlength(trial, font=f) <= maxw or not cur:
-            cur = trial
-        else:
-            lines.append(cur)
-            cur = w_
-    return lines + [cur]
+def tlen(s, f):
+    return _measure.textlength(s, font=f)
 
 
-# ------------------------------------------------------------------ overlays
-def headline(img, t):
-    for h in TL["headlines"]:
-        if not (h["in"] <= t < h["out"] + 0.3):
-            continue
-        layer = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+def balanced_lines(text, f, maxw):
+    """One line if it fits, otherwise the most balanced two-line split (no orphans)."""
+    if tlen(text, f) <= maxw:
+        return [text.split()]
+    words = text.split()
+    splits = [(words[:i], words[i:]) for i in range(1, len(words))]
+    ok = [sp for sp in splits if max(tlen(" ".join(x), f) for x in sp) <= maxw] or splits
+    return list(min(ok, key=lambda sp: max(tlen(" ".join(x), f) for x in sp)))
+
+
+# ------------------------------------------------------------------ kinetic type
+def kinetic(lines, f, x, y, lh, t, t_in, t_out, colour, accent_colour, accent_words=(), align="left",
+            stagger=0.07, dur=0.5, underline=True):
+    """Words rise into place from behind a line mask (slight overshoot), then the
+    accent words get a wiping underline; on exit the words lift out of the mask.
+    Returns an RGBA layer (text only, no background)."""
+    layer = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    space = tlen(" ", f)
+    asc, desc = f.getmetrics()
+    n_total = sum(len(l) for l in lines)
+    acc = set(accent_words)
+    idx = 0
+    spans = []
+    for li, words in enumerate(lines):
+        width = tlen(" ".join(words), f)
+        lx = x if align == "left" else x - width / 2
+        ly = y + li * lh
+        clip_top, clip_bot = ly - p(6), ly + asc + desc + p(4)
+        cx = lx
+        for wd in words:
+            ww = tlen(wd, f)
+            k_in = ease_out_back((t - t_in - idx * stagger) / dur)
+            k_out = ease_in((t - t_out - (n_total - 1 - idx) * 0.025) / 0.32)
+            dy = (1 - k_in) * (asc + desc) * 1.05 - k_out * (asc + desc) * 1.05
+            alpha = clamp((t - t_in - idx * stagger) / 0.12) * (1 - k_out)
+            if alpha > 0:
+                is_acc = wd in acc
+                col = accent_colour if is_acc else colour
+                wimg = Image.new("RGBA", (round(ww) + p(20), asc + desc + p(20)), (0, 0, 0, 0))
+                ImageDraw.Draw(wimg).text((p(4), p(4)), wd, font=f, fill=col + (round(255 * alpha),))
+                wy = ly + dy - p(4)
+                top = max(0, round(clip_top - wy))
+                bot = min(wimg.height, round(clip_bot - wy))
+                if bot > top:
+                    layer.alpha_composite(wimg.crop((0, top, wimg.width, bot)), (round(cx - p(4)), round(wy + top)))
+            if wd in acc:
+                spans.append((li, cx, cx + ww, ly + asc + p(10)))
+            cx += ww + space
+            idx += 1
+    if underline and spans:
         d = ImageDraw.Draw(layer)
-        f = F_HEAD()
-        lines = wrap(h["text"], f, p(X1 - X0 - 84), d)
-        lh = p(100)
-        pad = p(34)
-        box_w = max(d.textlength(l, font=f) for l in lines) + 2 * pad + p(10)
-        box_h = lh * len(lines) + 2 * pad - p(6)
-        k_in = ease_out((t - h["in"]) / 0.55)
-        k_out = sm((t - h["out"]) / 0.3)
-        x = p(X0) - (1 - k_in) * (box_w + p(X0)) * 0.35
-        y = p(372)
-        a = k_in * (1 - k_out)
-        d.rounded_rectangle((x, y, x + box_w, y + box_h), radius=p(10), fill=PAL["cream"] + (round(236 * a),))
-        d.rectangle((x, y + p(18), x + p(6), y + box_h - p(18)), fill=PAL["terracotta"] + (round(255 * a),))
-        for i, line in enumerate(lines):
-            li = ease_out((t - h["in"] - 0.12 - i * 0.1) / 0.5) * (1 - k_out)
-            d.text((x + pad + p(10), y + pad - p(14) + i * lh + (1 - li) * p(22)), line, font=f,
-                   fill=PAL["navy"] + (round(255 * li),))
+        u_in = ease_out((t - t_in - n_total * stagger - 0.15) / 0.45)
+        u_out = ease_in((t - t_out) / 0.3)
+        by_line = {}
+        for li, a, b, yy in spans:
+            s0 = by_line.setdefault(li, [a, b, yy])
+            s0[0], s0[1] = min(s0[0], a), max(s0[1], b)
+        for a, b, yy in by_line.values():
+            if u_in > 0 and u_out < 1:
+                ax = a + (b - a) * u_out
+                bx = a + (b - a) * u_in
+                if bx > ax:
+                    d.rectangle((ax, yy, bx, yy + p(9)), fill=accent_colour + (255,))
+    return layer
+
+
+def headline(img, t, ff):
+    for h in TL["headlines"]:
+        if not (h["in"] <= t < h["out"] + 0.6):
+            continue
+        k = HEAD_TONE.update(img, (X0, HEAD_Y - 20, X1, HEAD_Y + 260), ff)
+        f = font("Jost-Bold.ttf", h.get("size", 108))
+        lines = balanced_lines(h["text"], f, p(X1 - X0))
+        colour = mix_rgb(PAL["navy"], PAL["cream"], k)
+        accent = mix_rgb(PAL["terracotta"], ACCENT_ON_DARK, k)
+        layer = kinetic(lines, f, p(X0), p(HEAD_Y), p(h.get("size", 108) * 1.09), t, h["in"], h["out"], colour, accent,
+                        h.get("accent", "").split())
+        img.alpha_composite(soft_shadow(layer, k))
         img.alpha_composite(layer)
 
 
 def captions(img, t):
+    f = F_CAP()
     for c in TL["captions"]:
         if not (c["in"] <= t < c["out"]):
             continue
-        a = min(sm((t - c["in"]) / 0.12), sm((c["out"] - t) / 0.12))
         layer = Image.new("RGBA", (W, H), (0, 0, 0, 0))
         d = ImageDraw.Draw(layer)
-        f = F_CAP()
-        lh = p(58)
-        bottom = p(1496)
-        top = bottom - lh * len(c["lines"]) - p(20)
+        lh = p(62)
+        bottom = p(1490)
+        top = bottom - lh * len(c["lines"])
         for i, line in enumerate(c["lines"]):
+            k = ease_out((t - c["in"] - i * 0.08) / 0.22)
+            a = k * sm((c["out"] - t) / 0.12)
+            if a <= 0:
+                continue
             tw = d.textlength(line, font=f)
-            x = p(TEXT_CX) - tw / 2
-            y = top + p(10) + i * lh
-            d.rounded_rectangle((x - p(18), y - p(4), x + tw + p(18), y + lh - p(2)), radius=p(12),
-                                fill=(255, 255, 255, round(222 * a)))
-            d.text((x, y + p(2)), line, font=f, fill=PAL["ink"] + (round(255 * a),))
+            d.text((p(TEXT_CX) - tw / 2, top + i * lh + (1 - k) * p(18)), line, font=f,
+                   fill=(255, 255, 255, round(255 * a)), stroke_width=max(1, p(3)),
+                   stroke_fill=PAL["ink"] + (round(235 * a),))
+        sh = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+        sh.putalpha(layer.getchannel("A").filter(ImageFilter.GaussianBlur(p(8))).point(lambda v: round(v * 0.5)))
+        img.alpha_composite(sh, (0, p(3)))
         img.alpha_composite(layer)
 
 
-def logo_bug(img, t):
-    a = sm((t - 0.3) / 0.4) * (1 - sm((t - 24.6) / 0.4))
+def logo_bug(img, t, ff):
+    k_in = ease_out_back((t - 0.25) / 0.5, 1.2)
+    a = clamp((t - 0.25) / 0.2) * (1 - sm((t - 24.6) / 0.4))
     if a <= 0:
         return
-    # small cream badge so the red monogram reads over dark (door) and light plates alike
+    bx = X1 - 104                                       # top-right corner, inside the safe area
+    tone = BUG_TONE.update(img, (bx, 262, X1, 340), ff)
+    sc = 0.7 + 0.3 * k_in
+    sym = SYMBOL_BUG.resize((max(1, round(SYMBOL_BUG.width * sc)), max(1, round(SYMBOL_BUG.height * sc))), Image.LANCZOS)
     layer = Image.new("RGBA", (W, H), (0, 0, 0, 0))
-    pad = p(12)
-    x, y = p(X0), p(262)
-    ImageDraw.Draw(layer).rounded_rectangle((x, y, x + SYMBOL_BUG.width + 2 * pad, y + SYMBOL_BUG.height + 2 * pad),
-                                            radius=p(8), fill=PAL["cream"] + (round(225 * a),))
+    alpha_paste(layer, sym, (p(bx) + (SYMBOL_BUG.width - sym.width) / 2, p(268) + (SYMBOL_BUG.height - sym.height) / 2), a)
+    # glow only where the background is dark (the navy door); nothing on light plates
+    glow = Image.new("RGBA", (W, H), PAL["cream"] + (0,))
+    glow.putalpha(layer.getchannel("A").filter(ImageFilter.GaussianBlur(p(10))).point(lambda v: round(min(255, v * 2.2) * 0.85 * tone)))
+    img.alpha_composite(glow)
     img.alpha_composite(layer)
-    alpha_paste(img, SYMBOL_BUG, (x + pad, y + pad), a)
 
 
 def illustrative_label(img, t):
     a = min(sm((t - 10.6) / 0.4), sm((18.8 - t) / 0.4))
     if a <= 0:
         return
-    d = ImageDraw.Draw(img)
-    d.text((p(X0), p(1300)), "RENDERING 3D ILLUSTRATIVO", font=F_LABEL(), fill=PAL["ink-mid"] + (round(170 * a),))
+    layer = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    ImageDraw.Draw(layer).text((p(X0), p(1300)), "RENDERING 3D ILLUSTRATIVO", font=F_LABEL(),
+                               fill=PAL["ink-mid"] + (round(200 * a),))
+    img.alpha_composite(soft_shadow(layer, 0.0, 0.8))
+    img.alpha_composite(layer)
 
 
 def end_card(ff):
@@ -228,28 +342,35 @@ def end_card(ff):
     g = g.filter(ImageFilter.GaussianBlur(p(220)))
     warm = Image.new("RGBA", (W, H), PAL["bg-warm"] + (255,))
     img = Image.composite(img, warm, g)
-    d = ImageDraw.Draw(img)
     # logo: fade + gentle settle (uniform scale only, proportions preserved)
     k = ease_out((t - ec["logo_in"]) / 0.9)
     if k > 0:
-        sc = 1.04 - 0.04 * k
+        sc = 1.06 - 0.06 * k
         lg = LOGO_CARD.resize((round(LOGO_CARD.width * sc), round(LOGO_CARD.height * sc)), Image.LANCZOS)
-        alpha_paste(img, lg, (p(TEXT_CX) - lg.width / 2, p(580) - lg.height / 2), k)
-    f_tag = font("CormorantGaramond-Regular.ttf", 66)
-    for i, line in enumerate(ec["tagline"]):
-        k = ease_out((t - ec["tagline_in"] - i * 0.18) / 0.6)
-        tw = d.textlength(line, font=f_tag)
-        d.text((p(TEXT_CX) - tw / 2, p(850) + i * p(80) + (1 - k) * p(18)), line, font=f_tag,
-               fill=PAL["navy"] + (round(255 * k),))
-    k = ease_out((t - ec["cta_in"]) / 0.6)
+        alpha_paste(img, lg, (p(TEXT_CX) - lg.width / 2, p(560) - lg.height / 2), k)
+    never = 1e9
+    f_tag = font("Jost-Bold.ttf", 64)
+    tag_lines = [l.split() for l in ec["tagline"]]
+    img.alpha_composite(kinetic(tag_lines, f_tag, p(TEXT_CX), p(830), p(80), t, ec["tagline_in"], never,
+                                PAL["navy"], PAL["terracotta"], ec.get("tagline_accent", "").split(),
+                                align="center", stagger=0.06, underline=False))
     lead, url = ec["cta"].rsplit(" ", 1)
-    f_lead, f_url = font("DMSans-Regular.ttf", 46), font("Jost-Regular.ttf", 76)
-    tw = d.textlength(lead, font=f_lead)
-    d.text((p(TEXT_CX) - tw / 2, p(1090) + (1 - k) * p(16)), lead, font=f_lead, fill=PAL["ink"] + (round(255 * k),))
-    tw = d.textlength(url, font=f_url)
-    d.text((p(TEXT_CX) - tw / 2, p(1160) + (1 - k) * p(16)), url, font=f_url, fill=PAL["terracotta"] + (round(255 * k),))
-    u = ease_out((t - ec["cta_in"] - 0.35) / 0.7)
-    d.rectangle((p(TEXT_CX) - tw / 2, p(1262), p(TEXT_CX) - tw / 2 + tw * u, p(1266)), fill=PAL["terracotta"] + (255,))
+    img.alpha_composite(kinetic([lead.split()], font("DMSans-Medium.ttf", 46), p(TEXT_CX), p(1072), p(60), t,
+                                ec["cta_in"], never, PAL["ink"], PAL["ink"], align="center", stagger=0.05,
+                                underline=False))
+    # URL: bold, rises in, underline wipes, then one soft "pop" to draw the eye
+    f_url = font("Jost-ExtraBold.ttf", 92)
+    url_layer = kinetic([[url]], f_url, p(TEXT_CX), p(1140), p(100), t, ec["cta_in"] + 0.3, never,
+                        PAL["terracotta"], PAL["terracotta"], [url], align="center", dur=0.55)
+    pop = np.sin(np.pi * clamp((t - (ec["cta_in"] + 1.4)) / 0.5)) * 0.05
+    if pop > 0.001:
+        bb = url_layer.getbbox()
+        if bb:
+            crop = url_layer.crop(bb)
+            big = crop.resize((round(crop.width * (1 + pop)), round(crop.height * (1 + pop))), Image.LANCZOS)
+            url_layer = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+            url_layer.alpha_composite(big, (round((bb[0] + bb[2]) / 2 - big.width / 2), round((bb[1] + bb[3]) / 2 - big.height / 2)))
+    img.alpha_composite(url_layer)
     return img.convert("RGB")
 
 
@@ -268,8 +389,8 @@ def frame(ff):
     t = ff / FPS
     img = base_frame(ff).convert("RGBA")
     if t < 25.0:
-        logo_bug(img, t)
-    headline(img, t)
+        logo_bug(img, t, ff)
+    headline(img, t, ff)
     illustrative_label(img, t)
     captions(img, t)
     if A.safe_guides:

@@ -38,10 +38,24 @@ sample content.
 | 25–30 s | End card (2D): supplied logo, tagline, CTA “Scopri le soluzioni su tailorhomes.it” | `brand/01-noBgColor.svg` | — |
 
 Lighting is one warm “sun” from upper-left-front in every shot, with the AgX view
-transform. Brand colours come from `brand/palette.json`. Type uses the bundled
-fonts: Cormorant Garamond for headlines and tagline, DM Sans for captions and CTA,
-and Jost for the URL and labels. The wordmark is never retyped; the logo is the
-supplied SVG rasterised unmodified, with its aspect ratio preserved.
+transform. Brand colours come from `brand/palette.json`.
+
+Typography (v2, after client review): bold brand families with no boxes or panels
+behind the text.
+- **Headlines:** Jost Bold, with the key words in terracotta and a sweeping
+  underline. Words rise into place one by one (a slight overshoot), then lift out on
+  exit. Text colour follows the plate brightness: navy on light backgrounds, cream
+  on the navy door. A soft shadow or glow drawn from the letterforms keeps it
+  legible.
+- **Captions:** DM Sans Bold, white with a dark stroke.
+- **End card:** Jost Bold tagline, and the URL in Jost ExtraBold with an underline
+  wipe and one “pop”.
+- **Logo bug:** the TH monogram in the top-right corner, scaling in.
+- **Fonts:** the bold weights (`fonts/`: DM Sans and Jost Medium/Bold/ExtraBold,
+  SIL OFL, from Google Fonts) are campaign copies; `brand/fonts` is unchanged.
+
+The wordmark is never retyped; the logo is the supplied SVG rasterised unmodified,
+with its aspect ratio preserved.
 
 ## How to edit and re-render
 

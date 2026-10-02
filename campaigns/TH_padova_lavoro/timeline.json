@@ -89,22 +89,26 @@
     {
       "text": "A Padova per lavoro?",
       "in": 0.35,
-      "out": 4.75
+      "out": 4.75,
+      "accent": "Padova"
     },
     {
       "text": "Trova il tuo spazio.",
-      "in": 5.35,
-      "out": 9.55
+      "in": 7.7,
+      "out": 9.6,
+      "accent": "spazio."
     },
     {
       "text": "Spazio per vivere e lavorare.",
       "in": 10.45,
-      "out": 18.7
+      "out": 18.7,
+      "accent": "vivere e lavorare."
     },
     {
       "text": "Soggiorni brevi e medi.",
       "in": 19.35,
-      "out": 24.7
+      "out": 22.75,
+      "accent": "brevi e medi."
     }
   ],
   "end_card": {
@@ -115,7 +119,8 @@
     "cta": "Scopri le soluzioni su tailorhomes.it",
     "logo_in": 25.25,
     "tagline_in": 25.9,
-    "cta_in": 26.4
+    "cta_in": 26.4,
+    "tagline_accent": "Tailor Homes."
   },
   "voiceover": {
     "file": "audio/vo/vo_take2_julian_source.mp3",

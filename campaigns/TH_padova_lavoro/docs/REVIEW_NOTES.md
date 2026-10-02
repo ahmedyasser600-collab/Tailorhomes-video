@@ -50,6 +50,24 @@
   calendar dates and folder are the library’s “ESEMPIO” sample props. “Rendering
   3D illustrativo” is shown over the interiors.
 
+## Typography revision (client feedback, 2 Oct)
+
+Cream headline boxes and the logo badge were removed. Headlines are now bold Jost
+with kinetic word reveals and accent underlines; captions are bold with a stroke.
+Text colour adapts to the background (measured per frame: navy on light, cream on
+dark). Layout changes:
+- The logo bug moved to the top-right.
+- Headlines start at y 272, which clears the suitcase handle in shot 1 and the
+  calendar in shot 4.
+- “Trova il tuo spazio.” enters at 7.7 s, once the keys have lifted away, so it
+  never covers them.
+- “Soggiorni brevi e medi.” exits at 22.75 s, before the camera push brings the
+  calendar into the text area.
+
+Re-encoded and re-verified: 900 frames, 30.0 s, A/V aligned, −13.9 LUFS. The
+contact sheet was inspected again. The preview is now also built from the final
+plates, so it matches the final.
+
 ## Not verified — needs a person
 
 1. **Listen to the narration.** Check pronunciation of “Tailor Homes” and
@@ -72,7 +90,5 @@
   The headline carries the location.
 - The S2→S3 transition is a match dissolve from the warm interior to the neutral
   dollhouse lighting, so there is a brief shift in colour temperature, as intended.
-- The S2 focus fix and the S4 framing change are in the final render only; the
-  540×960 preview predates them.
 - The final render was interrupted twice by container restarts and resumed from
   the completed frames. Every frame was validated after each resume.
