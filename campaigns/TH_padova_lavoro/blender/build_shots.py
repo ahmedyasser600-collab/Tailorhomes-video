@@ -448,6 +448,84 @@ def s4():
     return sc
 
 
+# ----------------------------------------------------------------- printed labels
+# Blender's FONT objects in the library props (calendar, welcome folder, marker)
+# fill some glyph counters incorrectly at these tiny sizes ("SOGGIO?NO", "Benv=nuti",
+# solid A's), and the marker label floats above its platform. Each label is replaced
+# by a flat card carrying the same text typeset with Pillow, laid on its surface.
+LABEL_PX_PER_EM = 220
+LABEL_SINK = {                      # how far (m) to move the card from the text back onto its surface
+    "Calendar_Title": 0.002, "Calendar_Sample_Label": 0.002, "Calendar_Day": 0.0012,
+    "Welcome_Title": 0.0015, "Welcome_Label": 0.0015, "Welcome_Inside_Title": 0.0006,
+    "Welcome_Inside_Demo": 0.0006, "Laptop_Demo_Label": 0.0, "Location_Label": 0.0,
+}
+
+
+def _label_image(body, font_file, rgb, name):
+    from PIL import Image, ImageDraw, ImageFont
+    f = ImageFont.truetype(str(font_file), LABEL_PX_PER_EM)
+    lines = body.split("\n")
+    d = ImageDraw.Draw(Image.new("L", (8, 8)))
+    lh = round(LABEL_PX_PER_EM * 1.0)
+    widths = [d.textlength(l, font=f) for l in lines]
+    pad = 40
+    w, h = round(max(widths)) + 2 * pad, lh * len(lines) + 2 * pad
+    im = Image.new("RGBA", (w, h), rgb + (0,))
+    dr = ImageDraw.Draw(im)
+    for i, (l, lw) in enumerate(zip(lines, widths)):
+        dr.text(((w - lw) / 2, pad + i * lh + lh / 2), l, font=f, fill=rgb + (255,), anchor="lm")
+    path = HERE / "label_textures" / f"{name}.png"
+    path.parent.mkdir(exist_ok=True)
+    im.save(path)
+    return path, w, h
+
+
+def text_to_cards(sc):
+    fonts = HERE.parent / "fonts"
+    done = {}
+    for ob in [o for o in sc.objects if o.type == "FONT"]:
+        base = ob.name.split(".")[0]
+        cu = ob.data
+        font_file = fonts / ("CormorantGaramond-Regular.ttf" if "Cormorant" in cu.font.name else "Jost-Regular.ttf")
+        bc = cu.materials[0].node_tree.nodes["Principled BSDF"].inputs["Base Color"].default_value
+        srgb = tuple(round(255 * (12.92 * c if c <= 0.0031308 else 1.055 * c ** (1 / 2.4) - 0.055)) for c in bc[:3])
+        key = (cu.body, font_file.name, srgb)
+        if key not in done:
+            tag = f"label_{len(done):02d}_{base}"
+            path, w, h = _label_image(cu.body, font_file, srgb, tag)
+            img = bpy.data.images.load(str(path))
+            img.pack()
+            m = bpy.data.materials.new(tag)
+            m.use_nodes = True
+            nt = m.node_tree
+            tex = nt.nodes.new("ShaderNodeTexImage")
+            tex.image = img
+            bsdf = nt.nodes["Principled BSDF"]
+            nt.links.new(tex.outputs["Color"], bsdf.inputs["Base Color"])
+            nt.links.new(tex.outputs["Alpha"], bsdf.inputs["Alpha"])
+            bsdf.inputs["Roughness"].default_value = 0.6
+            done[key] = (m, w, h)
+        m, w, h = done[key]
+        sx, sy = w / LABEL_PX_PER_EM * cu.size / 2, h / LABEL_PX_PER_EM * cu.size / 2
+        z = -LABEL_SINK.get(base, 0.0)
+        me = bpy.data.meshes.new(ob.name + "_Card")
+        me.from_pydata([(-sx, -sy, z), (sx, -sy, z), (sx, sy, z), (-sx, sy, z)], [], [(0, 1, 2, 3)])
+        uv = me.uv_layers.new()
+        for li, co in zip(range(4), [(0, 0), (1, 0), (1, 1), (0, 1)]):
+            uv.data[li].uv = co
+        me.materials.append(m)
+        card = bpy.data.objects.new(ob.name + "_Card", me)
+        for col in ob.users_collection:
+            col.objects.link(card)
+        card.parent = ob.parent
+        card.matrix_parent_inverse = ob.matrix_parent_inverse.copy()
+        card.location, card.rotation_euler, card.scale = ob.location.copy(), ob.rotation_euler.copy(), ob.scale.copy()
+        if base == "Location_Label":                 # lay it on the platform top (z 0.05), not 2 cm above
+            card.location.z = 0.0505
+        card.visible_shadow = False
+        ob.hide_render = ob.hide_viewport = True
+
+
 def main():
     bpy.ops.wm.read_factory_settings(use_empty=True)
     MATS.update(
@@ -460,6 +538,7 @@ def main():
     )
     for build in (s1, s2, s3, s4):
         sc = build()
+        text_to_cards(sc)
         sc.frame_set(1)
         print("SCENE_BUILT", sc.name, sc.frame_end, flush=True)
     for s in list(bpy.data.scenes):
