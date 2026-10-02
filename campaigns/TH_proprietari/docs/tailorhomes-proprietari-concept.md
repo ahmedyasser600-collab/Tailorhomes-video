@@ -35,7 +35,7 @@ The client approved this script. It is read by an ElevenLabs preset voice (“Gi
 |---|---|---|
 | open | S. Eufemia living room → Via Nullo living room | PER PROPRIETARI / *Hai una casa a Padova?* → *Ce ne prendiamo cura, ogni giorno.* |
 | ch1 | Vicolo Romano bedroom → Colore & Design kitchen | 01 Operatività e gestione: PULIZIE · MANUTENZIONE · OSPITI |
-| ch2 | S. Eufemia orange wall → hammock loft | 02 Valorizzazione: HOME STAGING · FOTOGRAFIA |
+| ch2 | Vicolo Romano table setting → S. Eufemia hammock loft | 02 Valorizzazione: HOME STAGING · FOTOGRAFIA |
 | ch3 | Via Nullo dining → table detail | 03 Marketing e performance: CANALI ONLINE · DISTRIBUZIONE |
 | ch4 | S. Eufemia beams bedroom → Colore & Design reading corner | 04 Supporto e consulenza: IMMOBILIARE · LEGALE · FISCALE |
 | close | S. Eufemia dining | *La tua casa, su misura.* |
@@ -61,3 +61,7 @@ python scripts/render.py --mode final
 ## Open items
 - Nobody has listened to the music and the mix yet.
 - The services page wording was checked against the client's screenshot, not the live site.
+
+## Revision 1
+- ch2 opens on the Vicolo Romano table setting instead of the S. Eufemia orange wall, at the client's request.
+- Cover added: `out/tailorhomes-proprietari-cover.png` (`scripts/make_cover.py`). Its key content sits inside the central 3:4 area for the profile-grid crop.
