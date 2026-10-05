@@ -3,9 +3,12 @@ import { Composition } from "remotion";
 import { FORMATS, FPS, Format } from "./brand";
 import { Checklist, checklistDuration } from "./templates/Checklist";
 import { ListReel, listDuration } from "./templates/ListReel";
+import { FullBleed, FullBleedProps, fullDuration } from "./templates/FullBleed";
 import checklist from "../data/checklist.json";
 import showcase from "../data/showcase.json";
 import services from "../data/services.json";
+import ospedale from "../data/ospedale.json";
+import eventi from "../data/eventi.json";
 
 // Italian only (client, 2026-10). All videos share the approved checklist style.
 // Music: client-supplied licensed tracks (data/music_credits.json), fitted by scripts/fit_music.py.
@@ -48,6 +51,28 @@ export const RemotionRoot: React.FC = () => (
         fps={FPS}
         {...FORMATS[format]}
         defaultProps={{ format, ...showcase, music: "fit_galleria.wav", credit: CREDIT.zay }}
+      />
+    ))}
+    {formats.map((format) => (
+      <Composition
+        key={`ospedale-it-${format}`}
+        id={`ospedale-it-${format}`}
+        component={FullBleed}
+        durationInFrames={fullDuration(ospedale.end, ospedale.hold)}
+        fps={FPS}
+        {...FORMATS[format]}
+        defaultProps={{ format, ...ospedale, cut: "fade", music: "fit_ospedale.wav", credit: CREDIT.cat } as FullBleedProps}
+      />
+    ))}
+    {formats.map((format) => (
+      <Composition
+        key={`eventi-it-${format}`}
+        id={`eventi-it-${format}`}
+        component={FullBleed}
+        durationInFrames={fullDuration(eventi.end, eventi.hold)}
+        fps={FPS}
+        {...FORMATS[format]}
+        defaultProps={{ format, ...eventi, cut: "hard", music: "fit_eventi.wav", credit: CREDIT.zay } as FullBleedProps}
       />
     ))}
   </>

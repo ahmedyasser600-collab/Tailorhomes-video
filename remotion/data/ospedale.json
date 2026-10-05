@@ -1,0 +1,62 @@
+{
+ "label": "Soggiorni a Padova",
+ "shots": [
+  {
+   "photo": "p087",
+   "start": 0
+  },
+  {
+   "photo": "p123",
+   "start": 3.595
+  },
+  {
+   "photo": "p126",
+   "start": 7.107
+  },
+  {
+   "photo": "p041",
+   "start": 11.864
+  },
+  {
+   "photo": "p055",
+   "start": 16.424
+  }
+ ],
+ "cut": "fade",
+ "lines": [
+  {
+   "text": "Quando sei a Padova per stare vicino a chi ami,",
+   "start": 0.6,
+   "end": 3.418
+  },
+  {
+   "text": "ti serve una casa, non solo un letto.",
+   "start": 3.715,
+   "end": 6.225
+  },
+  {
+   "text": "Appartamenti arredati per qualche notte, anche vicino all'ospedale.",
+   "start": 7.227,
+   "end": 11.072
+  },
+  {
+   "text": "Pulizie e lavanderia professionali: alla casa pensiamo noi.",
+   "start": 11.984,
+   "end": 15.691
+  },
+  {
+   "text": "Tu pensa solo a chi ami.",
+   "start": 16.544,
+   "end": 17.874
+  }
+ ],
+ "end": 18.372,
+ "hold": 3.6,
+ "tag": "La tua casa a Padova, su misura.",
+ "vo": "vo_ospedale_it.wav",
+ "voLead": 0.6,
+ "music": {
+  "track": "cat-cafe_snoozy-beats.mp3",
+  "start": 11.1
+ }
+}

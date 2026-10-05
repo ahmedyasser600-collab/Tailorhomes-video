@@ -1,0 +1,50 @@
+{
+ "wav": "audio/vo_ospedale_it.wav",
+ "voice": "Gia (ElevenLabs preset via Higgsfield)",
+ "phrases": [
+  "Quando sei a Padova per stare vicino a chi ami,",
+  "ti serve una casa, non solo un letto.",
+  "Appartamenti arredati per qualche notte, anche vicino all'ospedale.",
+  "Pulizie e lavanderia professionali: alla casa pensiamo noi.",
+  "Tu pensa solo a chi ami.",
+  "Tailor Homes."
+ ],
+ "ignore_pauses": [
+  4.177,
+  8.889,
+  13.509
+ ],
+ "duration": 18.96,
+ "timings": [
+  {
+   "text": "Quando sei a Padova per stare vicino a chi ami,",
+   "start": 0.0,
+   "end": 2.818
+  },
+  {
+   "text": "ti serve una casa, non solo un letto.",
+   "start": 3.115,
+   "end": 5.625
+  },
+  {
+   "text": "Appartamenti arredati per qualche notte, anche vicino all'ospedale.",
+   "start": 6.627,
+   "end": 10.472
+  },
+  {
+   "text": "Pulizie e lavanderia professionali: alla casa pensiamo noi.",
+   "start": 11.384,
+   "end": 15.091
+  },
+  {
+   "text": "Tu pensa solo a chi ami.",
+   "start": 15.944,
+   "end": 17.274
+  },
+  {
+   "text": "Tailor Homes.",
+   "start": 18.072,
+   "end": 18.96
+  }
+ ]
+}

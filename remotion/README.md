@@ -7,8 +7,10 @@ Italian only (client decision). The checklist is the approved video and the styl
 | `checklist-it-<format>` | "Pronta per il prossimo ospite". Six items tick off on the beat over real photos. This is the approved style reference. | cat cafe by Snoozy Beats |
 | `servizi-it-<format>` | "Cosa facciamo per la tua casa". It shows the four service pillars from the website (01–04), each with a detail line, over real photos. | cat cafe by Snoozy Beats |
 | `galleria-it-<format>` | "Scegli la tua casa a Padova". Six rooms (01–06), each changing on a kick of the track. No apartment names. | ZAY YEZ by ZiMPL |
+| `ospedale-it-<format>` | "Soggiorni a Padova". For people in Padova to be near someone in hospital. Full-screen photos, narrated by Gia. Only some apartments are near the hospital, so the voiceover says "anche vicino all'ospedale". No hospital logo and no partnership claim. | cat cafe by Snoozy Beats |
+| `eventi-it-<format>` | "Prossimi eventi a Padova". Seven upcoming fairs and festivals, one per photo, each cut on the beat. To reuse it, edit the dates in `data/eventi.json` (re-check them before each post). | ZAY YEZ by ZiMPL |
 
-`checklist` uses `src/templates/Checklist.tsx`. `servizi` and `galleria` use `src/templates/ListReel.tsx`, a sibling with the same page, slots and motion, but numbered rows instead of ticks. Their content lives in `data/services.json` and `data/showcase.json`.
+`checklist` uses `src/templates/Checklist.tsx`. `servizi` and `galleria` use `src/templates/ListReel.tsx`, a sibling with the same page, slots and motion, but numbered rows instead of ticks. Their content lives in `data/services.json` and `data/showcase.json`. `ospedale` and `eventi` use `src/templates/FullBleed.tsx`: full-screen photos with white type on a scrim, the look of Films 01–03.
 
 ## Quality system
 - **Text fits its space.** Every text element sizes itself to its box (`FitText` / `fitBalanced` in `src/qa.tsx`). Two-line text breaks at the most even point.

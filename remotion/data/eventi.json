@@ -1,0 +1,96 @@
+{
+ "label": "Padova · prossimi eventi",
+ "shots": [
+  {
+   "photo": "p004",
+   "start": 0
+  },
+  {
+   "photo": "p135",
+   "start": 2.358
+  },
+  {
+   "photo": "p104",
+   "start": 4.124
+  },
+  {
+   "photo": "p019",
+   "start": 5.89
+  },
+  {
+   "photo": "p093",
+   "start": 7.656
+  },
+  {
+   "photo": "p058",
+   "start": 9.422
+  },
+  {
+   "photo": "p083",
+   "start": 11.189
+  },
+  {
+   "photo": "p115",
+   "start": 12.955
+  },
+  {
+   "photo": "p085",
+   "start": 14.721
+  }
+ ],
+ "cut": "hard",
+ "intro": {
+  "text": "Prossimi eventi a Padova.",
+  "start": 0.2,
+  "end": 2.358
+ },
+ "items": [
+  {
+   "when": "14–16 ottobre",
+   "what": "Green Logistics Expo",
+   "start": 2.358
+  },
+  {
+   "when": "6–8 novembre",
+   "what": "CICAP Fest",
+   "start": 4.124
+  },
+  {
+   "when": "7–15 novembre",
+   "what": "Antiquaria Padova",
+   "start": 5.89
+  },
+  {
+   "when": "13–16 novembre",
+   "what": "Arte Padova",
+   "start": 7.656
+  },
+  {
+   "when": "27–29 novembre",
+   "what": "Padova Ink Show",
+   "start": 9.422
+  },
+  {
+   "when": "13–14 marzo 2027",
+   "what": "Be Comics",
+   "start": 11.189
+  },
+  {
+   "when": "Maggio 2027",
+   "what": "Campionaria",
+   "start": 12.955
+  }
+ ],
+ "outro": {
+  "text": "Il tuo appartamento in città.",
+  "start": 14.721
+ },
+ "end": 17.076,
+ "hold": 3.0,
+ "tag": "La tua casa a Padova, su misura.",
+ "music": {
+  "track": "zay-yez_zimpl.mp3",
+  "start": 27.08
+ },
+ "sources": "Dates checked 2026-10-05 against public listings (Fiera di Padova calendars, organisers' announcements). Gustofair and Exposcuola left out: dates not confirmed. Campionaria 2027 days not yet published."
+}
