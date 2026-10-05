@@ -4,9 +4,11 @@ Italian only (client decision). The checklist is the approved video and the styl
 
 | Id | Video | Music (client-supplied, CC BY 3.0) |
 |---|---|---|
-| `showcase-<it\|en>-<format>` | Best-of showcase. It opens on the house, then cuts through 10 rooms, each cut on a kick of the track. | ZAY YEZ by ZiMPL |
-| `outcome-<it\|en>-<format>` | Outcome reel. It sells the stay (arrive, door, coffee, work, rest, evening), narrated by Gia (IT) and Sienna (EN). | cat cafe by Snoozy Beats |
-| `checklist-<it\|en>-<format>` | "Pronta per il prossimo ospite" / "Ready for the next guest". Six items tick off on the beat over real photos. | cat cafe by Snoozy Beats |
+| `checklist-it-<format>` | "Pronta per il prossimo ospite". Six items tick off on the beat over real photos. This is the approved style reference. | cat cafe by Snoozy Beats |
+| `servizi-it-<format>` | "Cosa facciamo per la tua casa". It shows the four service pillars from the website (01–04), each with a detail line, over real photos. | cat cafe by Snoozy Beats |
+| `galleria-it-<format>` | "Scegli la tua casa a Padova". Six rooms (01–06), each changing on a kick of the track. No apartment names. | ZAY YEZ by ZiMPL |
+
+`checklist` uses `src/templates/Checklist.tsx`. `servizi` and `galleria` use `src/templates/ListReel.tsx`, a sibling with the same page, slots and motion, but numbered rows instead of ticks. Their content lives in `data/services.json` and `data/showcase.json`.
 
 ## Quality system
 - **Text fits its space.** Every text element sizes itself to its box (`FitText` / `fitBalanced` in `src/qa.tsx`). Two-line text breaks at the most even point.
@@ -22,7 +24,6 @@ Italian only (client decision). The checklist is the approved video and the styl
 
 ## Rebuild
 ```
-python scripts/vo_timing.py outcome_it outcome_en          # after a new narration
 python scripts/fit_music.py <track> <seconds> <out> [...]  # see data/*.json for the start points used
 node scripts/render-all.mjs [filter]                       # -> out/<id>.mp4 + out/qa-report.txt
 ```

@@ -10,12 +10,10 @@
    "promoted_by": "Audio Library https://links.al/youtube",
    "credit_text": "Music: ZAY YEZ by ZiMPL https://soundcloud.com/zimplmusic\nLicense: Creative Commons — Attribution 3.0 Unported — CC BY 3.0\nFree Download / Stream: https://links.al/rMB\nMusic promoted by Audio Library: https://links.al/youtube",
    "used_in": [
-    "showcase-it-9x16",
-    "showcase-it-4x5",
-    "showcase-en-9x16",
-    "showcase-en-4x5"
+    "galleria-it-9x16",
+    "galleria-it-4x5"
    ],
-   "section": "from 27.08 s (drop at 29.44 s lands on the first beat cut)"
+   "section": "from 27.08 s (drop at 29.44 s lands on the second item; every item change is on a kick)"
   },
   {
    "file": "public/audio/library/cat-cafe_snoozy-beats.mp3",
@@ -27,16 +25,12 @@
    "promoted_by": "Audio Library https://links.al/youtube",
    "credit_text": "Music: cat cafe by Snoozy Beats https://soundcloud.com/snoozybeats\nLicense: Creative Commons — Attribution 3.0 Unported — CC BY 3.0\nFree Download / Stream: https://links.al/Z6g\nMusic promoted by Audio Library: https://links.al/youtube",
    "used_in": [
-    "outcome-it-9x16",
-    "outcome-it-4x5",
-    "outcome-en-9x16",
-    "outcome-en-4x5",
     "checklist-it-9x16",
     "checklist-it-4x5",
-    "checklist-en-9x16",
-    "checklist-en-4x5"
+    "servizi-it-9x16",
+    "servizi-it-4x5"
    ],
-   "section": "from 11.10 s (ducked under narration in the outcome reels)"
+   "section": "from 11.10 s (items change on bar downbeats, every 3.0 s)"
   }
  ]
 }

@@ -1,0 +1,42 @@
+{
+ "music": {
+  "file": "cat-cafe_snoozy-beats.mp3",
+  "start": 11.1,
+  "note": "bar lines every 3.0 s from 1.5 s; one pillar per bar"
+ },
+ "source": "tailorhomes.it/our-servies/ (client screenshot)",
+ "label": "Per proprietari",
+ "title": "Cosa facciamo per la tua casa.",
+ "sub": "Property management a Padova.",
+ "tag": "La tua casa, su misura.",
+ "items": [
+  {
+   "text": "Operatività e gestione",
+   "detail": "Pulizie · manutenzione · gestione ospiti",
+   "photo": "p141"
+  },
+  {
+   "text": "Valorizzazione",
+   "detail": "Home staging · fotografia professionale",
+   "photo": "p135"
+  },
+  {
+   "text": "Marketing e performance",
+   "detail": "Canali online · marketing · canali diretti",
+   "photo": "p011"
+  },
+  {
+   "text": "Supporto e consulenza",
+   "detail": "Consulenza immobiliare · legale e fiscale",
+   "photo": "p004"
+  }
+ ],
+ "starts": [
+  0.2,
+  4.5,
+  7.5,
+  10.5
+ ],
+ "end": 13.5,
+ "hold": 3.0
+}
