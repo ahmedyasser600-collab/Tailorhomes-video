@@ -1,67 +1,28 @@
-# Tailor Homes: Remotion template system (Phase 1)
+# Tailor Homes: Remotion videos
 
-One composition per concept, fed by data files. One build renders every variant in
-**9:16** (Reels / TikTok / Stories) and **4:5** (Meta feed ads), Italian and English.
+Three polished videos. Each is made in Italian and English, in **9:16** (Reels, Stories, TikTok) and **4:5** (Meta feed). That gives 12 files.
 
-## Templates
-
-| Id pattern | Concept | Audience | Audio | Data |
-|---|---|---|---|---|
-| `gallery-<gallery>-<it\|en>-<9x16\|4x5>` | **A**: themed photo gallery (no apartment names) | Guests, ads | Music only | `data/galleries.json` |
-| `services-<01..04>-it-<format>` | **B**: owner services, one pillar per video, question hook + 3 services from the site | Owners | Narration (Gia) + music | `data/services.json`, `data/vo/services_*.json` |
-| `checklist-ready-<it\|en>-<format>` | **C**: “Pronta per il prossimo ospite”, items tick off over real photos | Owners, guests | Music + soft ticks | `data/checklist.json` |
-| `outcome-<h1\|h2\|h3>-<it\|en>-<format>` | **D**: outcome reel (the stay, not the features); three hook variants for ad tests | Guests, ads | Narration (Gia IT / Sienna EN) + music | `data/outcome.json`, `data/vo/outcome_*.json` |
-
-Phase 1 output is 44 videos:
-
-| Template | Count | How it breaks down |
+| Id | Video | Music (client-supplied, CC BY 3.0) |
 |---|---|---|
-| A | 20 | 5 galleries × 2 languages × 2 formats |
-| B | 8 | 4 pillars × 2 formats |
-| C | 4 | 2 languages × 2 formats |
-| D | 12 | 3 hooks × 2 languages × 2 formats |
+| `showcase-<it\|en>-<format>` | Best-of showcase. It opens on the house, then cuts through 10 rooms, each cut on a kick of the track. | ZAY YEZ by ZiMPL |
+| `outcome-<it\|en>-<format>` | Outcome reel. It sells the stay (arrive, door, coffee, work, rest, evening), narrated by Gia (IT) and Sienna (EN). | cat cafe by Snoozy Beats |
+| `checklist-<it\|en>-<format>` | "Pronta per il prossimo ospite" / "Ready for the next guest". Six items tick off on the beat over real photos. | cat cafe by Snoozy Beats |
 
-## Brand kit (from the website)
+## Quality system
+- **Text fits its space.** Every text element sizes itself to its box (`FitText` / `fitBalanced` in `src/qa.tsx`). Two-line text breaks at the most even point.
+- **Layout is checked automatically.** On every rendered frame, `QA` checks that no text overlaps other text, leaves its card or tag, or leaves the safe area. `scripts/render-all.mjs` writes the results to `out/qa-report.txt`, and that report must read "no layout issues".
+- **Fonts load first.** Text is measured only after the fonts have loaded (`FontGate`).
+- **Photos stay real.** They only scale slowly and evenly, with no pans and no retouching. They come from the client's Drive, and their provenance is recorded in `data/photos.json`.
 
-`src/brand.ts` holds the brand tokens:
+## Music (client rule, see ../CLAUDE.md)
+- Never generate music. Always ask the client, who supplies licensed tracks with credits.
+- Supplied tracks live in `public/audio/library/`, and their credits in `data/music_credits.json`.
+- `scripts/fit_music.py` fits a track to a video: it sets the start point and length, fades it out, and ducks it under any narration with a sidechain.
+- Each end card carries a short credit line. Put the full credit text in the post caption.
 
-- **Colours:**
-  - card `#F4F0ED`
-  - page `#EAE9E5`
-  - terracotta `#9C5044`
-  - ink `#181818`
-  - body `#4C4844`
-- **Type:**
-  - DM Sans for titles and body.
-  - Cormorant Garamond Italic for the 01–04 numerals only. Its grave accents are faulty, so it is never used to set Italian text.
-  - Jost for tracked labels.
-- **Logo:** the supplied artwork, unmodified, on light backgrounds.
-
-Safe areas are defined per format. The 9:16 format keeps text clear of the Reels user interface.
-
-## Photos
-
-`public/photos/pNNN.jpg` are real Tailor Homes photos from the client's Drive.
-
-- They are resized only, to a 2400 px long side. They are never generated or retouched.
-- Provenance (Drive id and file name for each photo) is in `data/photos.json`.
-- On screen, photos only scale slowly and evenly. There are no pans or drifts.
-
-## Adding content without touching code
-
-- **New gallery:** add an entry to `data/galleries.json` with a title for each language and a list of photo ids. Then run `scripts/make_music.py gallery <seconds> public/audio/music_gallery_<n>.wav` if that photo count is new.
-- **New narration:**
-  1. Add `data/vo/<name>.json` with the wav path and the phrase list.
-  2. Run `python scripts/vo_timing.py <name>`.
-  3. Run `python scripts/make_all_audio.py`.
-- **Render:** `node scripts/render-all.mjs [filter]` renders the videos to `out/<id>.mp4`, with audio levelled to −14 LUFS.
-
-A Google Sheet can later export straight into these JSON files.
-
-## Claims policy
-
-Owner-service wording comes only from the services page (`tailorhomes.it/our-servies/`, client screenshot).
-
-The videos make no claims about prices, earnings, occupancy, reviews or locations.
-
-Music is original and code-synthesised. Narration is ElevenLabs preset voices via Higgsfield.
+## Rebuild
+```
+python scripts/vo_timing.py outcome_it outcome_en          # after a new narration
+python scripts/fit_music.py <track> <seconds> <out> [...]  # see data/*.json for the start points used
+node scripts/render-all.mjs [filter]                       # -> out/<id>.mp4 + out/qa-report.txt
+```

@@ -21,11 +21,14 @@ export const FONT = {
   label: "Jost",
 } as const;
 
-loadFont({ family: FONT.sans, url: staticFile("fonts/DMSans-Regular.ttf"), weight: "400" });
-loadFont({ family: FONT.sans, url: staticFile("fonts/DMSans-Medium.ttf"), weight: "500" });
-loadFont({ family: FONT.sans, url: staticFile("fonts/DMSans-Bold.ttf"), weight: "700" });
-loadFont({ family: FONT.serif, url: staticFile("fonts/CormorantGaramond-MediumItalic.ttf"), weight: "500", style: "italic" });
-loadFont({ family: FONT.label, url: staticFile("fonts/Jost-SemiBold.ttf"), weight: "600" });
+/** Resolves once every brand font is loaded (text is only measured after this). */
+export const fontsReady = Promise.all([
+  loadFont({ family: FONT.sans, url: staticFile("fonts/DMSans-Regular.ttf"), weight: "400" }),
+  loadFont({ family: FONT.sans, url: staticFile("fonts/DMSans-Medium.ttf"), weight: "500" }),
+  loadFont({ family: FONT.sans, url: staticFile("fonts/DMSans-Bold.ttf"), weight: "700" }),
+  loadFont({ family: FONT.serif, url: staticFile("fonts/CormorantGaramond-MediumItalic.ttf"), weight: "500", style: "italic" }),
+  loadFont({ family: FONT.label, url: staticFile("fonts/Jost-SemiBold.ttf"), weight: "600" }),
+]);
 
 export const LOGO = staticFile("brand/logo.png"); // supplied artwork, used unmodified on light backgrounds
 export const URL_TEXT = "tailorhomes.it";

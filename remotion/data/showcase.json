@@ -1,0 +1,101 @@
+{
+ "music": {
+  "file": "zay-yez_zimpl.mp3",
+  "start": 27.08,
+  "note": "drop (first kick) at 29.438 s in the track; kicks every 0.5887 s"
+ },
+ "cuts": [
+  0.2,
+  2.358,
+  4.124,
+  5.89,
+  7.656,
+  9.422,
+  11.189,
+  12.955,
+  14.721,
+  16.487,
+  18.253
+ ],
+ "end": 20.019,
+ "duration": 22.96,
+ "photos": [
+  {
+   "id": "p004",
+   "it": "La casa",
+   "en": "The house",
+   "pos": "50% 60%"
+  },
+  {
+   "id": "p012",
+   "it": "Ingresso",
+   "en": "Entrance",
+   "pos": "55% 50%"
+  },
+  {
+   "id": "p011",
+   "it": "Living",
+   "en": "Living room",
+   "pos": "45% 60%"
+  },
+  {
+   "id": "p098",
+   "it": "Living",
+   "en": "Living room",
+   "pos": "50% 55%"
+  },
+  {
+   "id": "p083",
+   "it": "Cucina",
+   "en": "Kitchen",
+   "pos": "45% 50%"
+  },
+  {
+   "id": "p018",
+   "it": "Dettagli",
+   "en": "Details",
+   "pos": "50% 50%"
+  },
+  {
+   "id": "p087",
+   "it": "Camera",
+   "en": "Bedroom",
+   "pos": "50% 60%"
+  },
+  {
+   "id": "p014",
+   "it": "Camera",
+   "en": "Bedroom",
+   "pos": "45% 55%"
+  },
+  {
+   "id": "p070",
+   "it": "Loft",
+   "en": "Loft",
+   "pos": "55% 55%"
+  },
+  {
+   "id": "p135",
+   "it": "Living",
+   "en": "Living room",
+   "pos": "50% 55%"
+  },
+  {
+   "id": "p085",
+   "it": "Balcone",
+   "en": "Balcony",
+   "pos": "50% 50%"
+  }
+ ],
+ "it": {
+  "eyebrow": "Tailor Homes · Padova",
+  "title": "Scegli la tua casa a Padova.",
+  "tag": "La tua casa a Padova, su misura."
+ },
+ "en": {
+  "eyebrow": "Tailor Homes · Padova",
+  "title": "Find your home in Padova.",
+  "tag": "Your home in Padova, tailored."
+ },
+ "note": "photo 1 opens the video (hook, no empty intro); photos 2-11 cut on kicks from the drop"
+}

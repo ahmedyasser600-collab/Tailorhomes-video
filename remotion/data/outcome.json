@@ -1,28 +1,22 @@
 {
  "photos": [
-  "p085",
+  "p004",
   "p012",
   "p123",
   "p074",
-  "p087",
-  "p115"
+  "p058",
+  "p085"
  ],
- "hooks": {
-  "h1": {
-   "it": "Più di un posto dove dormire.",
-   "en": "More than a place to sleep."
-  },
-  "h2": {
-   "it": "Come a casa, a Padova.",
-   "en": "Feel at home in Padova."
-  },
-  "h3": {
-   "it": "Il tuo soggiorno, su misura.",
-   "en": "Your stay, tailored."
-  }
- },
  "vo": {
   "it": "outcome_it",
   "en": "outcome_en"
+ },
+ "hook": {
+  "it": "Più di un posto dove dormire.",
+  "en": "More than a place to sleep."
+ },
+ "music": {
+  "file": "cat-cafe_snoozy-beats.mp3",
+  "start": 11.1
  }
 }

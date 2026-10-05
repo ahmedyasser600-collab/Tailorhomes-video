@@ -3,9 +3,9 @@
   "p091",
   "p041",
   "p141",
-  "p102",
+  "p083",
   "p088",
-  "p090"
+  "p069"
  ],
  "it": {
   "label": "Dietro le quinte",
@@ -34,5 +34,10 @@
    "Guest essentials"
   ],
   "tag": "We take care of it."
+ },
+ "music": {
+  "file": "cat-cafe_snoozy-beats.mp3",
+  "start": 11.1,
+  "note": "bar downbeat at 12.60 s; music starts 1.5 s before so ticks fall every 2 beats (1.5 s)"
  }
 }

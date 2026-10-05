@@ -1,5 +1,5 @@
 // Batch-render every composition (or those matching a filter) to out/<id>.mp4,
-// then level the audio to -14 LUFS integrated / -1.5 dBTP (video stream copied untouched).
+// checks every frame's layout (src/qa.tsx) and writes out/qa-report.txt, then levels the audio to -14 LUFS integrated / -1.5 dBTP (video stream copied untouched).
 //
 //   node scripts/render-all.mjs                 # everything
 //   node scripts/render-all.mjs gallery-camere  # ids containing the filter
@@ -8,7 +8,7 @@
 import { bundle } from "@remotion/bundler";
 import { renderMedia, selectComposition, getCompositions } from "@remotion/renderer";
 import { execFileSync } from "node:child_process";
-import { existsSync, mkdirSync, renameSync } from "node:fs";
+import { existsSync, mkdirSync, writeFileSync } from "node:fs";
 import path from "node:path";
 
 const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..");
@@ -23,6 +23,7 @@ const serveUrl = await bundle({ entryPoint: path.join(root, "src/index.ts") });
 const comps = (await getCompositions(serveUrl, { browserExecutable })).filter((c) => c.id.includes(filter));
 mkdirSync(path.join(root, "out"), { recursive: true });
 console.log(`rendering ${comps.length} compositions`);
+const qa = [];
 
 for (const c of comps) {
   const out = path.join(root, "out", `${c.id}.mp4`);
@@ -40,6 +41,10 @@ for (const c of comps) {
     outputLocation: raw,
     browserExecutable,
     concurrency: 4,
+    // layout QA from src/qa.tsx: every overlap / overflow is logged as QA_FAIL by the page
+    onBrowserLog: (log) => {
+      if (log.text.includes("QA_FAIL")) qa.push(`${c.id} ${log.text}`);
+    },
   });
   execFileSync("ffmpeg", [
     "-v", "error", "-y", "-i", raw, "-c:v", "copy",
@@ -49,3 +54,6 @@ for (const c of comps) {
   execFileSync("rm", ["-f", raw]);
   console.log(`${c.id}  ${(c.durationInFrames / c.fps).toFixed(1)}s  ${((Date.now() - t0) / 1000).toFixed(0)}s render`);
 }
+
+writeFileSync(path.join(root, "out", "qa-report.txt"), qa.length ? qa.join("\n") + "\n" : "no layout issues\n");
+console.log(qa.length ? `QA: ${qa.length} layout issues, see out/qa-report.txt` : "QA: no layout issues");

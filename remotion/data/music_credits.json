@@ -1,1 +1,42 @@
-{"tracks": []}
+{
+ "tracks": [
+  {
+   "file": "public/audio/library/zay-yez_zimpl.mp3",
+   "title": "ZAY YEZ",
+   "artist": "ZiMPL",
+   "artist_url": "https://soundcloud.com/zimplmusic",
+   "license": "Creative Commons — Attribution 3.0 Unported — CC BY 3.0",
+   "download": "https://links.al/rMB",
+   "promoted_by": "Audio Library https://links.al/youtube",
+   "credit_text": "Music: ZAY YEZ by ZiMPL https://soundcloud.com/zimplmusic\nLicense: Creative Commons — Attribution 3.0 Unported — CC BY 3.0\nFree Download / Stream: https://links.al/rMB\nMusic promoted by Audio Library: https://links.al/youtube",
+   "used_in": [
+    "showcase-it-9x16",
+    "showcase-it-4x5",
+    "showcase-en-9x16",
+    "showcase-en-4x5"
+   ],
+   "section": "from 27.08 s (drop at 29.44 s lands on the first beat cut)"
+  },
+  {
+   "file": "public/audio/library/cat-cafe_snoozy-beats.mp3",
+   "title": "cat cafe",
+   "artist": "Snoozy Beats",
+   "artist_url": "https://soundcloud.com/snoozybeats",
+   "license": "Creative Commons — Attribution 3.0 Unported — CC BY 3.0",
+   "download": "https://links.al/Z6g",
+   "promoted_by": "Audio Library https://links.al/youtube",
+   "credit_text": "Music: cat cafe by Snoozy Beats https://soundcloud.com/snoozybeats\nLicense: Creative Commons — Attribution 3.0 Unported — CC BY 3.0\nFree Download / Stream: https://links.al/Z6g\nMusic promoted by Audio Library: https://links.al/youtube",
+   "used_in": [
+    "outcome-it-9x16",
+    "outcome-it-4x5",
+    "outcome-en-9x16",
+    "outcome-en-4x5",
+    "checklist-it-9x16",
+    "checklist-it-4x5",
+    "checklist-en-9x16",
+    "checklist-en-4x5"
+   ],
+   "section": "from 11.10 s (ducked under narration in the outcome reels)"
+  }
+ ]
+}
