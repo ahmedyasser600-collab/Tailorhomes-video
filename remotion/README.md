@@ -1,6 +1,6 @@
 # Tailor Homes: Remotion videos
 
-Three polished videos. Each is made in Italian and English, in **9:16** (Reels, Stories, TikTok) and **4:5** (Meta feed). That gives 12 files.
+Italian only (client decision). The checklist is the approved video and the style reference; the client rejected the outcome reel. Each video renders in **9:16** (Reels, Stories, TikTok) and **4:5** (Meta feed).
 
 | Id | Video | Music (client-supplied, CC BY 3.0) |
 |---|---|---|

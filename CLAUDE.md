@@ -18,4 +18,6 @@
 - **Apartment names:** do not show them in the generic templates. They are galleries only.
 - **Claims:** service claims come only from the website's services page. Make no claims about prices, earnings, occupancy, reviews or partnerships.
 - **Brand kit:** take it from the website (see `remotion/src/brand.ts`).
+- **Language:** Italian only. No English versions.
+- **Style reference:** the client liked the checklist video (`remotion/src/templates/Checklist.tsx`). They rejected the outcome reel (its sequence felt odd).
 - **Planning first:** when the client says "planning mode", discuss and agree before generating anything (voices, music, renders).

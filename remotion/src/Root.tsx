@@ -13,7 +13,7 @@ import voEn from "../data/vo/outcome_en.json";
 // Three polished videos, each in IT/EN and 9:16 (Reels) / 4:5 (feed). Ids: <video>-<lang>-<format>.
 // Music: client-supplied licensed tracks (data/music_credits.json), fitted by scripts/fit_music.py.
 const formats: Format[] = ["9x16", "4x5"];
-const langs: Lang[] = ["it", "en"];
+const langs: Lang[] = ["it"]; // Italian only (client, 2026-10)
 const CREDIT = {
   zay: "Music: ZAY YEZ by ZiMPL · CC BY 3.0",
   cat: "Music: cat cafe by Snoozy Beats · CC BY 3.0",
