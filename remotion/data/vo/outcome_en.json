@@ -1,0 +1,57 @@
+{
+ "wav": "audio/vo_outcome_en.wav",
+ "voice": "Sienna (ElevenLabs preset via Higgsfield)",
+ "phrases": [
+  "You arrive in Padova.",
+  "You open the door, and you're home.",
+  "A slow coffee.",
+  "A place to work.",
+  "A room made for rest.",
+  "And an evening all yours.",
+  "Tailor Homes.",
+  "Your home in Padova, tailored."
+ ],
+ "duration": 18.64,
+ "timings": [
+  {
+   "text": "You arrive in Padova.",
+   "start": 0.0,
+   "end": 1.846
+  },
+  {
+   "text": "You open the door, and you're home.",
+   "start": 2.776,
+   "end": 5.267
+  },
+  {
+   "text": "A slow coffee.",
+   "start": 5.874,
+   "end": 7.145
+  },
+  {
+   "text": "A place to work.",
+   "start": 7.813,
+   "end": 8.866
+  },
+  {
+   "text": "A room made for rest.",
+   "start": 9.512,
+   "end": 11.325
+  },
+  {
+   "text": "And an evening all yours.",
+   "start": 11.893,
+   "end": 14.039
+  },
+  {
+   "text": "Tailor Homes.",
+   "start": 14.729,
+   "end": 15.71
+  },
+  {
+   "text": "Your home in Padova, tailored.",
+   "start": 16.225,
+   "end": 18.64
+  }
+ ]
+}

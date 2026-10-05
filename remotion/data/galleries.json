@@ -1,0 +1,70 @@
+{
+ "camere": {
+  "it": "Camere",
+  "en": "Bedrooms",
+  "photos": [
+   "p014",
+   "p058",
+   "p087",
+   "p029",
+   "p068",
+   "p072",
+   "p037",
+   "p021"
+  ]
+ },
+ "cucine": {
+  "it": "Cucine",
+  "en": "Kitchens",
+  "photos": [
+   "p083",
+   "p065",
+   "p106",
+   "p078",
+   "p015",
+   "p035",
+   "p067",
+   "p123"
+  ]
+ },
+ "living": {
+  "it": "Living",
+  "en": "Living spaces",
+  "photos": [
+   "p011",
+   "p030",
+   "p135",
+   "p098",
+   "p070",
+   "p142",
+   "p028",
+   "p126"
+  ]
+ },
+ "dettagli": {
+  "it": "Dettagli",
+  "en": "Details",
+  "photos": [
+   "p018",
+   "p104",
+   "p091",
+   "p085",
+   "p047",
+   "p121",
+   "p019",
+   "p116"
+  ]
+ },
+ "lavoro": {
+  "it": "Spazi per lavorare",
+  "en": "Space to work",
+  "photos": [
+   "p074",
+   "p111",
+   "p010",
+   "p051",
+   "p046",
+   "p034"
+  ]
+ }
+}

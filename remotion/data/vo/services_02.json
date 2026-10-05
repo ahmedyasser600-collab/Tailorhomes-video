@@ -1,0 +1,45 @@
+{
+ "wav": "audio/vo_services_02.wav",
+ "voice": "Gia (ElevenLabs preset via Higgsfield)",
+ "phrases": [
+  "La tua casa si presenta al meglio?",
+  "Interior design e home staging.",
+  "Fotografia professionale.",
+  "Annunci curati e ben posizionati.",
+  "Valorizziamo la tua casa.",
+  "Tailor Homes."
+ ],
+ "duration": 12.48,
+ "timings": [
+  {
+   "text": "La tua casa si presenta al meglio?",
+   "start": 0.0,
+   "end": 1.77
+  },
+  {
+   "text": "Interior design e home staging.",
+   "start": 2.373,
+   "end": 4.536
+  },
+  {
+   "text": "Fotografia professionale.",
+   "start": 4.951,
+   "end": 6.423
+  },
+  {
+   "text": "Annunci curati e ben posizionati.",
+   "start": 6.997,
+   "end": 9.272
+  },
+  {
+   "text": "Valorizziamo la tua casa.",
+   "start": 9.723,
+   "end": 11.038
+  },
+  {
+   "text": "Tailor Homes.",
+   "start": 11.513,
+   "end": 12.48
+  }
+ ]
+}

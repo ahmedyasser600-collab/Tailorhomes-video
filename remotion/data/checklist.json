@@ -1,0 +1,38 @@
+{
+ "photos": [
+  "p091",
+  "p041",
+  "p141",
+  "p102",
+  "p088",
+  "p090"
+ ],
+ "it": {
+  "label": "Dietro le quinte",
+  "title": "Pronta per il prossimo ospite.",
+  "sub": "Pulizie professionali e lavanderia.",
+  "items": [
+   "Biancheria fresca",
+   "Asciugamani puliti",
+   "Bagno pulito",
+   "Cucina in ordine",
+   "Accoglienza pronta",
+   "Prodotti di cortesia"
+  ],
+  "tag": "Ci pensiamo noi."
+ },
+ "en": {
+  "label": "Behind the scenes",
+  "title": "Ready for the next guest.",
+  "sub": "Professional cleaning and laundry.",
+  "items": [
+   "Fresh linen",
+   "Clean towels",
+   "Spotless bathroom",
+   "Kitchen in order",
+   "Welcome ready",
+   "Guest essentials"
+  ],
+  "tag": "We take care of it."
+ }
+}

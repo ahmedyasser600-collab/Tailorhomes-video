@@ -1,0 +1,45 @@
+{
+ "wav": "audio/vo_services_01.wav",
+ "voice": "Gia (ElevenLabs preset via Higgsfield)",
+ "phrases": [
+  "Chi si occupa della tua casa, ogni giorno?",
+  "Pulizie professionali e lavanderia.",
+  "Manutenzione ordinaria e straordinaria.",
+  "Gestione degli ospiti e comunicazione.",
+  "Ci pensiamo noi.",
+  "Tailor Homes."
+ ],
+ "duration": 14.88,
+ "timings": [
+  {
+   "text": "Chi si occupa della tua casa, ogni giorno?",
+   "start": 0.0,
+   "end": 2.556
+  },
+  {
+   "text": "Pulizie professionali e lavanderia.",
+   "start": 3.341,
+   "end": 5.615
+  },
+  {
+   "text": "Manutenzione ordinaria e straordinaria.",
+   "start": 6.229,
+   "end": 8.588
+  },
+  {
+   "text": "Gestione degli ospiti e comunicazione.",
+   "start": 9.135,
+   "end": 11.567
+  },
+  {
+   "text": "Ci pensiamo noi.",
+   "start": 12.218,
+   "end": 13.182
+  },
+  {
+   "text": "Tailor Homes.",
+   "start": 13.943,
+   "end": 14.88
+  }
+ ]
+}

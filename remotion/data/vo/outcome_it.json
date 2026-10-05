@@ -1,0 +1,60 @@
+{
+ "wav": "audio/vo_outcome_it.wav",
+ "voice": "Gia (ElevenLabs preset via Higgsfield)",
+ "phrases": [
+  "Arrivi a Padova.",
+  "Apri la porta, e sei a casa.",
+  "Un caffè, con calma.",
+  "Uno spazio per lavorare.",
+  "Una camera che invita a riposare.",
+  "E una sera tutta per te.",
+  "Tailor Homes.",
+  "La tua casa a Padova, su misura."
+ ],
+ "duration": 17.44,
+ "timings": [
+  {
+   "text": "Arrivi a Padova.",
+   "start": 0.0,
+   "end": 1.2
+  },
+  {
+   "text": "Apri la porta, e sei a casa.",
+   "start": 2.155,
+   "end": 4.314
+  },
+  {
+   "text": "Un caffè, con calma.",
+   "start": 5.016,
+   "end": 6.496
+  },
+  {
+   "text": "Uno spazio per lavorare.",
+   "start": 7.043,
+   "end": 8.399
+  },
+  {
+   "text": "Una camera che invita a riposare.",
+   "start": 9.118,
+   "end": 10.884
+  },
+  {
+   "text": "E una sera tutta per te.",
+   "start": 11.621,
+   "end": 13.157
+  },
+  {
+   "text": "Tailor Homes.",
+   "start": 14.079,
+   "end": 15.011
+  },
+  {
+   "text": "La tua casa a Padova, su misura.",
+   "start": 15.35,
+   "end": 17.44
+  }
+ ],
+ "ignore_pauses": [
+  5.58
+ ]
+}

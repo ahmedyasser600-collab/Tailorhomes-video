@@ -1,0 +1,28 @@
+{
+ "photos": [
+  "p085",
+  "p012",
+  "p123",
+  "p074",
+  "p087",
+  "p115"
+ ],
+ "hooks": {
+  "h1": {
+   "it": "Più di un posto dove dormire.",
+   "en": "More than a place to sleep."
+  },
+  "h2": {
+   "it": "Come a casa, a Padova.",
+   "en": "Feel at home in Padova."
+  },
+  "h3": {
+   "it": "Il tuo soggiorno, su misura.",
+   "en": "Your stay, tailored."
+  }
+ },
+ "vo": {
+  "it": "outcome_it",
+  "en": "outcome_en"
+ }
+}

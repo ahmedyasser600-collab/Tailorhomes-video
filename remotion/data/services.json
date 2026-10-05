@@ -1,0 +1,71 @@
+{
+ "source": "tailorhomes.it/our-servies/ (client screenshot, 2026-10)",
+ "label": "Per proprietari",
+ "endTagline": "Property management a Padova.",
+ "items": [
+  {
+   "key": "01",
+   "vo": "services_01",
+   "title": "Operatività e gestione quotidiana",
+   "rows": [
+    "Pulizie professionali e lavanderia",
+    "Manutenzione ordinaria e straordinaria",
+    "Gestione ospiti e comunicazione"
+   ],
+   "photos": [
+    "p091",
+    "p141",
+    "p088",
+    "p110"
+   ]
+  },
+  {
+   "key": "02",
+   "vo": "services_02",
+   "title": "Valorizzazione e presentazione",
+   "rows": [
+    "Interior design e home staging",
+    "Fotografia professionale",
+    "Presentazione e posizionamento degli annunci"
+   ],
+   "photos": [
+    "p135",
+    "p104",
+    "p018",
+    "p054"
+   ]
+  },
+  {
+   "key": "03",
+   "vo": "services_03",
+   "title": "Marketing e performance",
+   "rows": [
+    "Gestione canali e presenza online",
+    "Strategie di marketing e distribuzione",
+    "Sviluppo di canali diretti"
+   ],
+   "photos": [
+    "p011",
+    "p098",
+    "p070",
+    "p126"
+   ]
+  },
+  {
+   "key": "04",
+   "vo": "services_04",
+   "title": "Supporto tecnico e consulenziale",
+   "rows": [
+    "Consulenza immobiliare",
+    "Supporto architettonico",
+    "Gestione aspetti legali e fiscali"
+   ],
+   "photos": [
+    "p004",
+    "p107",
+    "p093",
+    "p118"
+   ]
+  }
+ ]
+}
