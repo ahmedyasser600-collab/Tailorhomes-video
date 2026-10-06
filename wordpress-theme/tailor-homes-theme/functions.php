@@ -139,6 +139,35 @@ function tailorhomes_async_fonts($html, $handle, $href) {
 }
 add_filter('style_loader_tag', 'tailorhomes_async_fonts', 10, 3);
 
+/**
+ * Minified contents of style.css, cached per theme version + file mtime.
+ */
+function th_inline_css() {
+    $file = get_template_directory() . '/style.css';
+    if (!is_readable($file)) return '';
+    $key = 'th_inline_css_' . md5(filemtime($file) . wp_get_theme()->get('Version'));
+    $css = get_transient($key);
+    if ($css === false) {
+        $css = (string) file_get_contents($file);
+        $css = preg_replace('!/\*.*?\*/!s', '', $css);
+        $css = preg_replace('/\s+/', ' ', $css);
+        // Not ':' — the space in ".th-hero :focus-visible" is a descendant combinator.
+        $css = preg_replace('/\s*([{};,>])\s*/', '$1', $css);
+        $css = str_replace(';}', '}', $css);
+        set_transient($key, trim($css), WEEK_IN_SECONDS);
+    }
+    return $css;
+}
+
+// New uploads: generate WebP sub-sizes (hero, cards, gallery) instead of JPEG/PNG.
+// Existing images need "Regenerate Thumbnails" (or a re-upload) to pick this up.
+function tailorhomes_webp_subsizes($formats) {
+    $formats['image/jpeg'] = 'image/webp';
+    $formats['image/png']  = 'image/webp';
+    return $formats;
+}
+add_filter('image_editor_output_format', 'tailorhomes_webp_subsizes');
+
 // WordPress emoji detection script + CSS: unused by the theme, costs a request and inline JS.
 remove_action('wp_head', 'print_emoji_detection_script', 7);
 remove_action('wp_print_styles', 'print_emoji_styles');
@@ -156,8 +185,13 @@ function th_image_id_from_url($url) {
         $cache[$url] = (int) attachment_url_to_postid($url);
         // Customizer sometimes stores a resized variant (photo-1024x683.jpg).
         if (!$cache[$url]) {
-            $orig = preg_replace('/-\d+x\d+(?=\.[a-z]+$)/i', '', $url);
-            if ($orig !== $url) $cache[$url] = (int) attachment_url_to_postid($orig);
+            $orig = preg_replace('/-(\d+x\d+|scaled)(?=\.[a-z]+$)/i', '', $url);
+            $candidates = array($orig, preg_replace('/(\.[a-z]+)$/i', '-scaled$1', $orig));
+            foreach (array_unique($candidates) as $try) {
+                if ($try === $url) continue;
+                $cache[$url] = (int) attachment_url_to_postid($try);
+                if ($cache[$url]) break;
+            }
         }
     }
     return $cache[$url];
@@ -260,7 +294,15 @@ function tailorhomes_scripts() {
     // Variable-font ranges: one file per family/style instead of one per weight.
     // Loaded without blocking render (see tailorhomes_async_fonts below).
     wp_enqueue_style('tailorhomes-fonts', th_fonts_url(), array(), null);
-    wp_enqueue_style('tailorhomes-style', get_stylesheet_uri(), array(), '4.3');
+    // style.css is small (~4 KB gzipped): inline it so first paint does not wait on another request.
+    $th_css = th_inline_css();
+    if ($th_css !== '') {
+        wp_register_style('tailorhomes-style', false, array(), '4.4');
+        wp_enqueue_style('tailorhomes-style');
+        wp_add_inline_style('tailorhomes-style', $th_css);
+    } else {
+        wp_enqueue_style('tailorhomes-style', get_stylesheet_uri(), array(), '4.4');
+    }
 
     if (is_page_template('templates/page-apartments.php')) {
         wp_enqueue_style('tailorhomes-apartments', get_template_directory_uri() . '/assets/css/apartments.css', array(), '3.0');
@@ -276,7 +318,7 @@ function tailorhomes_scripts() {
         wp_enqueue_style('tailorhomes-services', get_template_directory_uri() . '/assets/css/services.css', array(), '3.3');
     }
 
-    wp_enqueue_script('tailorhomes-main', get_template_directory_uri() . '/assets/js/main.js', array(), '1.1', array('in_footer' => true, 'strategy' => 'defer'));
+    wp_enqueue_script('tailorhomes-main', get_template_directory_uri() . '/assets/js/main.js', array(), '1.2', array('in_footer' => true, 'strategy' => 'defer'));
 
     // Theme templates are hand-built PHP, not blocks: skip the block-library CSS there.
     if (is_front_page() || (is_page() && get_page_template_slug())) {
@@ -767,11 +809,16 @@ function th_openai_pixel() {
   var q = function () { q.q.push(arguments); };
   q.q = [];
   w.oaiq = q;
-  var js = d.createElement(s);
-  js.async = true;
-  js.src = u;
-  var f = d.getElementsByTagName(s)[0];
-  f.parentNode.insertBefore(js, f);
+  // Calls below are queued; the SDK itself loads only after the page is idle,
+  // so it never competes with the hero image or first paint.
+  function load() {
+    var js = d.createElement(s);
+    js.async = true;
+    js.src = u;
+    d.head.appendChild(js);
+  }
+  function idle() { (w.requestIdleCallback || function (cb) { setTimeout(cb, 1500); })(load, { timeout: 4000 }); }
+  if (d.readyState === 'complete') idle(); else w.addEventListener('load', idle);
 })(window, document, "script", "https://bzrcdn.openai.com/sdk/oaiq.min.js");
 
 oaiq("init", {
@@ -800,7 +847,8 @@ add_action('wp_head', 'th_openai_pixel', 1);
 function th_logo_img($attrs = array()) {
     $attrs = array_merge(array('alt' => get_bloginfo('name') ?: 'Tailor Homes', 'decoding' => 'async'), $attrs);
     $logo_id = has_custom_logo() ? (int) get_theme_mod('custom_logo') : 0;
-    if ($logo_id && ($html = wp_get_attachment_image($logo_id, 'full', false, $attrs))) {
+    // medium_large (768px wide) is plenty for a logo shown ~250px wide; srcset covers 2x/3x screens.
+    if ($logo_id && ($html = wp_get_attachment_image($logo_id, 'medium_large', false, array_merge(array('sizes' => '(max-width: 480px) 180px, 250px'), $attrs)))) {
         return $html;
     }
     // Bundled logo.svg has a 3137×1262 viewBox.
@@ -810,3 +858,130 @@ function th_logo_img($attrs = array()) {
     }
     return $out . '>';
 }
+
+/* -----------------------------------------------
+   AI AGENTS — /llms.txt and WebMCP form hints
+   ----------------------------------------------- */
+
+/**
+ * Serve https://tailorhomes.it/llms.txt (Markdown map of the site for AI agents).
+ * Lighthouse "Agentic Browsing" checks it exists, has an H1, real content and Markdown links.
+ * A physical llms.txt in the site root takes precedence (the web server serves it directly).
+ */
+function th_llms_txt_url($slug, $lang) {
+    $url = th_url($slug);
+    if (function_exists('pll_get_post') && ($page = get_page_by_path($slug))) {
+        $tid = pll_get_post($page->ID, $lang);
+        if ($tid) $url = get_permalink($tid);
+    }
+    return $url;
+}
+
+function tailorhomes_llms_txt() {
+    $path = isset($_SERVER['REQUEST_URI']) ? strtok((string) $_SERVER['REQUEST_URI'], '?') : '';
+    if (untrailingslashit($path) !== '/llms.txt') return;
+
+    $book = th_booking_url();
+    $L = function ($slug) { return esc_url_raw(th_llms_txt_url($slug, 'en')); };
+    $I = function ($slug) { return esc_url_raw(th_llms_txt_url($slug, 'it')); };
+    $home = esc_url_raw(home_url('/'));
+
+    $lines = array(
+        '# Tailor Homes',
+        '',
+        '> Tailor Homes is a property management company based in Padova, Italy. We manage short and medium-term rentals, apartments and prestige villas, offer corporate housing for companies, and a 15% discount for UniPD and Erasmus students. Guests can book directly online.',
+        '',
+        'Office: Via degli Obizzi 1, Padova, Italy. Email: info@tailorhomes.it. Phone / WhatsApp: +39 371 445 3904. Landline: +39 049 490 6189. The site is available in Italian and English.',
+        '',
+        '## Book a stay',
+        '',
+        '- [Book Now — direct booking engine](' . esc_url_raw($book) . '): live availability, prices and secure booking for all our apartments and villas.',
+        '- [Gallery](' . $L('apartments') . '): photos of our apartments and villas in and around Padova.',
+        '- [Students & Erasmus](' . $L('students') . '): 15% off for UniPD and Erasmus students, verified via WhatsApp.',
+        '- [Corporate Housing](' . $L('corporate-housing') . '): furnished stays for business trips, fairs, relocations and projects.',
+        '',
+        '## Property owners',
+        '',
+        '- [For Owners](' . $L('owners') . '): full property management, dynamic pricing, guest care 24/7, cleaning and maintenance.',
+        '- [Our Services](' . $L('our-services') . '): property management, home staging, photography, consulting and investments.',
+        '- [Contact](' . $L('contact') . '): get a free assessment of your property.',
+        '',
+        '## About',
+        '',
+        '- [Home](' . $home . '): overview, ratings (Google 5.0, Airbnb 4.89, Booking 9.2) and guest reviews.',
+        '- [About Us](' . $L('about-us') . '): our team, approach and the areas we manage.',
+        '- [Work With Us](' . $L('work-with-us') . '): jobs and partnerships.',
+        '- [Blog](' . $L('blog') . '): guides on student housing and booking a stay in Padova.',
+        '',
+        '## Italiano',
+        '',
+        '- [Prenota Ora](' . esc_url_raw($book) . '): prenotazione diretta con disponibilità e prezzi in tempo reale.',
+        '- [Per i Proprietari](' . $I('owners') . '): gestione completa del tuo immobile a Padova.',
+        '- [Studenti & Erasmus](' . $I('students') . '): 15% di sconto per studenti UniPD ed Erasmus.',
+        '- [Contatti](' . $I('contact') . '): scrivici o chiamaci.',
+        '',
+        '## Optional',
+        '',
+        '- [Privacy Policy](' . $L('privacy-policy') . ')',
+        '- [Terms & Conditions](' . $L('terms-and-conditions') . ')',
+    );
+
+    status_header(200);
+    header('Content-Type: text/markdown; charset=utf-8');
+    header('Cache-Control: public, max-age=86400');
+    header('X-Robots-Tag: noindex');
+    echo implode("\n", $lines) . "\n";
+    exit;
+}
+add_action('template_redirect', 'tailorhomes_llms_txt', 0);
+// Stop WordPress redirecting /llms.txt to /llms.txt/ before we can answer.
+add_filter('redirect_canonical', function ($redirect) {
+    $path = isset($_SERVER['REQUEST_URI']) ? strtok((string) $_SERVER['REQUEST_URI'], '?') : '';
+    return (untrailingslashit($path) === '/llms.txt') ? false : $redirect;
+});
+
+/**
+ * WebMCP declarative tool hints on Contact Form 7 forms, so AI agents can discover them
+ * (Lighthouse flags forms without toolname + tooldescription).
+ */
+add_filter('wpcf7_form_additional_atts', function ($atts) {
+    $it = (function_exists('pll_current_language') && pll_current_language() === 'it');
+    $atts['toolname'] = 'contact_tailor_homes';
+    $atts['tooldescription'] = $it
+        ? 'Invia un messaggio a Tailor Homes (gestione immobiliare a Padova): richieste di soggiorno, gestione immobili, collaborazioni.'
+        : 'Send a message to Tailor Homes (property management in Padova): stay enquiries, property management requests, partnerships.';
+    return $atts;
+});
+
+/**
+ * Browser caching for Media Library images (hero, cards, gallery) — Lighthouse
+ * "efficient cache lifetimes". Writes wp-content/uploads/.htaccess once, and only when
+ * no .htaccess exists there yet (never overwrites one from a security/cache plugin).
+ * Apache/LiteSpeed only; nginx ignores it.
+ */
+function tailorhomes_uploads_cache_rules() {
+    if (get_option('th_uploads_htaccess_v1')) return;
+    update_option('th_uploads_htaccess_v1', time(), false);
+
+    $dir = wp_upload_dir();
+    if (!empty($dir['error'])) return;
+    $file = trailingslashit($dir['basedir']) . '.htaccess';
+    if (file_exists($file) || !wp_is_writable($dir['basedir'])) return;
+
+    $rules = "# Added by the Tailor Homes theme: long browser cache for uploaded media.\n"
+           . "<IfModule mod_expires.c>\n"
+           . "  ExpiresActive On\n"
+           . "  ExpiresByType image/webp \"access plus 1 year\"\n"
+           . "  ExpiresByType image/jpeg \"access plus 1 year\"\n"
+           . "  ExpiresByType image/png \"access plus 1 year\"\n"
+           . "  ExpiresByType image/svg+xml \"access plus 1 year\"\n"
+           . "  ExpiresByType image/avif \"access plus 1 year\"\n"
+           . "</IfModule>\n"
+           . "<IfModule mod_headers.c>\n"
+           . "  <FilesMatch \"\\.(webp|jpe?g|png|svg|avif)$\">\n"
+           . "    Header set Cache-Control \"public, max-age=31536000\"\n"
+           . "  </FilesMatch>\n"
+           . "</IfModule>\n";
+    @file_put_contents($file, $rules);
+}
+add_action('admin_init', 'tailorhomes_uploads_cache_rules');

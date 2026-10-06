@@ -22,7 +22,8 @@
   window.addEventListener('scroll', function() {
     if (!ticking) { ticking = true; window.requestAnimationFrame(onScroll); }
   }, { passive: true });
-  onScroll();
+  // Read scroll position on the next frame, not during script execution (avoids a forced reflow).
+  window.requestAnimationFrame(onScroll);
 
 
   /* -----------------------------------------------

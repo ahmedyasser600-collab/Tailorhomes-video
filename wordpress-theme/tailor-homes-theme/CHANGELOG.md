@@ -1,3 +1,15 @@
+## v2.10.1 - Second PageSpeed pass + Agentic Browsing
+- `style.css` is inlined (minified, cached) instead of a render-blocking request, for a faster first paint.
+- Custom logo uses a 768px variant with srcset instead of the full-size upload.
+- New uploads get WebP sub-sizes (`image_editor_output_format`). Run "Regenerate Thumbnails" once for existing images.
+- Hero/Customizer URL matching also handles WordPress's `-scaled` images, so they get srcset.
+- OpenAI pixel SDK now loads after the page is idle (events are queued, nothing lost): less unused JS and fewer long tasks.
+- Fixed a forced reflow: the header scroll state is read on the next animation frame.
+- Writes `wp-content/uploads/.htaccess` with 1-year image caching, once, only if none exists (Apache/LiteSpeed).
+- New `/llms.txt` (Markdown site map for AI agents) for the Lighthouse Agentic Browsing audit.
+- Contact Form 7 forms get WebMCP `toolname` / `tooldescription` attributes.
+
+
 ## v2.10.0 - PageSpeed: performance, accessibility, SEO
 Targets the mobile PageSpeed report (Performance 77, LCP 15.6 s).
 
