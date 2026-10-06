@@ -116,28 +116,38 @@ add_action('after_setup_theme', 'tailorhomes_setup');
 /* -----------------------------------------------
    PERFORMANCE HELPERS
    ----------------------------------------------- */
-function th_fonts_url() {
-    return 'https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..800;1,9..40,300..400&family=Jost:wght@300..500&family=Cormorant+Garamond:ital,wght@0,300..500;1,300..400&display=swap';
-}
-
-// Connect to Google Fonts early so the font files are not stuck behind the CSS request.
-function tailorhomes_resource_hints($urls, $relation_type) {
-    if ($relation_type === 'preconnect') {
-        $urls[] = 'https://fonts.googleapis.com';
-        $urls[] = array('href' => 'https://fonts.gstatic.com', 'crossorigin');
+/**
+ * Self-hosted fonts (assets/fonts, SIL Open Font License — see OFL-*.txt there).
+ * Latin variable fonts subset to the characters Italian/English use: ~150 KB total vs ~250 KB
+ * from Google, no extra DNS/TLS connections, and the hero heading font is preloaded so the
+ * LCP element (the h1 tagline) paints in its real font straight away.
+ */
+function th_font_face_css() {
+    $base = get_template_directory_uri() . '/assets/fonts/';
+    $faces = array(
+        array('DM Sans', 'normal', '300 800', 'dm-sans.woff2'),
+        array('DM Sans', 'italic', '300 400', 'dm-sans-italic.woff2'),
+        array('Jost', 'normal', '300 500', 'jost.woff2'),
+        array('Cormorant Garamond', 'normal', '300 500', 'cormorant-garamond.woff2'),
+        array('Cormorant Garamond', 'italic', '300 400', 'cormorant-garamond-italic.woff2'),
+    );
+    $css = '';
+    foreach ($faces as $f) {
+        $css .= "@font-face{font-family:'{$f[0]}';font-style:{$f[1]};font-weight:{$f[2]};font-display:swap;src:url({$base}{$f[3]}) format('woff2')}";
     }
-    return $urls;
+    return $css;
 }
-add_filter('wp_resource_hints', 'tailorhomes_resource_hints', 10, 2);
 
-// Google Fonts CSS no longer blocks first paint: text shows in the fallback font, then swaps.
-function tailorhomes_async_fonts($html, $handle, $href) {
-    if ($handle !== 'tailorhomes-fonts') return $html;
-    return '<link rel="preload" as="style" href="' . esc_url($href) . '">' . "\n"
-         . '<link rel="stylesheet" id="tailorhomes-fonts-css" href="' . esc_url($href) . '" media="print" onload="this.media=\'all\'">' . "\n"
-         . '<noscript><link rel="stylesheet" href="' . esc_url($href) . '"></noscript>' . "\n";
+// Preload the two fonts visible on first paint: the hero tagline (LCP) and body text.
+function tailorhomes_preload_fonts() {
+    $base = get_template_directory_uri() . '/assets/fonts/';
+    $files = array('dm-sans.woff2');
+    if (is_front_page()) array_unshift($files, 'cormorant-garamond-italic.woff2');
+    foreach ($files as $f) {
+        echo '<link rel="preload" href="' . esc_url($base . $f) . '" as="font" type="font/woff2" crossorigin>' . "\n";
+    }
 }
-add_filter('style_loader_tag', 'tailorhomes_async_fonts', 10, 3);
+add_action('wp_head', 'tailorhomes_preload_fonts', 2);
 
 /**
  * Minified contents of style.css, cached per theme version + file mtime.
@@ -182,6 +192,11 @@ function th_image_id_from_url($url) {
     static $cache = array();
     if (empty($url)) return 0;
     if (!isset($cache[$url])) {
+        $map = (array) get_option('th_image_url_map', array());
+        $plain = set_url_scheme($url, 'https');
+        foreach (array($url, $plain, set_url_scheme($url, 'http')) as $u) {
+            if (!empty($map[$u])) { $cache[$url] = (int) $map[$u]; return $cache[$url]; }
+        }
         $cache[$url] = (int) attachment_url_to_postid($url);
         // Customizer sometimes stores a resized variant (photo-1024x683.jpg).
         if (!$cache[$url]) {
@@ -296,21 +311,20 @@ add_action('wp_head', function () {
 
 // Enqueue
 function tailorhomes_scripts() {
-    // Variable-font ranges: one file per family/style instead of one per weight.
-    // Loaded without blocking render (see tailorhomes_async_fonts below).
-    wp_enqueue_style('tailorhomes-fonts', th_fonts_url(), array(), null);
-    // style.css is small (~4 KB gzipped): inline it so first paint does not wait on another request.
+    // style.css is small (~4 KB gzipped): inline it (with the @font-face rules) so first paint
+    // does not wait on another request.
     $th_css = th_inline_css();
     if ($th_css !== '') {
-        wp_register_style('tailorhomes-style', false, array(), '4.4');
+        wp_register_style('tailorhomes-style', false, array(), '4.5');
         wp_enqueue_style('tailorhomes-style');
-        wp_add_inline_style('tailorhomes-style', $th_css);
+        wp_add_inline_style('tailorhomes-style', th_font_face_css() . $th_css);
     } else {
-        wp_enqueue_style('tailorhomes-style', get_stylesheet_uri(), array(), '4.4');
+        wp_enqueue_style('tailorhomes-style', get_stylesheet_uri(), array(), '4.5');
+        wp_add_inline_style('tailorhomes-style', th_font_face_css());
     }
 
     if (is_page_template('templates/page-apartments.php')) {
-        wp_enqueue_style('tailorhomes-apartments', get_template_directory_uri() . '/assets/css/apartments.css', array(), '3.0');
+        wp_enqueue_style('tailorhomes-apartments', get_template_directory_uri() . '/assets/css/apartments.css', array(), '3.1');
     }
     if (
         is_page_template('templates/page-services.php') ||
@@ -320,10 +334,10 @@ function tailorhomes_scripts() {
         is_page_template('templates/page-students-erasmus.php') ||
         is_page_template('templates/page-corporate.php')
     ) {
-        wp_enqueue_style('tailorhomes-services', get_template_directory_uri() . '/assets/css/services.css', array(), '3.3');
+        wp_enqueue_style('tailorhomes-services', get_template_directory_uri() . '/assets/css/services.css', array(), '3.4');
     }
 
-    wp_enqueue_script('tailorhomes-main', get_template_directory_uri() . '/assets/js/main.js', array(), '1.2', array('in_footer' => true, 'strategy' => 'defer'));
+    wp_enqueue_script('tailorhomes-main', get_template_directory_uri() . '/assets/js/main.js', array(), '1.3', array('in_footer' => true, 'strategy' => 'defer'));
 
     // Theme templates are hand-built PHP, not blocks: skip the block-library CSS there.
     if (is_front_page() || (is_page() && get_page_template_slug())) {
@@ -995,3 +1009,186 @@ function tailorhomes_uploads_cache_rules() {
     @file_put_contents($file, $rules);
 }
 add_action('admin_init', 'tailorhomes_uploads_cache_rules');
+
+/* -----------------------------------------------
+   THIRD-PARTY / PLUGIN ASSETS
+   ----------------------------------------------- */
+
+/**
+ * Contact Form 7 only where a form is shown (Contact, Work With Us, or any page whose content
+ * contains a CF7 shortcode). Elsewhere this drops 2 CSS/JS files plus WordPress's
+ * hooks.min.js and i18n.min.js, which were on the home page's critical path.
+ */
+function th_page_has_cf7() {
+    if (is_page_template('templates/page-contact.php') || is_page_template('templates/page-work-with-us.php')) {
+        return true;
+    }
+    if (is_singular()) {
+        $post = get_queried_object();
+        if ($post && isset($post->post_content) && has_shortcode($post->post_content, 'contact-form-7')) {
+            return true;
+        }
+    }
+    return false;
+}
+add_filter('wpcf7_load_js', 'th_page_has_cf7');
+add_filter('wpcf7_load_css', 'th_page_has_cf7');
+
+/**
+ * Complianz cookie-banner stylesheets: load without blocking first paint.
+ * The banner is shown by its script after the page loads, so it is styled by then.
+ */
+add_filter('style_loader_tag', function ($html, $handle, $href) {
+    if (strpos((string) $href, 'complianz') === false || strpos($html, 'media="print"') !== false) {
+        return $html;
+    }
+    $async = str_replace(array("media='all'", 'media="all"'), 'media="print" onload="this.media=\'all\'"', $html);
+    if ($async === $html) {
+        $async = str_replace('<link ', '<link media="print" onload="this.media=\'all\'" ', $html);
+    }
+    return $async . '<noscript>' . $html . '</noscript>';
+}, 20, 3);
+
+/**
+ * Google tag (gtag.js from Site Kit, ~175 KB): fetch it after the first user interaction
+ * (scroll, tap, key, mouse) or 6 s after the page has loaded, whichever comes first.
+ * Calls made before that are queued in dataLayer and sent when it loads, so page views,
+ * consent mode and events are kept. Disable with: add_filter('th_delay_gtag', '__return_false');
+ */
+add_filter('script_loader_tag', function ($tag, $handle, $src) {
+    if (strpos((string) $src, 'googletagmanager.com/gtag/js') === false || !apply_filters('th_delay_gtag', true)) {
+        return $tag;
+    }
+    return '<script data-th-delay-src="' . esc_url($src) . '"></script>' . "\n";
+}, 20, 3);
+
+add_action('wp_footer', function () {
+    if (!apply_filters('th_delay_gtag', true)) return;
+    ?>
+<script>
+(function () {
+  var done = false, events = ['scroll', 'pointerdown', 'touchstart', 'keydown', 'mousemove'];
+  function go() {
+    if (done) return; done = true;
+    events.forEach(function (e) { window.removeEventListener(e, go, { passive: true }); });
+    document.querySelectorAll('script[data-th-delay-src]').forEach(function (old) {
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = old.getAttribute('data-th-delay-src');
+      old.parentNode.replaceChild(s, old);
+    });
+  }
+  events.forEach(function (e) { window.addEventListener(e, go, { passive: true, once: true }); });
+  window.addEventListener('load', function () { setTimeout(go, 6000); });
+})();
+</script>
+    <?php
+}, 99);
+
+/* -----------------------------------------------
+   WEBP FOR EXISTING THEME IMAGES
+   ----------------------------------------------- */
+
+/**
+ * Images picked in the Customizer (hero, home cards, About, Services, Gallery), the custom logo
+ * and blog featured images.
+ */
+function th_webp_target_ids() {
+    $urls = array();
+    foreach (array('th_hero_image', 'th_students_card_image', 'th_corporate_card_image', 'th_about_image', 'th_founder_image') as $mod) {
+        $urls[] = get_theme_mod($mod, '');
+    }
+    for ($i = 1; $i <= 4; $i++) {
+        $urls[] = get_theme_mod("th_about_area_img_{$i}", '');
+        $urls[] = get_theme_mod("th_service_img_{$i}", '');
+    }
+    foreach (array('01', '02', '03', '04', '05', '06', '07') as $num) {
+        for ($i = 1; $i <= 10; $i++) {
+            $urls[] = get_theme_mod("th_apt_{$num}_img_{$i}", '');
+        }
+    }
+
+    $ids = array();
+    foreach (array_filter($urls) as $url) {
+        $id = th_image_id_from_url($url);
+        if ($id) $ids[] = $id;
+    }
+    if ($logo = (int) get_theme_mod('custom_logo')) $ids[] = $logo;
+
+    $posts = get_posts(array('post_type' => 'post', 'post_status' => 'publish', 'numberposts' => 60, 'fields' => 'ids'));
+    foreach ($posts as $pid) {
+        if ($tid = (int) get_post_thumbnail_id($pid)) $ids[] = $tid;
+    }
+    return array_values(array_unique($ids));
+}
+
+/**
+ * Rebuilds the resized copies of those images as WebP (via the image_editor_output_format
+ * filter above). Runs in small batches while an admin browses wp-admin, once per image,
+ * then purges the LiteSpeed page cache so visitors get the new srcset. Originals are untouched.
+ */
+function tailorhomes_regenerate_webp_batch() {
+    if (wp_doing_ajax() || !current_user_can('upload_files') || get_option('th_webp_regen_done_v1')) return;
+    if (get_transient('th_webp_regen_lock')) return;
+    set_transient('th_webp_regen_lock', 1, 60);
+
+    require_once ABSPATH . 'wp-admin/includes/image.php';
+    $start = microtime(true);
+    $pending = 0;
+    $processed = 0;
+
+    foreach (th_webp_target_ids() as $id) {
+        if (get_post_meta($id, '_th_webp_regen_v1', true)) continue;
+        $mime = get_post_mime_type($id);
+        if (!in_array($mime, array('image/jpeg', 'image/png'), true)) {
+            update_post_meta($id, '_th_webp_regen_v1', 'skip');
+            continue;
+        }
+        if ($processed >= 3 || (microtime(true) - $start) > 15) { $pending++; continue; }
+
+        $file = get_attached_file($id);
+        $old_url = wp_get_attachment_url($id);
+        if ($file && file_exists($file)) {
+            $meta = wp_generate_attachment_metadata($id, $file);
+            if ($meta && !is_wp_error($meta)) {
+                wp_update_attachment_metadata($id, $meta);
+                // Newer WordPress may also convert the full-size file. Remember the old URL so
+                // Customizer settings that still store it keep resolving to this image.
+                $new_url = wp_get_attachment_url($id);
+                if ($old_url && $new_url && $old_url !== $new_url) {
+                    $map = (array) get_option('th_image_url_map', array());
+                    $map[$old_url] = $id;
+                    update_option('th_image_url_map', $map, false);
+                }
+            }
+        }
+        update_post_meta($id, '_th_webp_regen_v1', time());
+        $processed++;
+    }
+
+    delete_transient('th_webp_regen_lock');
+    if ($pending === 0) {
+        update_option('th_webp_regen_done_v1', time(), false);
+    }
+    if ($processed > 0 && $pending === 0) {
+        do_action('litespeed_purge_all');
+    }
+}
+add_action('admin_init', 'tailorhomes_regenerate_webp_batch', 20);
+
+/**
+ * When an image has WebP sizes, keep the original JPEG/PNG out of srcset so no browser
+ * picks the multi-MB original (it remains the plain src fallback).
+ */
+add_filter('wp_calculate_image_srcset', function ($sources) {
+    if (!is_array($sources) || count($sources) < 2) return $sources;
+    $has_webp = false;
+    foreach ($sources as $src) {
+        if (preg_match('/\.webp$/i', $src['url'])) { $has_webp = true; break; }
+    }
+    if (!$has_webp) return $sources;
+    foreach ($sources as $w => $src) {
+        if (!preg_match('/\.webp$/i', $src['url'])) unset($sources[$w]);
+    }
+    return $sources;
+});

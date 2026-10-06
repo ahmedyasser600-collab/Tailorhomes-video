@@ -1,3 +1,15 @@
+## v2.11.0 - Fixes from the live PageSpeed audit
+Based on the Oct 6 mobile report (Performance 57-68, LCP 6.9 s with the hero h1 as LCP element, TBT 370 ms).
+
+- **Fonts self-hosted** in `assets/fonts` (SIL OFL, licences included): Latin variable fonts subset to Italian/English characters, ~150 KB total instead of 248 KB from Google, no connections to fonts.googleapis.com / fonts.gstatic.com. The hero tagline font (the LCP element) and body font are preloaded. Removed the Google Fonts `@import` from apartments.css and services.css (it double-loaded DM Sans on those pages).
+- **Contact Form 7** CSS/JS (plus WordPress `hooks.min.js` / `i18n.min.js`) now load only on Contact, Work With Us, or pages containing a CF7 shortcode. This was the longest chain in the network dependency tree.
+- **Complianz** cookie-banner stylesheets no longer block rendering.
+- **Google tag (Site Kit gtag.js, 175 KB, the biggest TBT source)** loads on the first scroll/tap/key/mouse move, or 6 s after load. Earlier calls are queued in dataLayer and sent, so consent mode and page views are kept. Opt out with `add_filter('th_delay_gtag', '__return_false');`.
+- **WebP for existing images**: while an admin uses wp-admin, the theme regenerates the resized copies of the Customizer images (hero, home cards, About, Services, Gallery), custom logo and blog featured images as WebP, 3 per page load, then purges LiteSpeed Cache. Originals are kept. Once WebP sizes exist, the original PNG/JPEG is left out of srcset.
+- Old image URLs saved in the Customizer keep resolving if WordPress converts the full-size file.
+- Empty Complianz document links (unconfigured Cookie Policy) are hidden from screen readers and AI agents ("Links do not have a discernible name").
+
+
 ## v2.10.2 - llms.txt fix
 - `/llms.txt` is now answered on `wp_loaded`, before WordPress parses the URL, so Polylang, cache or SEO plugins can no longer turn it into a 404. It also works when WordPress lives in a subfolder.
 - Added `<meta name="tailor-homes-theme" content="VERSION">` to the head so you can confirm which theme version is live (View Source).

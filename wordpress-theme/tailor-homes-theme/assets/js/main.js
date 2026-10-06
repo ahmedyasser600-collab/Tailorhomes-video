@@ -163,6 +163,32 @@
 
 
   /* -----------------------------------------------
+     COOKIE BANNER (Complianz) — hide empty document links
+     An unconfigured policy renders <a class="cmplz-link"> with no text that just points
+     to the home page: invisible, but screen readers and AI agents hit an unnamed link.
+     ----------------------------------------------- */
+  function fixEmptyBannerLinks() {
+    document.querySelectorAll('.cmplz-documents a, a.cmplz-link').forEach(function(a) {
+      if (a.textContent.trim() === '' && !a.getAttribute('aria-label')) {
+        var item = a.closest('li') || a;
+        item.hidden = true;
+        a.setAttribute('tabindex', '-1');
+        a.setAttribute('aria-hidden', 'true');
+      }
+    });
+  }
+  fixEmptyBannerLinks();
+  // The banner can be re-rendered after load (e.g. on consent change).
+  if ('MutationObserver' in window) {
+    var cmplzTimer;
+    new MutationObserver(function() {
+      clearTimeout(cmplzTimer);
+      cmplzTimer = setTimeout(fixEmptyBannerLinks, 100);
+    }).observe(document.body, { childList: true, subtree: true });
+  }
+
+
+  /* -----------------------------------------------
      FAQ ACCORDION
      ----------------------------------------------- */
   function initFAQ() {
