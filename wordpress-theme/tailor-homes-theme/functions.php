@@ -289,6 +289,11 @@ function tailorhomes_meta_description() {
 }
 add_action('wp_head', 'tailorhomes_meta_description', 1);
 
+// Lets you confirm which theme version is live: View Source and search for "tailor-homes-theme".
+add_action('wp_head', function () {
+    echo '<meta name="tailor-homes-theme" content="' . esc_attr(wp_get_theme(get_template())->get('Version')) . '">' . "\n";
+}, 1);
+
 // Enqueue
 function tailorhomes_scripts() {
     // Variable-font ranges: one file per family/style instead of one per weight.
@@ -878,8 +883,11 @@ function th_llms_txt_url($slug, $lang) {
 }
 
 function tailorhomes_llms_txt() {
+    if (is_admin() || wp_doing_ajax() || (defined('REST_REQUEST') && REST_REQUEST)) return;
     $path = isset($_SERVER['REQUEST_URI']) ? strtok((string) $_SERVER['REQUEST_URI'], '?') : '';
-    if (untrailingslashit($path) !== '/llms.txt') return;
+    $home_path = (string) parse_url(home_url('/'), PHP_URL_PATH);
+    $home_path = untrailingslashit($home_path);
+    if (strtolower(untrailingslashit($path)) !== strtolower($home_path . '/llms.txt')) return;
 
     $book = th_booking_url();
     $L = function ($slug) { return esc_url_raw(th_llms_txt_url($slug, 'en')); };
@@ -933,7 +941,9 @@ function tailorhomes_llms_txt() {
     echo implode("\n", $lines) . "\n";
     exit;
 }
-add_action('template_redirect', 'tailorhomes_llms_txt', 0);
+// wp_loaded runs before WordPress parses the URL, so no plugin (Polylang, cache, SEO)
+// gets the chance to turn /llms.txt into a 404 first.
+add_action('wp_loaded', 'tailorhomes_llms_txt', 0);
 // Stop WordPress redirecting /llms.txt to /llms.txt/ before we can answer.
 add_filter('redirect_canonical', function ($redirect) {
     $path = isset($_SERVER['REQUEST_URI']) ? strtok((string) $_SERVER['REQUEST_URI'], '?') : '';

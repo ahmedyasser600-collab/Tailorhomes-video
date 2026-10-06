@@ -1,3 +1,8 @@
+## v2.10.2 - llms.txt fix
+- `/llms.txt` is now answered on `wp_loaded`, before WordPress parses the URL, so Polylang, cache or SEO plugins can no longer turn it into a 404. It also works when WordPress lives in a subfolder.
+- Added `<meta name="tailor-homes-theme" content="VERSION">` to the head so you can confirm which theme version is live (View Source).
+
+
 ## v2.10.1 - Second PageSpeed pass + Agentic Browsing
 - `style.css` is inlined (minified, cached) instead of a render-blocking request, for a faster first paint.
 - Custom logo uses a 768px variant with srcset instead of the full-size upload.

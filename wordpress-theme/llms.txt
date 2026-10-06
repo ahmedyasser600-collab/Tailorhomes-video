@@ -1,0 +1,30 @@
+# Tailor Homes
+
+> Tailor Homes is a property management company based in Padova, Italy. We manage short and medium-term rentals, apartments and prestige villas, offer corporate housing for companies, and a 15% discount for UniPD and Erasmus students. Guests can book directly online.
+
+Office: Via degli Obizzi 1, Padova, Italy. Email: info@tailorhomes.it. Phone / WhatsApp: +39 371 445 3904. Landline: +39 049 490 6189. The site is available in Italian and English.
+
+## Book a stay
+
+- [Book Now — direct booking engine](https://tailorhomes-new.kross.travel/): live availability, prices and secure booking for all our apartments and villas.
+- [Gallery](https://tailorhomes.it/appartamenti/): photos of our apartments and villas in and around Padova.
+- [Students & Erasmus](https://tailorhomes.it/studenti/): 15% off for UniPD and Erasmus students, verified via WhatsApp.
+- [Corporate Housing](https://tailorhomes.it/alloggi-aziendali/): furnished stays for business trips, fairs, relocations and projects.
+
+## Property owners
+
+- [For Owners](https://tailorhomes.it/proprietari/): full property management, dynamic pricing, guest care 24/7, cleaning and maintenance.
+- [Our Services](https://tailorhomes.it/i-nostri-servizi/): property management, home staging, photography, consulting and investments.
+- [Contact](https://tailorhomes.it/contatti/): get a free assessment of your property.
+
+## About
+
+- [Home](https://tailorhomes.it/): overview, ratings (Google 5.0, Airbnb 4.89, Booking 9.2) and guest reviews.
+- [About Us](https://tailorhomes.it/chi-siamo/): our team, approach and the areas we manage.
+- [Work With Us](https://tailorhomes.it/lavora-con-noi/): jobs and partnerships.
+- [Blog](https://tailorhomes.it/blog/): guides on student housing and booking a stay in Padova.
+
+## Optional
+
+- [Privacy Policy](https://tailorhomes.it/privacy-policy/)
+- [Terms & Conditions](https://tailorhomes.it/termini-e-condizioni/)
