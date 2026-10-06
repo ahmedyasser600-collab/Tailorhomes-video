@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" aria-hidden="true">
+  <defs>
+    <linearGradient id="sv3rF" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C54330"/><stop offset="1" stop-color="#912418"/></linearGradient>
+    <linearGradient id="sv3rS" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7d141d"/><stop offset="1" stop-color="#4a0a10"/></linearGradient>
+    <linearGradient id="sv3rT" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#D85540"/><stop offset="1" stop-color="#C54330"/></linearGradient>
+    <linearGradient id="sv3cr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F5F0E8"/><stop offset="1" stop-color="#D8D2C3"/></linearGradient>
+    <linearGradient id="sv3sp" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E5E1DA"/><stop offset="1" stop-color="#B5B0A5"/></linearGradient>
+    <linearGradient id="sv3w" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F5E8C8"/><stop offset="1" stop-color="#E8D8A8"/></linearGradient>
+  </defs>
+  <ellipse cx="60" cy="102" rx="30" ry="3.5" fill="#1A1916" opacity="0.14"/>
+  <path d="M 26 92 L 60 104 L 94 92 L 60 80 Z" fill="url(#sv3sp)" stroke="#1A1916" stroke-width="0.6" stroke-linejoin="round"/>
+  <path d="M 36 80 L 60 88 L 60 52 L 36 44 Z" fill="url(#sv3cr)" stroke="#1A1916" stroke-width="0.6" stroke-linejoin="round"/>
+  <path d="M 60 52 L 84 44 L 84 80 L 60 88 Z" fill="#D8D2C3" stroke="#1A1916" stroke-width="0.6" stroke-linejoin="round"/>
+  <path d="M 36 44 L 60 32 L 60 40 L 36 52 Z" fill="url(#sv3rS)" stroke="#1A1916" stroke-width="0.6" stroke-linejoin="round"/>
+  <path d="M 60 32 L 84 44 L 84 52 L 60 40 Z" fill="url(#sv3rF)" stroke="#1A1916" stroke-width="0.6" stroke-linejoin="round"/>
+  <path d="M 36 44 L 60 32 L 84 44 L 60 48 Z" fill="url(#sv3rT)" stroke="#1A1916" stroke-width="0.6" stroke-linejoin="round"/>
+  <path d="M 44 80 L 52 77 L 52 64 L 44 66 Z" fill="#1A1916" stroke="#1A1916" stroke-width="0.5"/>
+  <rect x="65" y="58" width="7" height="7" fill="url(#sv3w)" transform="skewY(15)" stroke="#1A1916" stroke-width="0.4"/>
+  <path d="M 70 39 L 76 36 L 76 30 L 70 33 Z" fill="url(#sv3sp)" stroke="#1A1916" stroke-width="0.5"/>
+</svg>

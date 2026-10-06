@@ -1,0 +1,170 @@
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,300;1,9..40,400&display=swap');
+
+.th-blog9 *, .th-blog9 *::before, .th-blog9 *::after { box-sizing:border-box; margin:0; padding:0; }
+.th-blog9 {
+  --bg: #ECEAE4; --ink: #1A1916; --ink-mid: #3A3830; --ink-soft: #8A8780;
+  --red: #B8312F; --white: #F5F3EF; --bg-warm: #E5E1DA;
+  background: var(--bg);
+  font-family: 'DM Sans', sans-serif;
+  color: var(--ink);
+  font-weight: 300;
+  line-height: 1.7;
+  padding: 0 0 80px;
+}
+.th-blog9__hero { padding: 80px 24px 60px; border-bottom: 1px solid rgba(26,25,22,.1); max-width: 800px; margin: 0 auto; }
+.th-blog9__body { max-width: 800px; margin: 0 auto; padding: 60px 24px 0; }
+.th-blog9__meta { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 28px; }
+.th-blog9__tag { font-size: 10px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: var(--red); padding: 5px 12px; border: 1px solid var(--red); }
+.th-blog9__date, .th-blog9__read { font-size: 12px; color: var(--ink-soft); letter-spacing: .04em; }
+.th-blog9 h1 { font-size: clamp(34px, 5vw, 58px); font-weight: 800; letter-spacing: -.03em; line-height: 1.05; color: var(--ink); margin-bottom: 24px; }
+.th-blog9__intro { font-size: 18px; font-weight: 300; color: var(--ink-mid); line-height: 1.75; border-left: 3px solid var(--red); padding-left: 20px; }
+.th-blog9 h2 { font-size: clamp(22px, 3vw, 30px); font-weight: 800; letter-spacing: -.02em; line-height: 1.15; color: var(--ink); margin: 56px 0 16px; }
+.th-blog9 h3 { font-size: 17px; font-weight: 700; color: var(--ink); margin: 32px 0 10px; }
+.th-blog9 p { font-size: 16px; font-weight: 300; color: var(--ink-mid); line-height: 1.85; margin-bottom: 20px; }
+.th-blog9 strong { font-weight: 700; color: var(--ink); }
+.th-blog9 em { font-style: italic; }
+.th-blog9 a { color: var(--red); text-decoration: underline; text-underline-offset: 3px; }
+.th-blog9 a:hover { text-decoration: none; }
+.th-blog9 ul.th-list { list-style: none; margin: 0 0 24px; }
+.th-blog9 ul.th-list li { font-size: 16px; color: var(--ink-mid); padding: 8px 0 8px 26px; position: relative; line-height: 1.7; }
+.th-blog9 ul.th-list li::before { content: '→'; color: var(--red); font-weight: 700; position: absolute; left: 0; }
+
+.th-timeline { margin: 32px 0; }
+.th-timeline__step { display: flex; gap: 20px; padding: 20px 0; border-bottom: 1px solid rgba(26,25,22,.08); }
+.th-timeline__when { flex-shrink: 0; width: 150px; font-size: 13px; font-weight: 700; color: var(--red); letter-spacing: .02em; }
+.th-timeline__what { font-size: 15px; color: var(--ink-mid); line-height: 1.6; }
+.th-timeline__what strong { display: block; color: var(--ink); margin-bottom: 3px; }
+@media(max-width:580px){ .th-timeline__step { flex-direction: column; gap: 6px; } .th-timeline__when { width: auto; } }
+
+.th-warn { background: var(--white); border-left: 4px solid var(--red); padding: 24px 28px; margin: 32px 0; }
+.th-warn__title { font-size: 14px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; color: var(--red); margin-bottom: 10px; }
+.th-warn p { margin: 0; font-size: 15px; }
+
+.th-discount { background: #1B2A4A; color: #F5F0E8; padding: 36px 32px; margin: 40px 0; border-left: 4px solid var(--red); }
+.th-discount__badge { display: inline-block; background: var(--red); color: #fff; font-weight: 800; font-size: 18px; padding: 6px 16px; border-radius: 100px; margin-bottom: 14px; }
+.th-discount h3 { color: #F5F0E8; margin: 0 0 10px; }
+.th-discount p { color: rgba(245,240,232,.75); margin: 0; font-size: 15px; }
+
+.th-faq9 { margin: 56px 0 0; }
+.th-faq9__heading { font-size: clamp(22px, 3vw, 30px); font-weight: 800; letter-spacing: -.02em; color: var(--ink); margin-bottom: 24px; }
+.th-faq9__item { border-bottom: 1px solid rgba(26,25,22,.12); }
+.th-faq9__q { font-size: 16px; font-weight: 700; color: var(--ink); padding: 22px 40px 22px 0; position: relative; cursor: pointer; }
+.th-faq9__q::after { content: '+'; position: absolute; right: 8px; top: 18px; font-size: 22px; font-weight: 300; color: var(--red); }
+.th-faq9__item.open .th-faq9__q::after { content: '−'; }
+.th-faq9__a { font-size: 15px; font-weight: 300; color: var(--ink-mid); line-height: 1.8; max-height: 0; overflow: hidden; transition: max-height .3s, padding .3s; }
+.th-faq9__item.open .th-faq9__a { max-height: 600px; padding: 0 0 22px; }
+
+.th-blog9__img { width: 100%; aspect-ratio: 16/9; background: var(--bg-warm); margin: 40px 0 12px; overflow: hidden; }
+.th-blog9__img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.th-blog9__img-caption { font-size: 12px; color: var(--ink-soft); text-align: center; margin: 0 0 40px; font-style: italic; }
+</style>
+<div class="th-blog9">
+<div class="th-blog9__body">
+<p>Se sei stato ammesso a studiare a Padova in Erasmus o in un altro programma di scambio, complimenti — stai per arrivare in una delle grandi città universitarie d'Italia. Ma tra te e quell'esperienza c'è un ostacolo: trovare un posto dove vivere. I posti in residenza universitaria sono pochi e in gran parte riservati a specifici programmi di mobilità, il che significa che la maggior parte degli studenti in scambio deve trovare un alloggio privato da sola, spesso dall'estero. Questa guida spiega esattamente come fare.</p>
+<h2>Parti dalla Tempistica Giusta</h2>
+<p>L'errore più grande degli studenti in scambio è iniziare troppo tardi. Ecco un calendario realistico:</p>
+<div class="th-timeline">
+<div class="th-timeline__step">
+<div class="th-timeline__when">2–3 mesi prima</div>
+<div class="th-timeline__what"><strong>Inizia a informarti</strong> Definisci budget e zona preferita. Studia i quartieri. Fai una lista di operatori gestiti e piattaforme.</div>
+</div>
+<div class="th-timeline__step">
+<div class="th-timeline__when">6–8 settimane prima</div>
+<div class="th-timeline__what"><strong>Inizia a contattare</strong> Scrivi agli operatori con le date esatte di arrivo e partenza. Prenota un affitto arredato a medio termine se vuoi la certezza prima di partire.</div>
+</div>
+<div class="th-timeline__step">
+<div class="th-timeline__when">2–4 settimane prima</div>
+<div class="th-timeline__what"><strong>Conferma e documenta</strong> Blocca l'alloggio, ottieni un accordo scritto e conserva tutte le conferme. Evita qualsiasi cosa ancora "da definire" a questo punto.</div>
+</div>
+<div class="th-timeline__step">
+<div class="th-timeline__when">All'arrivo</div>
+<div class="th-timeline__what"><strong>Sistemati</strong> Ritira le chiavi, controlla l'inventario, sbriga residenza e abbonamento ai trasporti nella prima settimana.</div>
+</div>
+</div>
+
+    [th_image n="1" caption="Erasmus a Padova: una delle università più antiche d'Italia, in una città fatta per gli studenti."]
+
+    <h2>Perché gli Studenti Erasmus Hanno Più Difficoltà</h2>
+<p>Vale la pena dare un nome alle difficoltà specifiche degli studenti in scambio, perché ognuna ha una soluzione:</p>
+<ul class="th-list">
+<li><strong>Non puoi vedere di persona.</strong> Sei all'estero, quindi ti affidi a foto e video — esattamente ciò che sfruttano i truffatori. La soluzione: tratta solo con operatori verificati e registrati, o pretendi una videochiamata dal vivo.</li>
+<li><strong>Il tuo soggiorno è "troppo breve".</strong> Un semestre non rientra in un classico contratto italiano 4+4, quindi molti proprietari dicono no. La soluzione: cerca specificamente contratti <em>transitori</em> e affitti arredati a medio termine pensati proprio per questo.</li>
+<li><strong>La burocrazia è in italiano.</strong> Contratti, <em>codice fiscale</em>, opzione <em>cedolare secca</em> — tutto in una seconda lingua. La soluzione: scegli un operatore che offra contratti bilingui e spieghi la procedura.</li>
+<li><strong>I tempi sono stretti.</strong> L'accettazione spesso arriva solo poche settimane prima del semestre. La soluzione: dai priorità a operatori che possano confermare in fretta un posto arredato, senza una lunga trafila burocratica.</li>
+</ul>
+<div class="th-warn">
+<div class="th-warn__title">⚠ La truffa Erasmus da conoscere</div>
+<p>La frode più comune contro gli studenti in scambio: un "proprietario" all'estero ti chiede di inviare una caparra per bloccare una stanza prima di arrivare, poi sparisce. <strong>Non trasferire mai denaro per una stanza che non hai visto di persona o in una videochiamata verificata</strong>, e mai a un privato di cui non puoi confermare la legittimità. Un'azienda registrata con recensioni reali e un indirizzo fisico a Padova è tutta un'altra cosa.</p>
+</div>
+<h2>Le Tue Opzioni di Alloggio, in Ordine per l'Erasmus</h2>
+<h3>1. Residenze universitarie (ESU / UniPD)</h3>
+<p>Le più economiche se riesci a ottenerle — ma i posti sono estremamente limitati e in gran parte riservati a specifici programmi di mobilità e a studenti con particolari esigenze. Fai domanda appena vieni invitato, ma tieni un piano B. La maggior parte degli studenti in scambio non otterrà un posto in residenza.</p>
+<h3>2. Una stanza in un appartamento condiviso</h3>
+<p>L'opzione classica: €350–500 al mese per una stanza singola, condividendo cucina e bagno con altri studenti. Ottima per socializzare e per il budget. La difficoltà è trovarne una legittima dall'estero che accetti un inquilino per un solo semestre.</p>
+<h3>3. Un appartamento arredato a medio termine</h3>
+<p>La via meno stressante, e quella che molti studenti in scambio non conoscono. Un intero appartamento arredato (o una stanza gestita) affittato al mese, bollette incluse, con un vero contratto bilingue — prenotato prima dell'arrivo così atterri con la certezza di una casa. È ciò su cui ci concentriamo a <a href="/it/chi-siamo">Tailor Homes</a>.</p>
+
+    [th_image n="2" caption="Arredato, bollette incluse, contratto in inglese — pronto il giorno in cui arrivi."]
+
+    <h2>Perché un Affitto Gestito a Medio Termine Funziona per l'Erasmus</h2>
+<p>Per uno scambio di durata fissa, un affitto gestito elimina quasi tutti i problemi in un colpo solo:</p>
+<ul class="th-list">
+<li><strong>Coincide con le tue date.</strong> Da uno a sei mesi con una fine chiara — niente scomodo contratto annuale.</li>
+<li><strong>È pronto dal primo giorno.</strong> Arredato, attrezzato, Wi-Fi attivo, bollette incluse — arrivi con una valigia.</li>
+<li><strong>Il contratto è bilingue.</strong> Gestiamo noi la parte italiana e te la spieghiamo in inglese.</li>
+<li><strong>È legittimo.</strong> Un'azienda registrata e assicurata con recensioni — non un bonifico rischioso a uno sconosciuto.</li>
+<li><strong>C'è un team locale.</strong> Persone vere a Padova per il momento in cui qualcosa va storto.</li>
+</ul>
+<p>Se vuoi confrontarlo con la prenotazione a notte, la nostra guida ad <a href="/it/blog/affitto-breve-vs-medio-termine-padova">affitto breve vs affitto mensile a Padova</a> mostra i numeri reali. E per il quadro completo su come trovare una stanza, leggi la <a href="/it/blog/alloggi-studenti-padova">nostra guida completa agli alloggi per studenti</a>.</p>
+<div class="th-discount">
+<span class="th-discount__badge">−15%</span>
+<h3>Erasmus a Padova? Prendi il 15% di sconto.</h3>
+<p>Mostraci la tua tessera Erasmus o universitaria su WhatsApp e ti inviamo un codice sconto del 15% valido su ogni prenotazione — e condivisibile con amici e famiglia. Richiedilo sulla nostra <a href="/it/studenti" style="color:#F5F0E8;">pagina Studenti &amp; Erasmus</a>.</p>
+</div>
+<h2>Una Volta Arrivato: la Checklist della Prima Settimana</h2>
+<ul class="th-list">
+<li><strong>Codice fiscale</strong> — il tuo codice fiscale italiano, necessario per quasi tutto ciò che è ufficiale.</li>
+<li><strong>Abbonamento ai trasporti</strong> — Busitalia offre tariffe studenti per tram e autobus; molti studenti semplicemente vanno in bici.</li>
+<li><strong>Iscrizione universitaria</strong> — conferma la registrazione e ritira la tessera studente (ti servirà anche per lo sconto Tailor Homes).</li>
+<li><strong>SIM locale</strong> — una SIM italiana economica rende tutto più facile.</li>
+</ul>
+<p>La nostra <a href="/it/blog/trasferirsi-a-padova-guida">guida completa per trasferirsi a Padova</a> tratta ciascuno di questi punti nel dettaglio.</p>
+<!-- FAQ -->
+<div class="th-faq9">
+<div class="th-faq9__heading">Domande Frequenti</div>
+<div class="th-faq9__item">
+<div class="th-faq9__q">Quando dovrei iniziare a cercare un alloggio Erasmus a Padova?</div>
+<div class="th-faq9__a">Inizia a informarti due o tre mesi prima del semestre e a contattare gli operatori sei-otto settimane prima. Le stanze e gli appartamenti migliori si prendono presto, e iniziare tardi è il motivo più comune per cui gli studenti in scambio restano senza casa o pagano troppo. Prenotare in anticipo un affitto arredato a medio termine ti permette di arrivare con la certezza di una casa.</div>
+</div>
+<div class="th-faq9__item">
+<div class="th-faq9__q">Gli studenti Erasmus possono fare un contratto breve in Italia?</div>
+<div class="th-faq9__a">Sì. I contratti italiani standard durano anni, ma i contratti transitori e gli affitti arredati a medio termine sono pensati per soggiorni di pochi mesi — perfetti per un periodo Erasmus. Tailor Homes offre affitti arredati al mese con contratti bilingui e una data di fine chiara.</div>
+</div>
+<div class="th-faq9__item">
+<div class="th-faq9__q">Quanto deve mettere in budget uno studente Erasmus per l'alloggio a Padova?</div>
+<div class="th-faq9__a">Una stanza singola in un appartamento condiviso costa di solito €350–500 al mese; un bilocale arredato va da €800 a €1.400, spesso tutto incluso. Aggiungi circa €150–250 per la spesa. Il costo della vita mensile totale è generalmente tra €800 e €1.200, affitto, cibo e trasporti inclusi.</div>
+</div>
+<div class="th-faq9__item">
+<div class="th-faq9__q">Come evito le truffe sugli alloggi Erasmus a Padova?</div>
+<div class="th-faq9__a">Non inviare mai una caparra per una stanza che non hai visto di persona o in una videochiamata verificata, e diffida di chi ti mette fretta di trasferire denaro per "riservare" un posto dall'estero. Affittare tramite un'azienda registrata e assicurata con recensioni autentiche e un indirizzo reale a Padova elimina questo rischio.</div>
+</div>
+<div class="th-faq9__item">
+<div class="th-faq9__q">Gli studenti Erasmus hanno uno sconto con Tailor Homes?</div>
+<div class="th-faq9__a">Sì — gli studenti Erasmus e UniPD ricevono il 15% di sconto su ogni prenotazione, e lo sconto può essere condiviso con amici e famiglia. Basta verificare la tessera Erasmus o universitaria su WhatsApp per ricevere il codice. Tutti i dettagli sono sulla nostra pagina Studenti &amp; Erasmus.</div>
+</div>
+</div>
+<!-- CTA -->
+<div class="th-blog9__cta" style="background:#1A1916;color:#F5F3EF;padding:48px 32px;margin:56px 0 0;text-align:center;border-radius:4px;">
+<h3 style="color:#F5F3EF;margin:0 0 12px;">Vieni a Padova in Erasmus?</h3>
+<p style="color:#D4C9B5;margin:0 0 24px;">Arriva in una casa arredata con bollette incluse — e il 15% di sconto per studenti.</p>
+<a href="/it/studenti" style="background:#B8312F;color:#F5F3EF;padding:14px 28px;display:inline-block;text-decoration:none;border-radius:2px;font-weight:500;">Richiedi il Tuo Sconto Studenti →</a>
+</div>
+</div>
+</div>
+
+<script>
+document.querySelectorAll('.th-faq9__item').forEach(function(item){
+  item.querySelector('.th-faq9__q').addEventListener('click', function(){ item.classList.toggle('open'); });
+});
+</script>

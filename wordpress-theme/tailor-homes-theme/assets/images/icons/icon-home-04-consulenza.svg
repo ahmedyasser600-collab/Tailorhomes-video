@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" aria-hidden="true">
+  <defs>
+    <linearGradient id="h4rF" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C54330"/><stop offset="1" stop-color="#912418"/></linearGradient>
+    <linearGradient id="h4rS" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7d141d"/><stop offset="1" stop-color="#4a0a10"/></linearGradient>
+    <linearGradient id="h4rT" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#D85540"/><stop offset="1" stop-color="#C54330"/></linearGradient>
+    <linearGradient id="h4sp" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E5E1DA"/><stop offset="1" stop-color="#B5B0A5"/></linearGradient>
+  </defs>
+  <ellipse cx="60" cy="105" rx="34" ry="4" fill="#1A1916" opacity="0.14"/>
+  <path d="M 20 92 L 60 108 L 100 92 L 60 76 Z" fill="url(#h4sp)" stroke="#1A1916" stroke-width="0.7" stroke-linejoin="round"/>
+  <path d="M 20 92 L 60 108 L 60 110 L 20 94 Z" fill="#B5B0A5" stroke="#1A1916" stroke-width="0.5"/>
+  <path d="M 30 88 L 42 92.5 L 42 74 L 30 69.5 Z" fill="url(#h4rF)" stroke="#1A1916" stroke-width="0.5" stroke-linejoin="round"/>
+  <path d="M 42 92.5 L 50 89.5 L 50 71 L 42 74 Z" fill="url(#h4rS)" stroke="#1A1916" stroke-width="0.5" stroke-linejoin="round"/>
+  <path d="M 30 69.5 L 42 74 L 50 71 L 38 66.5 Z" fill="url(#h4rT)" stroke="#1A1916" stroke-width="0.5" stroke-linejoin="round"/>
+  <path d="M 52 92 L 64 96.5 L 64 62 L 52 57.5 Z" fill="url(#h4rF)" stroke="#1A1916" stroke-width="0.5" stroke-linejoin="round"/>
+  <path d="M 64 96.5 L 72 93.5 L 72 59 L 64 62 Z" fill="url(#h4rS)" stroke="#1A1916" stroke-width="0.5" stroke-linejoin="round"/>
+  <path d="M 52 57.5 L 64 62 L 72 59 L 60 54.5 Z" fill="url(#h4rT)" stroke="#1A1916" stroke-width="0.5" stroke-linejoin="round"/>
+  <path d="M 74 96 L 86 100.5 L 86 46 L 74 41.5 Z" fill="url(#h4rF)" stroke="#1A1916" stroke-width="0.5" stroke-linejoin="round"/>
+  <path d="M 86 100.5 L 94 97.5 L 94 43 L 86 46 Z" fill="url(#h4rS)" stroke="#1A1916" stroke-width="0.5" stroke-linejoin="round"/>
+  <path d="M 74 41.5 L 86 46 L 94 43 L 82 38.5 Z" fill="url(#h4rT)" stroke="#1A1916" stroke-width="0.5" stroke-linejoin="round"/>
+  <polyline points="36,67 64,55 88,40" fill="none" stroke="#B8312F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="36" cy="67" r="2.2" fill="#B8312F" stroke="#1A1916" stroke-width="0.5"/>
+  <circle cx="64" cy="55" r="2.2" fill="#B8312F" stroke="#1A1916" stroke-width="0.5"/>
+  <circle cx="88" cy="40" r="2.8" fill="#B8312F" stroke="#1A1916" stroke-width="0.6"/>
+</svg>

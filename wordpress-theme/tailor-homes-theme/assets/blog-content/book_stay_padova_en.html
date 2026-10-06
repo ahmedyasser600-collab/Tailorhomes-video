@@ -1,0 +1,230 @@
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,300;1,9..40,400&display=swap');
+
+.th-blog9 *, .th-blog9 *::before, .th-blog9 *::after { box-sizing:border-box; margin:0; padding:0; }
+.th-blog9 {
+  --bg: #ECEAE4; --ink: #1A1916; --ink-mid: #3A3830; --ink-soft: #8A8780;
+  --red: #B8312F; --white: #F5F3EF; --bg-warm: #E5E1DA;
+  background: var(--bg);
+  font-family: 'DM Sans', sans-serif;
+  color: var(--ink);
+  font-weight: 300;
+  line-height: 1.7;
+  padding: 0 0 80px;
+}
+.th-blog9__body { max-width: 800px; margin: 0 auto; padding: 60px 24px 0; }
+.th-blog9 h2 { font-size: clamp(22px, 3vw, 30px); font-weight: 800; letter-spacing: -.02em; line-height: 1.15; color: var(--ink); margin: 56px 0 16px; }
+.th-blog9 h3 { font-size: 17px; font-weight: 700; color: var(--ink); margin: 32px 0 10px; }
+.th-blog9 p { font-size: 16px; font-weight: 300; color: var(--ink-mid); line-height: 1.85; margin-bottom: 20px; }
+.th-blog9 strong { font-weight: 700; color: var(--ink); }
+.th-blog9 em { font-style: italic; }
+.th-blog9 a { color: var(--red); text-decoration: underline; text-underline-offset: 3px; }
+.th-blog9 a:hover { text-decoration: none; }
+.th-blog9 ul.th-list { list-style: none; margin: 0 0 24px; }
+.th-blog9 ul.th-list li { font-size: 16px; color: var(--ink-mid); padding: 8px 0 8px 26px; position: relative; line-height: 1.7; }
+.th-blog9 ul.th-list li::before { content: '→'; color: var(--red); font-weight: 700; position: absolute; left: 0; }
+
+/* Option cards */
+.th-opts { margin: 32px 0; }
+.th-opt { background: var(--white); border-left: 4px solid rgba(26,25,22,.12); padding: 22px 26px; margin-bottom: 14px; }
+.th-opt--best { border-left-color: var(--red); }
+.th-opt__name { font-size: 16px; font-weight: 800; color: var(--ink); margin-bottom: 6px; }
+.th-opt__who { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--red); margin-bottom: 10px; }
+.th-opt p { font-size: 15px; margin: 0; }
+
+/* Comparison rows */
+.th-cmp { margin: 32px 0; border-top: 1px solid rgba(26,25,22,.12); }
+.th-cmp__row { display: flex; gap: 20px; padding: 18px 0; border-bottom: 1px solid rgba(26,25,22,.08); }
+.th-cmp__label { flex-shrink: 0; width: 190px; font-size: 14px; font-weight: 700; color: var(--ink); }
+.th-cmp__val { font-size: 15px; color: var(--ink-mid); line-height: 1.6; }
+@media(max-width:580px){ .th-cmp__row { flex-direction: column; gap: 4px; } .th-cmp__label { width: auto; } }
+
+/* Steps */
+.th-steps { margin: 32px 0; }
+.th-steps__item { display: flex; gap: 20px; padding: 20px 0; border-bottom: 1px solid rgba(26,25,22,.08); }
+.th-steps__n { flex-shrink: 0; width: 34px; height: 34px; border-radius: 100px; background: var(--red); color: #fff; font-weight: 800; font-size: 15px; display: flex; align-items: center; justify-content: center; }
+.th-steps__what { font-size: 15px; color: var(--ink-mid); line-height: 1.65; }
+.th-steps__what strong { display: block; color: var(--ink); margin-bottom: 3px; }
+
+/* Note box */
+.th-warn { background: var(--white); border-left: 4px solid var(--red); padding: 24px 28px; margin: 32px 0; }
+.th-warn__title { font-size: 14px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; color: var(--red); margin-bottom: 10px; }
+.th-warn p { margin: 0; font-size: 15px; }
+
+/* FAQ */
+.th-faq9 { margin: 56px 0 0; }
+.th-faq9__heading { font-size: clamp(22px, 3vw, 30px); font-weight: 800; letter-spacing: -.02em; color: var(--ink); margin-bottom: 24px; }
+.th-faq9__item { border-bottom: 1px solid rgba(26,25,22,.12); }
+.th-faq9__q { font-size: 16px; font-weight: 700; color: var(--ink); padding: 22px 40px 22px 0; position: relative; cursor: pointer; }
+.th-faq9__q::after { content: '+'; position: absolute; right: 8px; top: 18px; font-size: 22px; font-weight: 300; color: var(--red); }
+.th-faq9__item.open .th-faq9__q::after { content: '−'; }
+.th-faq9__a { font-size: 15px; font-weight: 300; color: var(--ink-mid); line-height: 1.8; max-height: 0; overflow: hidden; transition: max-height .3s, padding .3s; }
+.th-faq9__item.open .th-faq9__a { max-height: 600px; padding: 0 0 22px; }
+</style>
+<div class="th-blog9">
+<div class="th-blog9__body">
+
+<p>Padova is a city people come to for very different reasons — a weekend among the Giotto frescoes, a semester at one of Europe's oldest universities, a work assignment at the industrial zone, a course of treatment at the hospital, a pilgrimage to the Basilica of Saint Anthony. Those stays look nothing alike, and neither should the way you book them. This guide walks through the real options for accommodation in Padova, what each one actually costs once the fees are added, and the booking route that leaves you with the most money and the fewest surprises.</p>
+
+<h2>First, Match the Booking to the Stay</h2>
+
+<p>Most bad accommodation decisions come from booking the wrong <em>type</em> of place, not the wrong price. Start here:</p>
+
+<div class="th-opts">
+<div class="th-opt">
+<div class="th-opt__who">One or two nights</div>
+<div class="th-opt__name">A hotel near the centre or the station</div>
+<p>For a single night before a conference or an early train, a hotel is hard to beat on convenience. You pay for the front desk and the breakfast, and you accept a room rather than a home.</p>
+</div>
+<div class="th-opt th-opt--best">
+<div class="th-opt__who">Three nights to several weeks</div>
+<div class="th-opt__name">A serviced apartment</div>
+<p>The sweet spot for most visitors to Padova. A whole apartment with a kitchen, a washing machine and room to spread out, usually cheaper per night than two hotel rooms for a family, and far better suited to a stay where you'll want to cook at least sometimes.</p>
+</div>
+<div class="th-opt th-opt--best">
+<div class="th-opt__who">One month and beyond</div>
+<div class="th-opt__name">A furnished medium-term rental</div>
+<p>For students, relocating professionals, visiting academics and patients undergoing treatment. Furnished, bills included, monthly rate, proper contract, no year-long lease. Almost always the cheapest way to spend a month or more in the city.</p>
+</div>
+</div>
+
+<p>You can see the apartments we manage across Padova on our <a href="[th_page slug='apartments']">gallery page</a> — from design apartments in the historic centre to whole prestige villas.</p>
+
+[th_image n="1" caption="Padova's historic centre — most of the city's landmarks are within a twenty-minute walk of each other."]
+
+<h2>Where to Stay in Padova, Area by Area</h2>
+
+<h3>The historic centre</h3>
+<p>Between Piazza delle Erbe, Piazza dei Signori and the Palazzo della Ragione you are inside the part of Padova people travel to see. Markets under the arcades every morning, restaurants at every turn, everything walkable. The trade-off is that parking is restricted and streets can be lively at night.</p>
+
+<h3>Around Prato della Valle and the Basilica</h3>
+<p>Quieter, extremely beautiful, and the right base if you're here for the Basilica of Saint Anthony or the Botanical Garden. Still an easy walk into the centre.</p>
+
+<h3>Near the railway station</h3>
+<p>The practical choice if you're commuting to Venice, Vicenza or Verona, or arriving late. Trains to Venice take well under an hour, which is why a good number of people now stay in Padova and day-trip to Venice rather than the reverse.</p>
+
+<h3>The university quarter and Portello</h3>
+<p>Student energy, cheap food, canal-side bars in summer. Convenient for anyone with business at UniPD or the university hospital.</p>
+
+<h3>Toward the hospital and the fair district</h3>
+<p>Less scenic, more practical. If your stay is built around treatment at the Azienda Ospedale or an event at the Fiera, being ten minutes away on foot matters more than a view.</p>
+
+<h2>Then Choose How You Book — This Is Where the Money Goes</h2>
+
+<p>The same apartment, on the same dates, can cost noticeably different amounts depending on where you click "reserve". The reason is structural rather than sneaky: the large booking platforms charge the property a commission, and most of them also add a service fee on the guest's side at checkout. Both of those have to come from somewhere, and they end up inside the nightly rate you're quoted.</p>
+
+<div class="th-cmp">
+<div class="th-cmp__row">
+<div class="th-cmp__label">Large booking platforms</div>
+<div class="th-cmp__val">Wide choice and a familiar interface. But the property pays a commission on every reservation, and you're typically charged a guest service fee on top. Messages go through the platform, and the terms are the platform's, not the host's.</div>
+</div>
+<div class="th-cmp__row">
+<div class="th-cmp__label">Booking direct</div>
+<div class="th-cmp__val">No intermediary commission and no platform service fee, so the same night can be cheaper. You talk to the people who actually manage the apartment, and any flexibility on check-in, length of stay or a late arrival can be agreed with them directly.</div>
+</div>
+<div class="th-cmp__row">
+<div class="th-cmp__label">Calling or emailing</div>
+<div class="th-cmp__val">Fine, and we're happy to help this way — but you don't see live availability, so it takes a few messages back and forth to land on dates that work.</div>
+</div>
+</div>
+
+<p>This is exactly why we opened our own booking engine. You get live availability across every Tailor Homes apartment, instant confirmation, and no third party taking a cut in the middle.</p>
+
+<div class="th-warn">
+<div class="th-warn__title">A habit worth adopting anywhere</div>
+<p>Whenever you find a place you like on a large platform, spend thirty seconds searching the property's own name. Serious operators run their own booking pages, and the direct rate is very often better than the one you were just looking at. It costs you almost nothing to check, and it works far beyond Padova.</p>
+</div>
+
+<h2>What You Actually Get by Booking With Us Directly</h2>
+
+<ul class="th-list">
+<li><strong>The best available rate.</strong> No platform commission and no guest service fee sitting on top of the price.</li>
+<li><strong>Instant confirmation.</strong> Live availability across the whole portfolio, confirmed the moment you book.</li>
+<li><strong>A real conversation.</strong> You're speaking to the team in Padova, not a support queue in another country.</li>
+<li><strong>A digital guest guide.</strong> Before you arrive you receive a personal guide to your apartment — access instructions, Wi-Fi, parking, the appliances, and our honest local recommendations for eating and getting around.</li>
+<li><strong>Flexibility on the details.</strong> Late arrival, an extra night, luggage before check-in, a cot for a baby: these are decisions we can make ourselves.</li>
+<li><strong>Longer stays priced properly.</strong> Weekly and monthly rates that the nightly platforms simply don't handle well.</li>
+</ul>
+
+[th_image n="2" caption="Every Tailor Homes apartment is prepared, checked and managed by our own team in Padova."]
+
+<h2>How to Book, Step by Step</h2>
+
+<div class="th-steps">
+<div class="th-steps__item">
+<div class="th-steps__n">1</div>
+<div class="th-steps__what"><strong>Fix your dates and your group</strong> Arrival, departure, and how many of you there are. If your dates are still soft, note which nights could move — it often unlocks a better apartment.</div>
+</div>
+<div class="th-steps__item">
+<div class="th-steps__n">2</div>
+<div class="th-steps__what"><strong>Pick the area that fits your reason for coming</strong> Sightseeing, the university, the hospital, the trade fair or the station. Padova is compact, but ten minutes of walking in the right direction still makes a difference.</div>
+</div>
+<div class="th-steps__item">
+<div class="th-steps__n">3</div>
+<div class="th-steps__what"><strong>Check live availability</strong> Enter your dates in our <a href="[th_book_url]" target="_blank" rel="noopener">direct booking engine</a> and you'll see every apartment free on those nights, with the direct rate.</div>
+</div>
+<div class="th-steps__item">
+<div class="th-steps__n">4</div>
+<div class="th-steps__what"><strong>Book and get confirmation</strong> Your reservation is confirmed straight away, with the full terms in writing.</div>
+</div>
+<div class="th-steps__item">
+<div class="th-steps__n">5</div>
+<div class="th-steps__what"><strong>Receive your guest guide</strong> Ahead of arrival we send a personal guide to your apartment covering access, Wi-Fi, parking and the neighbourhood.</div>
+</div>
+</div>
+
+<p>Staying a month or longer, coming as a student, or arranging accommodation for colleagues? Those bookings deserve a conversation rather than a checkout page — <a href="[th_page slug='contact']">get in touch</a> and we'll price it properly.</p>
+
+<h2>A Few Practical Things to Know</h2>
+
+<ul class="th-list">
+<li><strong>City tax.</strong> Like every Italian city, Padova applies a tourist tax per person per night for stays in tourist accommodation, with the usual exemptions for children and certain categories. We tell you the exact amount and how to pay it before you arrive, so it's never a surprise at the door.</li>
+<li><strong>Registration is required by law.</strong> Every guest's ID has to be registered with the authorities on arrival — this is standard across Italy and applies to hotels and apartments alike.</li>
+<li><strong>Parking needs planning.</strong> Much of the centre is a restricted traffic zone. Ask us before you arrive with a car; each apartment has its own answer.</li>
+<li><strong>Book early for the busy weeks.</strong> Graduation periods, the Saint Anthony feast in June, trade fair dates and the university term start all compress availability across the whole city.</li>
+</ul>
+
+<!-- FAQ -->
+<div class="th-faq9">
+<div class="th-faq9__heading">Frequently Asked Questions</div>
+<div class="th-faq9__item">
+<div class="th-faq9__q">What is the best way to book accommodation in Padova?</div>
+<div class="th-faq9__a">Decide first on the type of stay — a hotel for a night, a serviced apartment for a few days to a few weeks, a furnished medium-term rental for a month or more — then book with the property directly wherever you can. Direct booking avoids both the commission the property pays a platform and the service fee added to your side at checkout, which is why the same apartment on the same dates is often cheaper booked direct.</div>
+</div>
+<div class="th-faq9__item">
+<div class="th-faq9__q">Is it cheaper to book direct than through a large booking platform?</div>
+<div class="th-faq9__a">Usually, yes. Platforms charge the property a commission on every reservation and most add a guest service fee at checkout, and both are ultimately reflected in the price you see. Booking through a property's own site removes those layers. It also means the terms, the flexibility and any special request are agreed with the people who actually manage the apartment.</div>
+</div>
+<div class="th-faq9__item">
+<div class="th-faq9__q">Where is the best area to stay in Padova?</div>
+<div class="th-faq9__a">It depends on why you're coming. The historic centre around Piazza delle Erbe suits sightseeing and dining; Prato della Valle and the Basilica area is quieter and beautiful; near the station is best for commuting to Venice, Vicenza or Verona; the university quarter and Portello suit anyone with business at UniPD; and staying close to the hospital or the fair district makes sense when your visit is built around either of those.</div>
+</div>
+<div class="th-faq9__item">
+<div class="th-faq9__q">Can I book an apartment in Padova for a month or longer?</div>
+<div class="th-faq9__a">Yes. Furnished medium-term rentals are designed for exactly this — students, relocating professionals, visiting academics, and people staying for medical treatment. They come furnished with bills included and a proper contract, at a monthly rate rather than a nightly one, and without committing to a multi-year Italian lease. Contact us with your dates and we'll quote the stay directly.</div>
+</div>
+<div class="th-faq9__item">
+<div class="th-faq9__q">Do I have to pay a city tax in Padova?</div>
+<div class="th-faq9__a">Padova applies a tourist tax per person per night on stays in tourist accommodation, as most Italian cities do, with exemptions that typically include young children and certain other categories. When you book with us we confirm the exact amount for your stay and how to pay it before you arrive.</div>
+</div>
+<div class="th-faq9__item">
+<div class="th-faq9__q">How far in advance should I book a stay in Padova?</div>
+<div class="th-faq9__a">For ordinary dates a few weeks is comfortable. Book considerably earlier for graduation periods, the Saint Anthony feast in June, major trade fair dates and the start of the university term, when availability across the entire city tightens at once.</div>
+</div>
+</div>
+
+<!-- CTA -->
+<div class="th-blog9__cta" style="background:#1A1916;color:#F5F3EF;padding:48px 32px;margin:56px 0 0;text-align:center;border-radius:4px;">
+<h3 style="color:#F5F3EF;margin:0 0 12px;">Book your stay in Padova directly</h3>
+<p style="color:#D4C9B5;margin:0 0 24px;">Live availability across every Tailor Homes apartment. No platform fees, instant confirmation, and a local team behind it.</p>
+<a href="[th_book_url]" target="_blank" rel="noopener" style="background:#B8312F;color:#F5F3EF;padding:14px 28px;display:inline-block;text-decoration:none;border-radius:2px;font-weight:500;">Check Availability →</a>
+</div>
+
+</div>
+</div>
+
+<script>
+document.querySelectorAll('.th-faq9__item').forEach(function(item){
+  item.querySelector('.th-faq9__q').addEventListener('click', function(){ item.classList.toggle('open'); });
+});
+</script>

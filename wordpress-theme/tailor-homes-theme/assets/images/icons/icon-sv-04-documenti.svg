@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" aria-hidden="true">
+  <defs>
+    <linearGradient id="sv4rF" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C54330"/><stop offset="1" stop-color="#912418"/></linearGradient>
+    <linearGradient id="sv4cr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F5F0E8"/><stop offset="1" stop-color="#D8D2C3"/></linearGradient>
+  </defs>
+  <ellipse cx="60" cy="100" rx="26" ry="3" fill="#1A1916" opacity="0.14"/>
+  <g transform="translate(-8 6)">
+    <path d="M 40 42 L 74 42 L 74 90 L 40 90 Z" fill="#E5E1DA" stroke="#1A1916" stroke-width="0.6" stroke-linejoin="round" transform="skewY(8)"/>
+  </g>
+  <path d="M 36 44 L 74 44 L 84 54 L 84 94 L 36 94 Z" fill="#F5F0E8" stroke="#1A1916" stroke-width="0.7" stroke-linejoin="round"/>
+  <path d="M 74 44 L 84 54 L 74 54 Z" fill="url(#sv4cr)" stroke="#1A1916" stroke-width="0.6" stroke-linejoin="round"/>
+  <rect x="36" y="44" width="48" height="5" fill="url(#sv4rF)" stroke="#1A1916" stroke-width="0.5"/>
+  <g stroke="#8A8780" stroke-width="1.2" fill="none" stroke-linecap="round">
+    <line x1="42" y1="62" x2="76" y2="62"/>
+    <line x1="42" y1="68" x2="76" y2="68"/>
+    <line x1="42" y1="74" x2="66" y2="74"/>
+    <line x1="42" y1="82" x2="74" y2="82"/>
+    <line x1="42" y1="88" x2="60" y2="88"/>
+  </g>
+  <g transform="translate(70 82)">
+    <circle cx="0" cy="0" r="7" fill="url(#sv4rF)" stroke="#1A1916" stroke-width="0.6"/>
+    <path d="M -3 0 L -1 2 L 3 -2" fill="none" stroke="#F5F0E8" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>

@@ -1,0 +1,230 @@
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,300;1,9..40,400&display=swap');
+
+.th-blog9 *, .th-blog9 *::before, .th-blog9 *::after { box-sizing:border-box; margin:0; padding:0; }
+.th-blog9 {
+  --bg: #ECEAE4; --ink: #1A1916; --ink-mid: #3A3830; --ink-soft: #8A8780;
+  --red: #B8312F; --white: #F5F3EF; --bg-warm: #E5E1DA;
+  background: var(--bg);
+  font-family: 'DM Sans', sans-serif;
+  color: var(--ink);
+  font-weight: 300;
+  line-height: 1.7;
+  padding: 0 0 80px;
+}
+.th-blog9__body { max-width: 800px; margin: 0 auto; padding: 60px 24px 0; }
+.th-blog9 h2 { font-size: clamp(22px, 3vw, 30px); font-weight: 800; letter-spacing: -.02em; line-height: 1.15; color: var(--ink); margin: 56px 0 16px; }
+.th-blog9 h3 { font-size: 17px; font-weight: 700; color: var(--ink); margin: 32px 0 10px; }
+.th-blog9 p { font-size: 16px; font-weight: 300; color: var(--ink-mid); line-height: 1.85; margin-bottom: 20px; }
+.th-blog9 strong { font-weight: 700; color: var(--ink); }
+.th-blog9 em { font-style: italic; }
+.th-blog9 a { color: var(--red); text-decoration: underline; text-underline-offset: 3px; }
+.th-blog9 a:hover { text-decoration: none; }
+.th-blog9 ul.th-list { list-style: none; margin: 0 0 24px; }
+.th-blog9 ul.th-list li { font-size: 16px; color: var(--ink-mid); padding: 8px 0 8px 26px; position: relative; line-height: 1.7; }
+.th-blog9 ul.th-list li::before { content: '→'; color: var(--red); font-weight: 700; position: absolute; left: 0; }
+
+/* Option cards */
+.th-opts { margin: 32px 0; }
+.th-opt { background: var(--white); border-left: 4px solid rgba(26,25,22,.12); padding: 22px 26px; margin-bottom: 14px; }
+.th-opt--best { border-left-color: var(--red); }
+.th-opt__name { font-size: 16px; font-weight: 800; color: var(--ink); margin-bottom: 6px; }
+.th-opt__who { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--red); margin-bottom: 10px; }
+.th-opt p { font-size: 15px; margin: 0; }
+
+/* Comparison rows */
+.th-cmp { margin: 32px 0; border-top: 1px solid rgba(26,25,22,.12); }
+.th-cmp__row { display: flex; gap: 20px; padding: 18px 0; border-bottom: 1px solid rgba(26,25,22,.08); }
+.th-cmp__label { flex-shrink: 0; width: 190px; font-size: 14px; font-weight: 700; color: var(--ink); }
+.th-cmp__val { font-size: 15px; color: var(--ink-mid); line-height: 1.6; }
+@media(max-width:580px){ .th-cmp__row { flex-direction: column; gap: 4px; } .th-cmp__label { width: auto; } }
+
+/* Steps */
+.th-steps { margin: 32px 0; }
+.th-steps__item { display: flex; gap: 20px; padding: 20px 0; border-bottom: 1px solid rgba(26,25,22,.08); }
+.th-steps__n { flex-shrink: 0; width: 34px; height: 34px; border-radius: 100px; background: var(--red); color: #fff; font-weight: 800; font-size: 15px; display: flex; align-items: center; justify-content: center; }
+.th-steps__what { font-size: 15px; color: var(--ink-mid); line-height: 1.65; }
+.th-steps__what strong { display: block; color: var(--ink); margin-bottom: 3px; }
+
+/* Note box */
+.th-warn { background: var(--white); border-left: 4px solid var(--red); padding: 24px 28px; margin: 32px 0; }
+.th-warn__title { font-size: 14px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; color: var(--red); margin-bottom: 10px; }
+.th-warn p { margin: 0; font-size: 15px; }
+
+/* FAQ */
+.th-faq9 { margin: 56px 0 0; }
+.th-faq9__heading { font-size: clamp(22px, 3vw, 30px); font-weight: 800; letter-spacing: -.02em; color: var(--ink); margin-bottom: 24px; }
+.th-faq9__item { border-bottom: 1px solid rgba(26,25,22,.12); }
+.th-faq9__q { font-size: 16px; font-weight: 700; color: var(--ink); padding: 22px 40px 22px 0; position: relative; cursor: pointer; }
+.th-faq9__q::after { content: '+'; position: absolute; right: 8px; top: 18px; font-size: 22px; font-weight: 300; color: var(--red); }
+.th-faq9__item.open .th-faq9__q::after { content: '−'; }
+.th-faq9__a { font-size: 15px; font-weight: 300; color: var(--ink-mid); line-height: 1.8; max-height: 0; overflow: hidden; transition: max-height .3s, padding .3s; }
+.th-faq9__item.open .th-faq9__a { max-height: 600px; padding: 0 0 22px; }
+</style>
+<div class="th-blog9">
+<div class="th-blog9__body">
+
+<p>A Padova si viene per motivi molto diversi: un fine settimana tra gli affreschi di Giotto, un semestre in una delle università più antiche d'Europa, una trasferta di lavoro in zona industriale, un ciclo di cure in ospedale, un pellegrinaggio alla Basilica del Santo. Sono soggiorni che non si somigliano per niente, e nemmeno il modo di prenotarli dovrebbe somigliarsi. In questa guida trovi le opzioni reali per dormire a Padova, quanto costano davvero una volta aggiunte le commissioni, e qual è il canale di prenotazione che ti lascia più soldi in tasca e meno sorprese.</p>
+
+<h2>Prima di tutto: che tipo di soggiorno è il tuo?</h2>
+
+<p>Quasi tutte le prenotazioni sbagliate nascono dalla scelta del <em>tipo</em> di alloggio, non dal prezzo. Si parte da qui:</p>
+
+<div class="th-opts">
+<div class="th-opt">
+<div class="th-opt__who">Una o due notti</div>
+<div class="th-opt__name">Un hotel in centro o vicino alla stazione</div>
+<p>Per una notte prima di un congresso o di un treno all'alba, l'hotel è difficile da battere in comodità. Paghi la reception e la colazione, e accetti una camera invece di una casa.</p>
+</div>
+<div class="th-opt th-opt--best">
+<div class="th-opt__who">Da tre notti a qualche settimana</div>
+<div class="th-opt__name">Un appartamento con servizi</div>
+<p>La soluzione ideale per la maggior parte di chi viene a Padova. Un appartamento intero con cucina, lavatrice e spazio per muoversi, di solito più conveniente di due camere d'albergo per una famiglia, e molto più adatto a un soggiorno in cui vorrai cucinare almeno qualche volta.</p>
+</div>
+<div class="th-opt th-opt--best">
+<div class="th-opt__who">Da un mese in su</div>
+<div class="th-opt__name">Un affitto a medio termine arredato</div>
+<p>Per studenti, professionisti in trasferimento, docenti e ricercatori in visita, pazienti in cura. Arredato, utenze incluse, canone mensile, contratto regolare, senza vincolarsi a una locazione pluriennale. Quasi sempre il modo più economico di stare in città per un mese o più.</p>
+</div>
+</div>
+
+<p>Puoi vedere gli appartamenti che gestiamo a Padova nella nostra <a href="[th_page slug='apartments']">galleria</a>: dagli appartamenti di design in centro storico alle ville di prestigio.</p>
+
+[th_image n="1" caption="Il centro storico di Padova: quasi tutti i luoghi simbolo della città distano venti minuti a piedi l'uno dall'altro."]
+
+<h2>Dove alloggiare a Padova, zona per zona</h2>
+
+<h3>Il centro storico</h3>
+<p>Tra Piazza delle Erbe, Piazza dei Signori e il Palazzo della Ragione sei dentro la Padova che si viene a vedere. Mercato sotto i portici ogni mattina, ristoranti a ogni angolo, tutto a piedi. In cambio il parcheggio è complicato e la sera le vie sono vive.</p>
+
+<h3>Prato della Valle e il Santo</h3>
+<p>Più tranquillo, bellissimo, ed è la base giusta se sei qui per la Basilica di Sant'Antonio o per l'Orto Botanico. Il centro resta comunque a pochi minuti a piedi.</p>
+
+<h3>Vicino alla stazione</h3>
+<p>La scelta pratica se ti sposti su Venezia, Vicenza o Verona, o se arrivi tardi. Il treno per Venezia impiega meno di un'ora: è il motivo per cui in molti ormai dormono a Padova e visitano Venezia in giornata, e non il contrario.</p>
+
+<h3>Zona universitaria e Portello</h3>
+<p>Energia studentesca, mangiare economico, locali sui navigli d'estate. Comodissima per chi ha impegni all'Università o all'Azienda Ospedale-Università.</p>
+
+<h3>Verso l'ospedale e la Fiera</h3>
+<p>Meno scenografica, più funzionale. Se il soggiorno ruota attorno a un ricovero, a delle visite o a un evento in Fiera, essere a dieci minuti a piedi conta più del panorama.</p>
+
+<h2>Poi scegli come prenotare: è qui che se ne vanno i soldi</h2>
+
+<p>Lo stesso appartamento, nelle stesse date, può costare cifre sensibilmente diverse a seconda di dove clicchi "prenota". Il motivo è strutturale, non furbesco: i grandi portali applicano una commissione alla struttura, e quasi tutti aggiungono anche una commissione di servizio a carico dell'ospite al momento del pagamento. Entrambe devono uscire da qualche parte, e finiscono dentro la tariffa che ti viene mostrata.</p>
+
+<div class="th-cmp">
+<div class="th-cmp__row">
+<div class="th-cmp__label">Grandi portali</div>
+<div class="th-cmp__val">Tanta scelta e un'interfaccia familiare. Però la struttura paga una commissione su ogni prenotazione e a te viene di norma addebitata una commissione di servizio. I messaggi passano dal portale e le condizioni sono quelle del portale, non del gestore.</div>
+</div>
+<div class="th-cmp__row">
+<div class="th-cmp__label">Prenotazione diretta</div>
+<div class="th-cmp__val">Nessuna commissione di intermediazione e nessuna commissione di servizio, quindi la stessa notte può costare meno. Parli con chi gestisce davvero l'appartamento, e ogni flessibilità su check-in, durata o arrivo in tarda serata si concorda direttamente.</div>
+</div>
+<div class="th-cmp__row">
+<div class="th-cmp__label">Telefono o email</div>
+<div class="th-cmp__val">Va benissimo e ti rispondiamo volentieri, ma non vedi la disponibilità in tempo reale: servono alcuni messaggi avanti e indietro per trovare le date giuste.</div>
+</div>
+</div>
+
+<p>È esattamente per questo che abbiamo aperto il nostro motore di prenotazione. Vedi la disponibilità reale di tutti gli appartamenti Tailor Homes, ricevi conferma immediata e non c'è nessun intermediario che trattiene una parte.</p>
+
+<div class="th-warn">
+<div class="th-warn__title">Un'abitudine che vale ovunque</div>
+<p>Ogni volta che trovi un alloggio che ti piace su un grande portale, dedica trenta secondi a cercarne il nome. Gli operatori seri hanno un proprio sito di prenotazione, e la tariffa diretta è molto spesso migliore di quella che stavi guardando. Verificare non costa nulla, e funziona ben oltre Padova.</p>
+</div>
+
+<h2>Cosa ottieni prenotando direttamente con noi</h2>
+
+<ul class="th-list">
+<li><strong>La migliore tariffa disponibile.</strong> Nessuna commissione al portale e nessun costo di servizio aggiunto sopra al prezzo.</li>
+<li><strong>Conferma immediata.</strong> Disponibilità in tempo reale su tutto il portafoglio, confermata nel momento in cui prenoti.</li>
+<li><strong>Una persona vera con cui parlare.</strong> Parli con il nostro team a Padova, non con un servizio clienti in un altro Paese.</li>
+<li><strong>La guida digitale dell'appartamento.</strong> Prima dell'arrivo ricevi una guida personale: accesso, Wi-Fi, parcheggio, elettrodomestici e i nostri consigli sinceri su dove mangiare e come muoverti.</li>
+<li><strong>Flessibilità sui dettagli.</strong> Arrivo in tarda serata, una notte in più, i bagagli prima del check-in, una culla per un bambino: sono decisioni che possiamo prendere noi.</li>
+<li><strong>Soggiorni lunghi trattati come tali.</strong> Tariffe settimanali e mensili che i portali a notte gestiscono male.</li>
+</ul>
+
+[th_image n="2" caption="Ogni appartamento Tailor Homes è preparato, controllato e gestito dal nostro team a Padova."]
+
+<h2>Come prenotare, passo per passo</h2>
+
+<div class="th-steps">
+<div class="th-steps__item">
+<div class="th-steps__n">1</div>
+<div class="th-steps__what"><strong>Fissa date e numero di ospiti</strong> Arrivo, partenza e quante persone siete. Se le date sono ancora flessibili, segnati quali notti potrebbero spostarsi: spesso è ciò che sblocca l'appartamento migliore.</div>
+</div>
+<div class="th-steps__item">
+<div class="th-steps__n">2</div>
+<div class="th-steps__what"><strong>Scegli la zona in base al motivo del viaggio</strong> Turismo, università, ospedale, Fiera o stazione. Padova è compatta, ma dieci minuti a piedi nella direzione giusta fanno comunque la differenza.</div>
+</div>
+<div class="th-steps__item">
+<div class="th-steps__n">3</div>
+<div class="th-steps__what"><strong>Controlla la disponibilità reale</strong> Inserisci le date nel nostro <a href="[th_book_url]" target="_blank" rel="noopener">motore di prenotazione diretta</a> e vedrai tutti gli appartamenti liberi in quelle notti, con la tariffa diretta.</div>
+</div>
+<div class="th-steps__item">
+<div class="th-steps__n">4</div>
+<div class="th-steps__what"><strong>Prenota e ricevi la conferma</strong> La prenotazione è confermata subito, con tutte le condizioni per iscritto.</div>
+</div>
+<div class="th-steps__item">
+<div class="th-steps__n">5</div>
+<div class="th-steps__what"><strong>Ricevi la guida per l'ospite</strong> Prima dell'arrivo ti inviamo la guida personale dell'appartamento con accesso, Wi-Fi, parcheggio e quartiere.</div>
+</div>
+</div>
+
+<p>Ti fermi un mese o più, arrivi come studente o stai organizzando l'alloggio per dei colleghi? Sono prenotazioni che meritano una conversazione più che una pagina di checkout: <a href="[th_page slug='contact']">scrivici</a> e le quotiamo come si deve.</p>
+
+<h2>Qualche aspetto pratico da sapere</h2>
+
+<ul class="th-list">
+<li><strong>Imposta di soggiorno.</strong> Come in tutte le città italiane, a Padova si applica una tassa di soggiorno per persona e per notte nelle strutture ricettive, con le consuete esenzioni per i bambini e per alcune categorie. Ti comunichiamo l'importo esatto e come pagarlo prima dell'arrivo, così non è mai una sorpresa sulla porta.</li>
+<li><strong>La registrazione è obbligatoria.</strong> I documenti di ogni ospite vanno comunicati alle autorità all'arrivo: vale in tutta Italia, per gli hotel come per gli appartamenti.</li>
+<li><strong>Il parcheggio va organizzato.</strong> Buona parte del centro è ZTL. Se arrivi in auto, chiedici prima: ogni appartamento ha la sua soluzione.</li>
+<li><strong>Prenota per tempo nei periodi di punta.</strong> Sessioni di laurea, la festa di Sant'Antonio a giugno, le date di fiera e l'inizio dell'anno accademico comprimono la disponibilità di tutta la città nello stesso momento.</li>
+</ul>
+
+<!-- FAQ -->
+<div class="th-faq9">
+<div class="th-faq9__heading">Domande frequenti</div>
+<div class="th-faq9__item">
+<div class="th-faq9__q">Qual è il modo migliore per prenotare un alloggio a Padova?</div>
+<div class="th-faq9__a">Prima scegli il tipo di soggiorno — hotel per una notte, appartamento con servizi da qualche giorno a qualche settimana, affitto arredato a medio termine da un mese in su — poi prenota direttamente con la struttura ogni volta che puoi. La prenotazione diretta evita sia la commissione che la struttura paga al portale sia il costo di servizio addebitato a te al pagamento: è il motivo per cui lo stesso appartamento nelle stesse date costa spesso meno prenotato in diretta.</div>
+</div>
+<div class="th-faq9__item">
+<div class="th-faq9__q">Conviene prenotare direttamente invece che tramite i grandi portali?</div>
+<div class="th-faq9__a">In genere sì. I portali applicano alla struttura una commissione su ogni prenotazione e quasi tutti aggiungono un costo di servizio a carico dell'ospite, e alla fine entrambi si riflettono sul prezzo che vedi. Prenotare dal sito della struttura elimina questi passaggi e ti permette di concordare condizioni, flessibilità e richieste particolari con chi gestisce davvero l'appartamento.</div>
+</div>
+<div class="th-faq9__item">
+<div class="th-faq9__q">Qual è la zona migliore dove dormire a Padova?</div>
+<div class="th-faq9__a">Dipende dal motivo del viaggio. Il centro storico attorno a Piazza delle Erbe è ideale per visitare la città e per i ristoranti; Prato della Valle e la zona del Santo sono più tranquille e molto belle; vicino alla stazione conviene se ti sposti su Venezia, Vicenza o Verona; la zona universitaria e il Portello sono comode per chi ha impegni all'Università; mentre stare vicino all'ospedale o alla Fiera ha senso quando il soggiorno ruota attorno a uno dei due.</div>
+</div>
+<div class="th-faq9__item">
+<div class="th-faq9__q">Posso prenotare un appartamento a Padova per un mese o più?</div>
+<div class="th-faq9__a">Sì. Gli affitti a medio termine arredati nascono esattamente per questo: studenti, professionisti in trasferimento, docenti in visita e persone in città per cure mediche. Sono arredati, con utenze incluse e contratto regolare, a canone mensile invece che a notte, senza vincolarsi a una locazione pluriennale. Scrivici con le tue date e ti quotiamo il soggiorno direttamente.</div>
+</div>
+<div class="th-faq9__item">
+<div class="th-faq9__q">A Padova si paga la tassa di soggiorno?</div>
+<div class="th-faq9__a">Sì, come nella maggior parte delle città italiane Padova applica un'imposta di soggiorno per persona e per notte nelle strutture ricettive, con esenzioni che riguardano di norma i bambini e alcune altre categorie. Quando prenoti con noi ti confermiamo l'importo esatto per il tuo soggiorno e le modalità di pagamento prima dell'arrivo.</div>
+</div>
+<div class="th-faq9__item">
+<div class="th-faq9__q">Con quanto anticipo conviene prenotare a Padova?</div>
+<div class="th-faq9__a">Per date ordinarie qualche settimana è sufficiente. Serve molto più anticipo per le sessioni di laurea, la festa di Sant'Antonio a giugno, le principali date di fiera e l'inizio dell'anno accademico, quando la disponibilità dell'intera città si riduce tutta insieme.</div>
+</div>
+</div>
+
+<!-- CTA -->
+<div class="th-blog9__cta" style="background:#1A1916;color:#F5F3EF;padding:48px 32px;margin:56px 0 0;text-align:center;border-radius:4px;">
+<h3 style="color:#F5F3EF;margin:0 0 12px;">Prenota il tuo soggiorno a Padova in diretta</h3>
+<p style="color:#D4C9B5;margin:0 0 24px;">Disponibilità reale su tutti gli appartamenti Tailor Homes. Nessuna commissione, conferma immediata e un team locale dietro ogni prenotazione.</p>
+<a href="[th_book_url]" target="_blank" rel="noopener" style="background:#B8312F;color:#F5F3EF;padding:14px 28px;display:inline-block;text-decoration:none;border-radius:2px;font-weight:500;">Verifica la disponibilità →</a>
+</div>
+
+</div>
+</div>
+
+<script>
+document.querySelectorAll('.th-faq9__item').forEach(function(item){
+  item.querySelector('.th-faq9__q').addEventListener('click', function(){ item.classList.toggle('open'); });
+});
+</script>

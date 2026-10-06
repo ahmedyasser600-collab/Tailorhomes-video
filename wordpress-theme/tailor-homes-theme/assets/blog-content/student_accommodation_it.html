@@ -1,0 +1,194 @@
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,300;1,9..40,400&display=swap');
+
+.th-blog8 *, .th-blog8 *::before, .th-blog8 *::after { box-sizing:border-box; margin:0; padding:0; }
+.th-blog8 {
+  --bg: #ECEAE4; --ink: #1A1916; --ink-mid: #3A3830; --ink-soft: #8A8780;
+  --red: #B8312F; --white: #F5F3EF; --bg-warm: #E5E1DA;
+  background: var(--bg);
+  font-family: 'DM Sans', sans-serif;
+  color: var(--ink);
+  font-weight: 300;
+  line-height: 1.7;
+  padding: 0 0 80px;
+}
+.th-blog8__hero { padding: 80px 24px 60px; border-bottom: 1px solid rgba(26,25,22,.1); max-width: 800px; margin: 0 auto; }
+.th-blog8__body { max-width: 800px; margin: 0 auto; padding: 60px 24px 0; }
+.th-blog8__meta { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 28px; }
+.th-blog8__tag { font-size: 10px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: var(--red); padding: 5px 12px; border: 1px solid var(--red); }
+.th-blog8__date, .th-blog8__read { font-size: 12px; color: var(--ink-soft); letter-spacing: .04em; }
+.th-blog8 h1 { font-size: clamp(34px, 5vw, 58px); font-weight: 800; letter-spacing: -.03em; line-height: 1.05; color: var(--ink); margin-bottom: 24px; }
+.th-blog8__intro { font-size: 18px; font-weight: 300; color: var(--ink-mid); line-height: 1.75; border-left: 3px solid var(--red); padding-left: 20px; }
+.th-blog8 h2 { font-size: clamp(22px, 3vw, 30px); font-weight: 800; letter-spacing: -.02em; line-height: 1.15; color: var(--ink); margin: 56px 0 16px; }
+.th-blog8 h3 { font-size: 17px; font-weight: 700; color: var(--ink); margin: 32px 0 10px; }
+.th-blog8 p { font-size: 16px; font-weight: 300; color: var(--ink-mid); line-height: 1.85; margin-bottom: 20px; }
+.th-blog8 strong { font-weight: 700; color: var(--ink); }
+.th-blog8 em { font-style: italic; }
+.th-blog8 a { color: var(--red); text-decoration: underline; text-underline-offset: 3px; }
+.th-blog8 a:hover { text-decoration: none; }
+.th-blog8 ul.th-list { list-style: none; margin: 0 0 24px; }
+.th-blog8 ul.th-list li { font-size: 16px; color: var(--ink-mid); padding: 8px 0 8px 26px; position: relative; line-height: 1.7; }
+.th-blog8 ul.th-list li::before { content: '→'; color: var(--red); font-weight: 700; position: absolute; left: 0; }
+
+.th-hood-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 32px 0; }
+@media(max-width:580px){ .th-hood-grid { grid-template-columns: 1fr; } }
+.th-hood-card { background: var(--white); padding: 28px; }
+.th-hood-card__name { font-size: 17px; font-weight: 800; letter-spacing: -.01em; color: var(--ink); margin-bottom: 6px; }
+.th-hood-card__tag { font-size: 10px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: var(--red); margin-bottom: 12px; }
+.th-hood-card p { font-size: 14px; margin-bottom: 0; }
+
+.th-compare { margin: 40px 0; overflow-x: auto; }
+.th-compare table { width: 100%; border-collapse: collapse; font-size: 14px; font-family: 'DM Sans', sans-serif; }
+.th-compare th { background: var(--ink); color: var(--white); padding: 16px 20px; text-align: left; font-weight: 700; font-size: 12px; letter-spacing: .06em; }
+.th-compare td { padding: 14px 20px; border-bottom: 1px solid rgba(26,25,22,.07); color: var(--ink-mid); font-weight: 300; line-height: 1.5; vertical-align: top; }
+.th-compare tr:nth-child(even) td { background: var(--white); }
+.th-compare td:first-child { font-weight: 700; color: var(--ink); font-size: 13px; }
+
+.th-discount { background: #1B2A4A; color: #F5F0E8; padding: 36px 32px; margin: 40px 0; border-left: 4px solid var(--red); }
+.th-discount__badge { display: inline-block; background: var(--red); color: #fff; font-weight: 800; font-size: 18px; padding: 6px 16px; border-radius: 100px; margin-bottom: 14px; }
+.th-discount h3 { color: #F5F0E8; margin: 0 0 10px; }
+.th-discount p { color: rgba(245,240,232,.75); margin: 0; font-size: 15px; }
+
+.th-faq8 { margin: 56px 0 0; }
+.th-faq8__heading { font-size: clamp(22px, 3vw, 30px); font-weight: 800; letter-spacing: -.02em; color: var(--ink); margin-bottom: 24px; }
+.th-faq8__item { border-bottom: 1px solid rgba(26,25,22,.12); }
+.th-faq8__q { font-size: 16px; font-weight: 700; color: var(--ink); padding: 22px 40px 22px 0; position: relative; cursor: pointer; }
+.th-faq8__q::after { content: '+'; position: absolute; right: 8px; top: 18px; font-size: 22px; font-weight: 300; color: var(--red); }
+.th-faq8__item.open .th-faq8__q::after { content: '−'; }
+.th-faq8__a { font-size: 15px; font-weight: 300; color: var(--ink-mid); line-height: 1.8; max-height: 0; overflow: hidden; transition: max-height .3s, padding .3s; }
+.th-faq8__item.open .th-faq8__a { max-height: 600px; padding: 0 0 22px; }
+
+.th-blog8__img { width: 100%; aspect-ratio: 16/9; background: var(--bg-warm); margin: 40px 0 12px; overflow: hidden; }
+.th-blog8__img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.th-blog8__img-caption { font-size: 12px; color: var(--ink-soft); text-align: center; margin: 0 0 40px; font-style: italic; }
+</style>
+<div class="th-blog8">
+<div class="th-blog8__body">
+<p>L'Università di Padova è una delle più antiche e prestigiose al mondo, con oltre 60.000 studenti. Una meraviglia per l'energia della città — e una sfida durissima per il suo mercato immobiliare. La domanda supera enormemente l'offerta di buone stanze, soprattutto nelle settimane prima dell'inizio di ogni semestre. Se hai passato le serate a scorrere i gruppi Facebook, ad aggiornare i siti di annunci e a scrivere a proprietari che non rispondono mai, questa guida è per te.</p>
+<h2>Perché Trovare una Stanza a Padova È Così Difficile</h2>
+<p>Non è una tua impressione, e non dipende dall'impegno. Ogni anno diversi fattori si accumulano contro gli studenti:</p>
+<ul class="th-list">
+<li><strong>I posti nelle residenze universitarie sono pochissimi.</strong> Le residenze ESU e UniPD coprono solo una piccola parte degli studenti, e i posti vengono assegnati per concorso in base a merito e reddito. La maggior parte degli studenti non ne ottiene uno.</li>
+<li><strong>Le stanze migliori volano.</strong> Le stanze in centro, vicino ai dipartimenti, spariscono in pochi giorni dalla pubblicazione, spesso prima ancora che gli studenti internazionali arrivino in Italia.</li>
+<li><strong>Gli annunci circolano su canali chiusi.</strong> Molte stanze vengono condivise solo in gruppi privati Telegram e Facebook, o tramite passaparola — invisibili a chi cerca dall'estero.</li>
+<li><strong>I proprietari diffidano dei soggiorni brevi.</strong> Se sei qui per un semestre o un periodo Erasmus, molti proprietari privati semplicemente non ti affittano — vogliono un inquilino per l'intero anno.</li>
+<li><strong>La burocrazia spaventa.</strong> I contratti di affitto italiani, il <em>codice fiscale</em>, le caparre e il regime della <em>cedolare secca</em> sono complicati in qualsiasi lingua, figuriamoci in una seconda.</li>
+<li><strong>Le truffe colpiscono i nuovi arrivati.</strong> "Paga una caparra per prenotare la stanza prima di arrivare" è la trappola classica rivolta a chi non può vedere di persona.</li>
+</ul>
+
+    [th_image n="1" caption="Padova è una vivace città universitaria — ma il suo mercato immobiliare è tra i più saturi del Veneto."]
+
+    <h2>Quanto Costa Davvero un Alloggio per Studenti a Padova</h2>
+<p>Conoscere i numeri reali aiuta a riconoscere un'offerta onesta — e una fregatura. Questi sono gli intervalli tipici per il 2026 per gli alloggi studenti a Padova:</p>
+<div class="th-compare">
+<table>
+<thead>
+<tr><th>Tipologia</th><th>Costo mensile tipico</th><th>Note</th></tr>
+</thead>
+<tbody>
+<tr><td>Posto letto in stanza doppia</td><td>€250–350</td><td>Il più economico, meno privacy</td></tr>
+<tr><td>Stanza singola in appartamento condiviso</td><td>€350–500</td><td>La scelta più comune tra gli studenti</td></tr>
+<tr><td>Monolocale (centro)</td><td>€600–900</td><td>Privacy, costo più alto</td></tr>
+<tr><td>Bilocale arredato (centro)</td><td>€800–1.400</td><td>Esistono opzioni tutto incluso</td></tr>
+<tr><td>Residenza universitaria (ESU)</td><td>In base al reddito</td><td>Posti limitati, per concorso</td></tr>
+</tbody>
+</table>
+</div>
+<p>Oltre all'affitto, calcola circa €150–250 al mese per la spesa, e ricorda che a Padova i trasporti pubblici e la bicicletta costano poco. La maggior parte delle stime colloca il costo della vita mensile di uno studente tra €800 e €1.200 affitto incluso.</p>
+<h2>Le Zone Migliori per gli Studenti a Padova</h2>
+<p>Dove vivi influenza tutta la tua esperienza. Queste sono le zone che gli studenti scelgono più spesso:</p>
+<div class="th-hood-grid">
+<div class="th-hood-card">
+<div class="th-hood-card__tag">Centrale</div>
+<div class="th-hood-card__name">Centro Storico</div>
+<p>A piedi da quasi tutti i dipartimenti, Prato della Valle e la vita notturna. Il più ambito — e il più caro. Qui le stanze spariscono più in fretta.</p>
+</div>
+<div class="th-hood-card">
+<div class="th-hood-card__tag">Ben collegato</div>
+<div class="th-hood-card__name">Portello / Stanga</div>
+<p>Il quartiere studentesco per eccellenza, vicino ai poli scientifico e ingegneristico. Vivace, sociale e pieno di altri studenti.</p>
+</div>
+<div class="th-hood-card">
+<div class="th-hood-card__tag">Conveniente</div>
+<div class="th-hood-card__name">Arcella / San Gregorio</div>
+<p>A nord della stazione, più economico, ben servito da tram e autobus. Una scelta intelligente se vuoi un affitto più basso e non ti pesa un breve tragitto.</p>
+</div>
+<div class="th-hood-card">
+<div class="th-hood-card__tag">Tranquillo</div>
+<div class="th-hood-card__name">San Giuseppe / Città Giardino</div>
+<p>Vie residenziali più tranquille, amate da studenti magistrali e dottorandi che cercano concentrazione e vogliono comunque arrivare in bici.</p>
+</div>
+</div>
+<p>Per un approfondimento, leggi la nostra guida ai <a href="/it/blog/migliori-quartieri-padova">migliori quartieri di Padova</a>.</p>
+<h2>La Soluzione che Molti Studenti Ignorano: Affitti Arredati a Breve e Medio Termine</h2>
+<p>Ecco il vuoto nel mercato. La scelta tradizionale è o un contratto privato di un anno (che non funziona per un solo semestre o un Erasmus) o un costoso Airbnb a notte (ottimo per una settimana, rovinoso per cinque mesi). Tra questi due estremi c'è l'opzione che molti studenti non sanno esista: un <strong>appartamento arredato affittato al mese</strong>, allestito e gestito come si deve.</p>
+<p>È esattamente ciò che facciamo a <a href="/it/chi-siamo">Tailor Homes</a>. I nostri affitti a medio termine sono pensati per chi resta da uno a sei mesi — cioè la maggior parte degli studenti in scambio, dei ricercatori in visita e di chiunque arrivi a metà anno. Ecco perché risolve il problema dell'alloggio studentesco:</p>
+<ul class="th-list">
+<li><strong>Nessun impegno annuale.</strong> Affitti per un semestre, un periodo Erasmus o un solo mese — con una data di fine chiara.</li>
+<li><strong>Ti trasferisci con una valigia.</strong> Completamente arredato, con cucina vera, Wi-Fi veloce, biancheria e riscaldamento e climatizzatore funzionanti. Niente viaggio all'IKEA, niente frigorifero da comprare.</li>
+<li><strong>Bollette incluse.</strong> Luce, acqua, gas e internet sono nel prezzo mensile. Niente compagnie a cui scrivere in italiano.</li>
+<li><strong>Contratti bilingui semplici.</strong> Gestiamo noi la burocrazia italiana e ti spieghiamo tutto in inglese.</li>
+<li><strong>Un vero team locale.</strong> Si rompe qualcosa, hai una domanda, resti chiuso fuori — ci siamo, a Padova, non una piattaforma senza volto.</li>
+<li><strong>Nessuna truffa.</strong> Un'azienda registrata, assicurata e legittima con recensioni reali — non uno sconosciuto che chiede una caparra con bonifico.</li>
+</ul>
+<p>Se stai valutando i pro e i contro, la nostra analisi onesta di <a href="/it/blog/affitto-breve-vs-medio-termine-padova">affitto breve vs affitto mensile a Padova</a> spiega i costi nel dettaglio.</p>
+
+    [th_image n="2" caption="Un appartamento Tailor Homes — arredato, bollette incluse, pronto da vivere dal primo giorno."]
+
+    <div class="th-discount">
+<span class="th-discount__badge">−15%</span>
+<h3>Uno sconto studenti del 15%, solo per studiare a Padova.</h3>
+<p>Se sei uno studente UniPD o in Erasmus, hai il 15% di sconto su ogni prenotazione — e puoi condividerlo anche con amici e famiglia. Verifica la tua tessera universitaria in due minuti su WhatsApp e ti inviamo il codice. Vai alla nostra <a href="/it/studenti" style="color:#F5F0E8;">pagina Studenti &amp; Erasmus</a> per richiederlo.</p>
+</div>
+<h2>Cercare con Intelligenza: una Checklist Rapida</h2>
+<ul class="th-list">
+<li><strong>Inizia presto.</strong> Comincia due o tre mesi prima del semestre. Le stanze migliori si prendono con settimane di anticipo.</li>
+<li><strong>Non pagare mai una caparra prima di aver visto</strong> — di persona o in una videochiamata verificata. Se un "proprietario" ti mette fretta per trasferire denaro e bloccare una stanza mai vista, lascia perdere.</li>
+<li><strong>Decidi prima la zona</strong> usando i quartieri qui sopra, poi filtra in base a quella.</li>
+<li><strong>Sii chiaro sulle date.</strong> Comunica a chiunque le date esatte di arrivo e partenza — fa risparmiare tempo a tutti.</li>
+<li><strong>Preferisci operatori gestiti e registrati</strong> per i soggiorni a medio termine. Il piccolo sovrapprezzo rispetto a una stanza qualsiasi ti compra legittimità, assistenza e zero rischio di truffe.</li>
+</ul>
+<h2>Arrivi a Padova per la Prima Volta?</h2>
+<p>Se ti trasferisci in città dall'estero, la nostra <a href="/it/blog/trasferirsi-a-padova-guida">guida completa per trasferirsi a Padova</a> spiega il <em>codice fiscale</em>, la residenza, i trasporti e tutto ciò che ti servirà nelle prime settimane. Tra quella e questa guida, arriverai molto più preparato della media.</p>
+<!-- FAQ -->
+<div class="th-faq8">
+<div class="th-faq8__heading">Domande Frequenti</div>
+<div class="th-faq8__item">
+<div class="th-faq8__q">Quanto costa un alloggio per studenti a Padova?</div>
+<div class="th-faq8__a">Una stanza singola in un appartamento condiviso costa di solito €350–500 al mese, un posto letto in doppia €250–350 e un monolocale in centro €600–900. Un bilocale arredato va da €800 a €1.400 al mese, spesso tutto incluso. Il costo della vita mensile totale di uno studente, affitto, cibo e trasporti inclusi, è generalmente tra €800 e €1.200.</div>
+</div>
+<div class="th-faq8__item">
+<div class="th-faq8__q">Perché è così difficile trovare una stanza a Padova?</div>
+<div class="th-faq8__a">L'Università di Padova ha oltre 60.000 studenti ma pochissimi alloggi universitari, quindi la domanda supera di gran lunga l'offerta. Le stanze centrali migliori si prendono in pochi giorni, molti annunci circolano solo in gruppi chiusi Telegram e Facebook, e molti proprietari non affittano a studenti che restano solo un semestre. Iniziare la ricerca presto e affidarsi a un operatore gestito per i soggiorni a medio termine aiuta molto.</div>
+</div>
+<div class="th-faq8__item">
+<div class="th-faq8__q">Posso affittare un appartamento a Padova solo per un semestre?</div>
+<div class="th-faq8__a">Sì. Anche se molti proprietari privati vogliono un inquilino per l'intero anno, gli affitti arredati a medio termine sono pensati proprio per soggiorni da uno a sei mesi — ideali per un semestre o un periodo Erasmus. Tailor Homes offre appartamenti arredati al mese con date di fine flessibili, bollette incluse e contratti bilingui.</div>
+</div>
+<div class="th-faq8__item">
+<div class="th-faq8__q">Dove vivono la maggior parte degli studenti a Padova?</div>
+<div class="th-faq8__a">Le zone più popolari sono il Centro Storico (centrale ma caro), Portello e Stanga (vicino ai poli scientifico e ingegneristico, pieni di studenti), Arcella e San Gregorio (più economiche, a nord della stazione) e San Giuseppe (più tranquilla, amata dai laureandi). La zona ideale dipende dal tuo dipartimento e dal budget.</div>
+</div>
+<div class="th-faq8__item">
+<div class="th-faq8__q">C'è uno sconto studenti sugli affitti Tailor Homes?</div>
+<div class="th-faq8__a">Sì. Gli studenti UniPD ed Erasmus hanno il 15% di sconto su ogni prenotazione, e lo sconto può essere condiviso con amici e famiglia. Basta verificare la tessera universitaria o Erasmus su WhatsApp per ricevere un codice sconto. I dettagli sono sulla nostra pagina Studenti &amp; Erasmus.</div>
+</div>
+<div class="th-faq8__item">
+<div class="th-faq8__q">Come evito le truffe sugli affitti a Padova?</div>
+<div class="th-faq8__a">Non pagare mai una caparra o una "quota di prenotazione" prima di aver visto l'immobile di persona o in una videochiamata verificata. Fai particolare attenzione agli annunci che ti mettono fretta di trasferire denaro per bloccare una stanza mai vista. Affittare tramite un'azienda registrata e assicurata con recensioni autentiche elimina del tutto questo rischio.</div>
+</div>
+</div>
+<!-- CTA -->
+<div class="th-blog8__cta" style="background:#1A1916;color:#F5F3EF;padding:48px 32px;margin:56px 0 0;text-align:center;border-radius:4px;">
+<h3 style="color:#F5F3EF;margin:0 0 12px;">Studi a Padova? Troviamoti casa.</h3>
+<p style="color:#D4C9B5;margin:0 0 24px;">Arredata, bollette incluse, flessibile al mese — più il 15% di sconto per studenti.</p>
+<a href="/it/studenti" style="background:#B8312F;color:#F5F3EF;padding:14px 28px;display:inline-block;text-decoration:none;border-radius:2px;font-weight:500;">Richiedi il Tuo Sconto Studenti →</a>
+</div>
+</div>
+</div>
+
+<script>
+document.querySelectorAll('.th-faq8__item').forEach(function(item){
+  item.querySelector('.th-faq8__q').addEventListener('click', function(){ item.classList.toggle('open'); });
+});
+</script>

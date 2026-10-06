@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,300;1,9..40,400&display=swap');
+
+.th-apts *, .th-apts *::before, .th-apts *::after { box-sizing: border-box; margin: 0; padding: 0; }
+.th-apts {
+  --bg:#ECEAE4; --bg-warm:#E5E1DA; --bg-dark:#D9D4CB; --ink:#1A1916; --ink-mid:#3A3830; --ink-soft:#8A8780; --red:#B8312F; --white:#F5F3EF;
+  background:var(--bg); color:var(--th-ink); font-family:'DM Sans',sans-serif; font-weight:300; line-height:1.6; overflow-x:hidden;
+}
+.th-apts .r{opacity:0;transform:translateY(28px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
+.th-apts .rl{opacity:0;transform:translateX(-28px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
+.th-apts .rr{opacity:0;transform:translateX(28px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
+.th-apts .r.in,.th-apts .rl.in,.th-apts .rr.in{opacity:1;transform:translate(0)}
+.th-apts .d1{transition-delay:.08s}.th-apts .d2{transition-delay:.18s}.th-apts .d3{transition-delay:.28s}.th-apts .d4{transition-delay:.38s}
+.th-apts .w{max-width:1280px;margin:0 auto;padding:0 48px}
+@media(max-width:768px){.th-apts .w{padding:0 24px}}
+.aph{padding:200px 0 80px;border-bottom:1px solid rgba(26,25,22,.1)}
+.aph__inner{display:flex;align-items:flex-end;justify-content:space-between;gap:48px}
+.aph__heading{font-size:clamp(52px,7vw,96px);font-weight:800;letter-spacing:-.03em;line-height:1;color:var(--th-ink);animation:thFUp .9s .2s both}
+.aph__sub{font-size:17px;font-weight:300;color:var(--th-ink-soft);max-width:420px;line-height:1.75;animation:thFUp .9s .4s both}
+@media(max-width:768px){.aph{padding:180px 0 56px}.aph__inner{flex-direction:column;align-items:flex-start;gap:24px}}
+.apt-section{padding:120px 0;border-bottom:1px solid rgba(26,25,22,.08)}
+.apt-section:nth-child(even){background:var(--th-bg-warm)}
+.apt-grid{display:grid;grid-template-columns:58fr 42fr;gap:72px;align-items:center}
+.apt-section:nth-child(odd) .apt-grid{grid-template-columns:42fr 58fr}
+.apt-section:nth-child(odd) .apt-slider{order:2}
+.apt-section:nth-child(odd) .apt-info{order:1}
+.apt-slider{position:relative;overflow:hidden;background:var(--th-bg-dark);aspect-ratio:4/3}
+.apt-slides{display:flex;width:100%;height:100%;transition:transform .55s cubic-bezier(.77,0,.18,1)}
+.apt-slide{flex:0 0 100%;width:100%;height:100%;position:relative;overflow:hidden}
+.apt-slide img{width:100%;height:100%;object-fit:cover;display:block}
+.apt-slide-ph{width:100%;height:100%;background:var(--th-bg-dark);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:var(--th-ink-soft)}
+.apt-slide-ph svg{opacity:.25}
+.apt-slide-ph span{font-size:9px;letter-spacing:.22em;text-transform:uppercase;opacity:.4}
+.apt-arrow{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;background:var(--th-white);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:10;transition:background .2s,transform .2s;opacity:.9}
+.apt-arrow:hover{background:var(--th-ink)}.apt-arrow:hover svg{stroke:var(--th-white)}
+.apt-arrow:active{transform:translateY(-50%) scale(.94)}
+.apt-arrow--prev{left:16px}.apt-arrow--next{right:16px}
+.apt-arrow svg{stroke:var(--th-ink);transition:stroke .2s}
+.apt-dots{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);display:flex;gap:7px;z-index:10}
+.apt-dot{width:6px;height:6px;border-radius:50%;background:rgba(245,243,239,.5);border:none;cursor:pointer;padding:0;transition:background .25s,transform .25s}
+.apt-dot.active{background:var(--th-white);transform:scale(1.3)}
+.apt-counter{position:absolute;top:16px;right:16px;background:rgba(26,25,22,.55);color:var(--th-white);font-size:11px;font-weight:500;letter-spacing:.12em;padding:6px 12px;z-index:10;backdrop-filter:blur(4px)}
+.apt-tag{font-size:10px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--th-red);margin-bottom:14px}
+.apt-name{font-size:clamp(30px,3.5vw,48px);font-weight:800;letter-spacing:-.025em;line-height:1.05;color:var(--th-ink);margin-bottom:20px}
+.apt-location{font-size:13px;font-weight:400;color:var(--th-ink-soft);letter-spacing:.05em;margin-bottom:28px;display:flex;align-items:center;gap:8px}
+.apt-location svg{flex-shrink:0}
+.apt-desc{font-size:15px;font-weight:300;color:var(--th-ink-mid);line-height:1.85;margin-bottom:40px}
+.apt-feats{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:40px}
+.apt-feat{padding:7px 14px;border:1px solid rgba(26,25,22,.15);font-size:12px;font-weight:400;letter-spacing:.04em;color:var(--th-ink-mid);background:transparent;transition:border-color .2s,color .2s}
+.apt-feat:hover{border-color:var(--th-red);color:var(--th-red)}
+.apt-divider{width:100%;height:1px;background:rgba(26,25,22,.1);margin:40px 0}
+.apt-footer{display:flex;align-items:center;justify-content:flex-end;gap:24px;flex-wrap:wrap}
+.apt-btn{display:inline-flex;align-items:center;gap:12px;padding:14px 28px;background:var(--th-ink);color:var(--th-white);font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;transition:gap .3s,background .3s;border:none;cursor:pointer}
+.apt-btn:hover{background:var(--th-red);gap:20px}
+@media(max-width:960px){
+  .apt-grid,.apt-section:nth-child(odd) .apt-grid{grid-template-columns:1fr;gap:40px}
+  .apt-section:nth-child(odd) .apt-slider,.apt-section:nth-child(odd) .apt-info{order:unset}
+}
+.apts-cta{padding:100px 0;text-align:center;background:var(--th-ink);position:relative;overflow:hidden}
+.apts-cta__bg{position:absolute;inset:0;font-size:240px;font-weight:800;color:transparent;-webkit-text-stroke:1px rgba(245,243,239,.04);display:flex;align-items:center;justify-content:center;letter-spacing:-.04em;pointer-events:none;user-select:none;line-height:1}
+.apts-cta__inner{position:relative;z-index:1}
+.apts-cta__heading{font-size:clamp(36px,5vw,64px);font-weight:800;letter-spacing:-.03em;color:var(--th-white);margin-bottom:20px;line-height:1}
+.apts-cta__heading em{font-style:italic;font-weight:300;color:rgba(245,243,239,.5)}
+.apts-cta__text{font-size:15px;font-weight:300;color:rgba(245,243,239,.55);margin-bottom:44px;max-width:400px;margin-left:auto;margin-right:auto;line-height:1.75}
+.apts-cta__btn{display:inline-flex;align-items:center;gap:12px;padding:16px 36px;border:1px solid rgba(245,243,239,.3);color:var(--th-white);font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;transition:gap .3s,background .3s}
+.apts-cta__btn:hover{background:rgba(245,243,239,.08);gap:20px}
+@keyframes thFUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+/* === COLLECTION SUBSECTION HEADINGS — Editorial Watermark === */
+.collection-section{padding:120px 0 24px;background:transparent;position:relative;overflow:hidden}
+.collection-section--villas{border-top:1px solid rgba(26,25,22,.08);background:var(--th-bg-warm)}
+.collection-section--apartments{border-top:1px solid rgba(26,25,22,.08)}
+.collection-section__head{max-width:1280px;margin:0 auto;padding:0 48px;position:relative;z-index:1}
+.collection-section__numeral{position:absolute;top:-20px;left:24px;font-family:'Cormorant Garamond',Georgia,serif;font-weight:300;font-style:italic;font-size:clamp(180px,22vw,300px);line-height:1;color:rgba(181,71,58,.10);pointer-events:none;user-select:none;z-index:0;letter-spacing:-.04em}
+.collection-section__label{display:inline-block;font-family:'Jost',sans-serif;font-size:11px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:var(--th-terracotta);margin-bottom:22px}
+.collection-section__title{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:300;font-size:clamp(56px,8vw,108px);letter-spacing:-.02em;line-height:1;color:var(--th-ink);margin:0 0 30px}
+.collection-section__ornament{display:flex;align-items:center;gap:14px}
+.collection-section__ornament .ln{width:56px;height:1px;background:var(--th-red)}
+.collection-section__ornament .dm{width:6px;height:6px;background:var(--th-red);transform:rotate(45deg)}
+@media(max-width:768px){.collection-section{padding-top:80px;padding-bottom:16px}.collection-section__head{padding:0 24px}.collection-section__numeral{font-size:clamp(140px,40vw,200px);top:0;left:8px}}
