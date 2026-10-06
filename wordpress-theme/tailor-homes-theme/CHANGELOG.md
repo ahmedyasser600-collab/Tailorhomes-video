@@ -7,7 +7,8 @@ Targets the mobile PageSpeed report (Performance 77, LCP 15.6 s).
 - Google Fonts: one variable-font file per family instead of one per weight, preconnect hints, and the stylesheet no longer blocks first paint.
 - `th_img()` helper: Customizer image URLs get responsive `srcset`, intrinsic width/height and `loading="lazy"` (home cards, About, Owners, Gallery sliders, Corporate band, blog featured image).
 - `logo.svg` minified from 148 KB to 30 KB (visually identical). Service icons minified.
-- Partner logos, hero TH symbol and founder photo converted to resized WebP (about 380 KB down to about 60 KB).
+- Partner logos, hero TH symbol and founder photo converted to resized WebP (about 380 KB down to about 60 KB); the unused PNG/JPG originals were removed.
+- Bundled blog images converted from about 2 MB PNGs to 1600px WebP (60-150 KB each); the seeder now imports the WebP files. Theme size: 17 MB down to 1.6 MB.
 - `main.js` loads with `defer`; the scroll handler runs once per frame and only touches the DOM when the state flips.
 - Block-library CSS skipped on the theme's hand-built templates; WP emoji script removed.
 - Added `.htaccess` in the theme folder with long browser-cache lifetimes for theme CSS/JS/images (Apache/LiteSpeed).
