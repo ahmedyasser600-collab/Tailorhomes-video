@@ -160,7 +160,7 @@ while (have_posts()) :
   <!-- ───────── FEATURED IMAGE ───────── -->
   <?php if ($featured_url) : ?>
     <div class="th-post__featured">
-      <img src="<?php echo esc_url($featured_url); ?>" alt="<?php echo esc_attr($featured_alt); ?>" itemprop="image" />
+      <?php echo th_img($featured_url, array('alt' => $featured_alt, 'itemprop' => 'image', 'fetchpriority' => 'high', 'sizes' => '(max-width: 1100px) 100vw, 1100px')); ?>
     </div>
   <?php endif; ?>
 

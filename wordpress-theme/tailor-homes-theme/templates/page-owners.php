@@ -80,7 +80,7 @@ include(get_template_directory() . '/templates/page-services-langs.php');
       <?php $simg = get_theme_mod('th_service_img_2',''); ?>
       <div class="sv-ext-card__photo">
         <?php if(!empty($simg)): ?>
-          <img src="<?php echo esc_url($simg); ?>" alt="">
+          <?php echo th_img($simg, array('sizes' => '(max-width: 960px) 100vw, 50vw')); ?>
         <?php else: ?>
           <div class="sv-ext-card__ph"><span><?php echo $svc_hints[2]; ?></span><span class="sv-ext-card__ph-hint">Customize → Services Photos → 2</span></div>
         <?php endif; ?>
@@ -98,7 +98,7 @@ include(get_template_directory() . '/templates/page-services-langs.php');
       <?php $simg = get_theme_mod('th_service_img_3',''); ?>
       <div class="sv-ext-card__photo">
         <?php if(!empty($simg)): ?>
-          <img src="<?php echo esc_url($simg); ?>" alt="">
+          <?php echo th_img($simg, array('sizes' => '(max-width: 960px) 100vw, 50vw')); ?>
         <?php else: ?>
           <div class="sv-ext-card__ph"><span><?php echo $svc_hints[3]; ?></span><span class="sv-ext-card__ph-hint">Customize → Services Photos → 3</span></div>
         <?php endif; ?>
@@ -116,7 +116,7 @@ include(get_template_directory() . '/templates/page-services-langs.php');
       <?php $simg = get_theme_mod('th_service_img_4',''); ?>
       <div class="sv-ext-card__photo">
         <?php if(!empty($simg)): ?>
-          <img src="<?php echo esc_url($simg); ?>" alt="">
+          <?php echo th_img($simg, array('sizes' => '(max-width: 960px) 100vw, 50vw')); ?>
         <?php else: ?>
           <div class="sv-ext-card__ph"><span><?php echo $svc_hints[4]; ?></span><span class="sv-ext-card__ph-hint">Customize → Services Photos → 4</span></div>
         <?php endif; ?>

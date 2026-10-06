@@ -1,3 +1,32 @@
+## v2.10.0 - PageSpeed: performance, accessibility, SEO
+Targets the mobile PageSpeed report (Performance 77, LCP 15.6 s).
+
+**Performance**
+- Removed the full-screen loading screen: it hid the page for up to 2.5-4 s on every visit.
+- Home hero is now a real `<img>` with `srcset`/`sizes` (phones download a small version instead of the full-size original), `fetchpriority="high"` and a `<link rel="preload">` in the head. Previously it was a CSS background, found late and always full-size.
+- Google Fonts: one variable-font file per family instead of one per weight, preconnect hints, and the stylesheet no longer blocks first paint.
+- `th_img()` helper: Customizer image URLs get responsive `srcset`, intrinsic width/height and `loading="lazy"` (home cards, About, Owners, Gallery sliders, Corporate band, blog featured image).
+- `logo.svg` minified from 148 KB to 30 KB (visually identical). Service icons minified.
+- Partner logos, hero TH symbol and founder photo converted to resized WebP (about 380 KB down to about 60 KB).
+- `main.js` loads with `defer`; the scroll handler runs once per frame and only touches the DOM when the state flips.
+- Block-library CSS skipped on the theme's hand-built templates; WP emoji script removed.
+- Added `.htaccess` in the theme folder with long browser-cache lifetimes for theme CSS/JS/images (Apache/LiteSpeed).
+- OpenAI pixel `debug` switched off for production.
+
+**Accessibility**
+- Contrast: `--th-ink-soft` and `--th-terracotta` darkened, footer/CTA text brightened, hero subtitle band made opaque, WhatsApp button green darkened. All now pass WCAG AA.
+- Footer column titles are `h2` (no more h2 to h4 jump); hero decorative logo uses empty alt.
+- Logo links have accessible names; the language switcher is a real `<button>` with `aria-expanded` and opens on tap; the burger has `aria-expanded`/`aria-controls`; the closed mobile menu is `inert`; Escape closes menus.
+- Skip-to-content link, visible keyboard focus rings, `prefers-reduced-motion` support. Reveal animations no longer hide content if JS fails.
+- Duplicate partner-ticker logos hidden from screen readers.
+
+**SEO**
+- Fallback `<meta name="description">` (EN/IT, uses the post excerpt when present). Skipped automatically if Yoast, Rank Math, AIOSEO, SEOPress or The SEO Framework is active.
+
+**UX**
+- Hero now has two clear actions: Book Now (Krossbooking) and Own a property? (Owners page).
+
+
 ## v2.9.2 - Blog removed from header menu
 - Blog no longer appears in the header or mobile menu; it stays in the footer only, to reduce header crowding.
 - Added a `wp_nav_menu_objects` filter on the primary location that drops the Blog item (matched by title, blog page ID, or URL path) along with any children, so no change is needed in the WP menu editor.

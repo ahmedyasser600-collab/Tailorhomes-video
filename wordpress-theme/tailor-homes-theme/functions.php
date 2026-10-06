@@ -113,10 +113,154 @@ function tailorhomes_setup() {
 }
 add_action('after_setup_theme', 'tailorhomes_setup');
 
+/* -----------------------------------------------
+   PERFORMANCE HELPERS
+   ----------------------------------------------- */
+function th_fonts_url() {
+    return 'https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..800;1,9..40,300..400&family=Jost:wght@300..500&family=Cormorant+Garamond:ital,wght@0,300..500;1,300..400&display=swap';
+}
+
+// Connect to Google Fonts early so the font files are not stuck behind the CSS request.
+function tailorhomes_resource_hints($urls, $relation_type) {
+    if ($relation_type === 'preconnect') {
+        $urls[] = 'https://fonts.googleapis.com';
+        $urls[] = array('href' => 'https://fonts.gstatic.com', 'crossorigin');
+    }
+    return $urls;
+}
+add_filter('wp_resource_hints', 'tailorhomes_resource_hints', 10, 2);
+
+// Google Fonts CSS no longer blocks first paint: text shows in the fallback font, then swaps.
+function tailorhomes_async_fonts($html, $handle, $href) {
+    if ($handle !== 'tailorhomes-fonts') return $html;
+    return '<link rel="preload" as="style" href="' . esc_url($href) . '">' . "\n"
+         . '<link rel="stylesheet" id="tailorhomes-fonts-css" href="' . esc_url($href) . '" media="print" onload="this.media=\'all\'">' . "\n"
+         . '<noscript><link rel="stylesheet" href="' . esc_url($href) . '"></noscript>' . "\n";
+}
+add_filter('style_loader_tag', 'tailorhomes_async_fonts', 10, 3);
+
+// WordPress emoji detection script + CSS: unused by the theme, costs a request and inline JS.
+remove_action('wp_head', 'print_emoji_detection_script', 7);
+remove_action('wp_print_styles', 'print_emoji_styles');
+
+/**
+ * Responsive <img> for an image URL (Customizer settings store URLs, not IDs).
+ * When the URL belongs to the media library we get srcset/sizes and real width/height,
+ * so phones download a ~800px file instead of the full-size original.
+ * External or theme-bundled URLs fall back to a plain lazy <img>.
+ */
+function th_image_id_from_url($url) {
+    static $cache = array();
+    if (empty($url)) return 0;
+    if (!isset($cache[$url])) {
+        $cache[$url] = (int) attachment_url_to_postid($url);
+        // Customizer sometimes stores a resized variant (photo-1024x683.jpg).
+        if (!$cache[$url]) {
+            $orig = preg_replace('/-\d+x\d+(?=\.[a-z]+$)/i', '', $url);
+            if ($orig !== $url) $cache[$url] = (int) attachment_url_to_postid($orig);
+        }
+    }
+    return $cache[$url];
+}
+
+function th_img($url, $attrs = array(), $size = 'full') {
+    if (empty($url)) return '';
+    $attrs = array_merge(array('alt' => '', 'loading' => 'lazy', 'decoding' => 'async'), $attrs);
+    if (isset($attrs['fetchpriority']) && $attrs['fetchpriority'] === 'high') {
+        $attrs['loading'] = 'eager';
+    }
+
+    $id = th_image_id_from_url($url);
+    if ($id) {
+        // WordPress writes the attachment's real width/height itself.
+        unset($attrs['width'], $attrs['height']);
+        $html = wp_get_attachment_image($id, $size, false, $attrs);
+        if ($html) return $html;
+    }
+
+    $out = '<img src="' . esc_url($url) . '"';
+    foreach ($attrs as $k => $v) {
+        if ($v === false || $v === null) continue;
+        $out .= ' ' . $k . '="' . esc_attr($v) . '"';
+    }
+    return $out . '>';
+}
+
+/**
+ * Home hero image URL — Customizer first, then featured image (current page, then EN page).
+ */
+function th_get_hero_image() {
+    $hero_img = get_theme_mod('th_hero_image', '');
+    $page_id  = get_queried_object_id();
+    if (empty($hero_img) && $page_id && has_post_thumbnail($page_id)) {
+        $hero_img = get_the_post_thumbnail_url($page_id, 'full');
+    }
+    if (empty($hero_img) && $page_id && function_exists('pll_get_post')) {
+        $en_page_id = pll_get_post($page_id, 'en');
+        if ($en_page_id && has_post_thumbnail($en_page_id)) {
+            $hero_img = get_the_post_thumbnail_url($en_page_id, 'full');
+        }
+    }
+    return $hero_img;
+}
+
+// Preload the hero (the LCP element) so the browser fetches it before parsing the body.
+function tailorhomes_preload_hero() {
+    if (!is_front_page()) return;
+    $url = th_get_hero_image();
+    if (empty($url)) return;
+    $id = th_image_id_from_url($url);
+    $srcset = $id ? wp_get_attachment_image_srcset($id, 'full') : '';
+    if ($srcset) {
+        echo '<link rel="preload" as="image" href="' . esc_url(wp_get_attachment_image_url($id, 'full')) . '" imagesrcset="' . esc_attr($srcset) . '" imagesizes="100vw" fetchpriority="high">' . "\n";
+    } else {
+        echo '<link rel="preload" as="image" href="' . esc_url($url) . '" fetchpriority="high">' . "\n";
+    }
+}
+add_action('wp_head', 'tailorhomes_preload_hero', 2);
+
+/**
+ * Meta description fallback — only when no SEO plugin is handling it.
+ */
+function tailorhomes_meta_description() {
+    if (defined('WPSEO_VERSION') || defined('RANK_MATH_VERSION') || defined('AIOSEO_VERSION') || defined('SEOPRESS_VERSION') || class_exists('The_SEO_Framework\\Load')) {
+        return;
+    }
+    $it = (function_exists('pll_current_language') && pll_current_language() === 'it');
+    $desc = '';
+
+    if (is_singular()) {
+        $post = get_queried_object();
+        if (!empty($post->post_excerpt)) {
+            $desc = $post->post_excerpt;
+        } elseif (is_single()) {
+            $desc = wp_trim_words(wp_strip_all_tags(strip_shortcodes($post->post_content)), 28, '…');
+        }
+    }
+
+    if ($desc === '') {
+        $desc = $it
+            ? 'Gestione immobiliare a Padova: affitti brevi e medio termine, ville di prestigio, corporate housing e alloggi per studenti. Prenota diretto con Tailor Homes.'
+            : 'Property management in Padova, Italy: short and mid-term rentals, prestige villas, corporate housing and student stays. Book direct with Tailor Homes.';
+        if (!is_front_page() && is_singular()) {
+            $desc = get_the_title() . ' — ' . $desc;
+        }
+    }
+
+    $desc = trim(preg_replace('/\s+/', ' ', wp_strip_all_tags($desc)));
+    if (function_exists('mb_substr') && mb_strlen($desc) > 160) {
+        $desc = rtrim(mb_substr($desc, 0, 157)) . '…';
+    }
+    echo '<meta name="description" content="' . esc_attr($desc) . '">' . "\n";
+}
+add_action('wp_head', 'tailorhomes_meta_description', 1);
+
 // Enqueue
 function tailorhomes_scripts() {
-    wp_enqueue_style('tailorhomes-fonts', 'https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,300;1,9..40,400&family=Jost:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap', array(), null);
-    wp_enqueue_style('tailorhomes-style', get_stylesheet_uri(), array(), '4.2');
+    // Variable-font ranges: one file per family/style instead of one per weight.
+    // Loaded without blocking render (see tailorhomes_async_fonts below).
+    wp_enqueue_style('tailorhomes-fonts', th_fonts_url(), array(), null);
+    wp_enqueue_style('tailorhomes-style', get_stylesheet_uri(), array(), '4.3');
 
     if (is_page_template('templates/page-apartments.php')) {
         wp_enqueue_style('tailorhomes-apartments', get_template_directory_uri() . '/assets/css/apartments.css', array(), '3.0');
@@ -132,7 +276,15 @@ function tailorhomes_scripts() {
         wp_enqueue_style('tailorhomes-services', get_template_directory_uri() . '/assets/css/services.css', array(), '3.3');
     }
 
-    wp_enqueue_script('tailorhomes-main', get_template_directory_uri() . '/assets/js/main.js', array(), '1.0', true);
+    wp_enqueue_script('tailorhomes-main', get_template_directory_uri() . '/assets/js/main.js', array(), '1.1', array('in_footer' => true, 'strategy' => 'defer'));
+
+    // Theme templates are hand-built PHP, not blocks: skip the block-library CSS there.
+    if (is_front_page() || (is_page() && get_page_template_slug())) {
+        wp_dequeue_style('wp-block-library');
+        wp_dequeue_style('wp-block-library-theme');
+        wp_dequeue_style('classic-theme-styles');
+        wp_dequeue_style('global-styles');
+    }
 }
 add_action('wp_enqueue_scripts', 'tailorhomes_scripts');
 
@@ -594,7 +746,7 @@ function th_openai_pixel_id() {
 
 // Set to true while testing to log SDK activity in the browser console.
 function th_openai_pixel_debug() {
-    return true;
+    return false;
 }
 
 function th_openai_pixel() {
@@ -641,3 +793,20 @@ oaiq("measure", "page_viewed", {
     <?php
 }
 add_action('wp_head', 'th_openai_pixel', 1);
+/**
+ * Site logo <img> with intrinsic width/height (avoids layout shift) — custom logo first,
+ * then the bundled SVG.
+ */
+function th_logo_img($attrs = array()) {
+    $attrs = array_merge(array('alt' => get_bloginfo('name') ?: 'Tailor Homes', 'decoding' => 'async'), $attrs);
+    $logo_id = has_custom_logo() ? (int) get_theme_mod('custom_logo') : 0;
+    if ($logo_id && ($html = wp_get_attachment_image($logo_id, 'full', false, $attrs))) {
+        return $html;
+    }
+    // Bundled logo.svg has a 3137×1262 viewBox.
+    $out = '<img src="' . esc_url(get_template_directory_uri() . '/assets/images/logo.svg') . '" width="249" height="100"';
+    foreach ($attrs as $k => $v) {
+        $out .= ' ' . $k . '="' . esc_attr($v) . '"';
+    }
+    return $out . '>';
+}

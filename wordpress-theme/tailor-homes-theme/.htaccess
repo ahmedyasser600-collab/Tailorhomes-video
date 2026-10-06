@@ -1,0 +1,30 @@
+# Tailor Homes theme — long browser cache for static theme assets.
+# Applies to files served from this theme folder on Apache / LiteSpeed hosts.
+# CSS and JS are versioned with ?ver=… by WordPress, so a long lifetime is safe:
+# bump the version in functions.php when they change.
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css                 "access plus 1 year"
+  ExpiresByType application/javascript   "access plus 1 year"
+  ExpiresByType text/javascript          "access plus 1 year"
+  ExpiresByType image/svg+xml            "access plus 30 days"
+  ExpiresByType image/webp               "access plus 30 days"
+  ExpiresByType image/png                "access plus 30 days"
+  ExpiresByType image/jpeg               "access plus 30 days"
+  ExpiresByType font/woff2               "access plus 1 year"
+</IfModule>
+
+<IfModule mod_headers.c>
+  <FilesMatch "\.(css|js|woff2)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  # Images are not versioned in their URLs, so keep them shorter.
+  <FilesMatch "\.(svg|webp|png|jpe?g)$">
+    Header set Cache-Control "public, max-age=2592000"
+  </FilesMatch>
+</IfModule>
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/css application/javascript text/javascript image/svg+xml
+</IfModule>

@@ -3,6 +3,7 @@
 <head>
   <meta charset="<?php bloginfo('charset'); ?>">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>document.documentElement.classList.add('js');</script>
   <?php wp_head(); ?>
   <style>
     /* 
@@ -57,53 +58,21 @@
       filter: brightness(0) invert(1);
     }
 
-    /* LOADER CSS */
-    .th-loader { position: fixed; inset: 0; z-index: 999999; background: #F5F0E8; display: flex; align-items: center; justify-content: center; flex-direction: column; transition: opacity 0.5s, visibility 0.5s; animation: th-auto-hide 0.5s 4s forwards; }
-    @keyframes th-auto-hide { to { opacity: 0; visibility: hidden; pointer-events: none; } }
-    .th-loader.loaded { opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; }
-    .th-loader__logo { height: 100px; width: auto; }
   </style>
 </head>
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 
-<!-- LOADING SCREEN -->
-<div class="th-loader" id="th-loader">
-  <div style="text-align: center;">
-    <?php if (has_custom_logo()) :
-      $logo_id = get_theme_mod('custom_logo');
-      $logo_url = wp_get_attachment_image_url($logo_id, 'full');
-    ?>
-      <img class="th-loader__logo" src="<?php echo esc_url($logo_url); ?>" alt="<?php bloginfo('name'); ?>">
-    <?php else : ?>
-      <img class="th-loader__logo" src="<?php echo get_template_directory_uri(); ?>/assets/images/logo.svg" alt="Tailor Homes">
-    <?php endif; ?>
-  </div>
-</div>
-
-<script>
-  (function() {
-    function hide() { var l = document.getElementById('th-loader'); if (l) l.classList.add('loaded'); }
-    window.addEventListener('load', hide);
-    setTimeout(hide, 2500);
-  })();
-</script>
+<a class="th-skip-link" href="#main"><?php echo (function_exists('pll_current_language') && pll_current_language() === 'it') ? 'Vai al contenuto' : 'Skip to content'; ?></a>
 
 <!-- HEADER -->
 <header class="th-header" id="header">
   <div class="th-header__inner">
-    <a href="<?php echo esc_url(home_url('/')); ?>" class="th-header__logo">
-      <?php if (has_custom_logo()) :
-        $logo_id = get_theme_mod('custom_logo');
-        $logo_url = wp_get_attachment_image_url($logo_id, 'full');
-      ?>
-        <img src="<?php echo esc_url($logo_url); ?>" alt="<?php bloginfo('name'); ?>">
-      <?php else : ?>
-        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/logo.svg" alt="Tailor Homes">
-      <?php endif; ?>
+    <a href="<?php echo esc_url(home_url('/')); ?>" class="th-header__logo" aria-label="<?php echo esc_attr(get_bloginfo('name') ?: 'Tailor Homes'); ?> — Home">
+      <?php echo th_logo_img(); ?>
     </a>
 
-    <nav class="th-nav">
+    <nav class="th-nav" aria-label="<?php echo (function_exists('pll_current_language') && pll_current_language() === 'it') ? 'Menu principale' : 'Main menu'; ?>">
       <?php wp_nav_menu(array(
         'theme_location' => 'primary',
         'container' => false,
@@ -121,17 +90,17 @@
         $current = reset($current);
     ?>
     <div class="th-lang-switcher">
-      <div class="th-lang-current">
+      <button type="button" class="th-lang-current" aria-haspopup="true" aria-expanded="false" aria-label="<?php echo esc_attr(($current['name'] ?? 'Language') . ' — ' . 'Language / Lingua'); ?>">
         <?php if (!empty($current['flag'])) : ?>
-          <img src="<?php echo esc_url($current['flag']); ?>" alt="<?php echo esc_attr($current['name']); ?>">
+          <img src="<?php echo esc_url($current['flag']); ?>" alt="" width="20" height="14">
         <?php endif; ?>
-        <svg class="th-lang-arrow" viewBox="0 0 10 6" width="8" height="8"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
-      </div>
+        <svg class="th-lang-arrow" viewBox="0 0 10 6" width="8" height="8" aria-hidden="true" focusable="false"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+      </button>
       <div class="th-lang-dropdown">
         <?php foreach ($langs as $lang) : ?>
-          <a href="<?php echo esc_url($lang['url']); ?>" class="th-lang-option <?php echo $lang['current_lang'] ? 'active' : ''; ?>">
+          <a href="<?php echo esc_url($lang['url']); ?>" class="th-lang-option <?php echo $lang['current_lang'] ? 'active' : ''; ?>" hreflang="<?php echo esc_attr($lang['slug']); ?>" lang="<?php echo esc_attr($lang['slug']); ?>" aria-label="<?php echo esc_attr($lang['name']); ?>"<?php echo $lang['current_lang'] ? ' aria-current="true"' : ''; ?>>
             <?php if (!empty($lang['flag'])) : ?>
-              <img src="<?php echo esc_url($lang['flag']); ?>" alt="<?php echo esc_attr($lang['name']); ?>">
+              <img src="<?php echo esc_url($lang['flag']); ?>" alt="" width="20" height="14">
             <?php endif; ?>
             <span><?php echo esc_html(strtoupper($lang['slug'])); ?></span>
           </a>
@@ -140,14 +109,14 @@
     </div>
     <?php endif; endif; ?>
 
-    <button class="th-burger" id="th-burger" aria-label="Toggle Menu">
-      <span></span><span></span><span></span>
+    <button type="button" class="th-burger" id="th-burger" aria-label="<?php echo (function_exists('pll_current_language') && pll_current_language() === 'it') ? 'Apri menu' : 'Open menu'; ?>" aria-expanded="false" aria-controls="th-mobile-menu">
+      <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
     </button>
   </div>
 </header>
 
 <!-- MOBILE MENU -->
-<div class="th-mobile-menu" id="th-mobile-menu">
+<nav class="th-mobile-menu" id="th-mobile-menu" aria-label="<?php echo (function_exists('pll_current_language') && pll_current_language() === 'it') ? 'Menu mobile' : 'Mobile menu'; ?>" aria-hidden="true" inert>
   <?php wp_nav_menu(array(
     'theme_location' => 'primary',
     'container' => false,
@@ -160,15 +129,15 @@
     if (!empty($langs)) : ?>
   <div class="th-lang-switcher th-lang-switcher--mobile">
     <?php foreach ($langs as $lang) : ?>
-      <a href="<?php echo esc_url($lang['url']); ?>" class="th-lang-option <?php echo $lang['current_lang'] ? 'active' : ''; ?>">
+      <a href="<?php echo esc_url($lang['url']); ?>" class="th-lang-option <?php echo $lang['current_lang'] ? 'active' : ''; ?>" hreflang="<?php echo esc_attr($lang['slug']); ?>" lang="<?php echo esc_attr($lang['slug']); ?>" aria-label="<?php echo esc_attr($lang['name']); ?>"<?php echo $lang['current_lang'] ? ' aria-current="true"' : ''; ?>>
         <?php if (!empty($lang['flag'])) : ?>
-          <img src="<?php echo esc_url($lang['flag']); ?>" alt="<?php echo esc_attr($lang['name']); ?>">
+          <img src="<?php echo esc_url($lang['flag']); ?>" alt="" width="20" height="14">
         <?php endif; ?>
         <span><?php echo esc_html(strtoupper($lang['slug'])); ?></span>
       </a>
     <?php endforeach; ?>
   </div>
   <?php endif; endif; ?>
-</div>
+</nav>
 
-<main>
+<main id="main" tabindex="-1">

@@ -5,17 +5,23 @@
      HEADER — Scroll: transparent → solid
      ----------------------------------------------- */
   var header = document.getElementById('header');
+  var scrolled = null;
+  var ticking = false;
 
+  // Only touch the class when the state actually flips, once per frame.
   function onScroll() {
     if (!header) return;
-    if (window.scrollY > 50) {
-      header.classList.add('th-scrolled');
-    } else {
-      header.classList.remove('th-scrolled');
+    var next = window.scrollY > 50;
+    if (next !== scrolled) {
+      scrolled = next;
+      header.classList.toggle('th-scrolled', next);
     }
+    ticking = false;
   }
 
-  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('scroll', function() {
+    if (!ticking) { ticking = true; window.requestAnimationFrame(onScroll); }
+  }, { passive: true });
   onScroll();
 
 
@@ -26,18 +32,62 @@
   var mobileMenu = document.getElementById('th-mobile-menu');
 
   if (burger && mobileMenu) {
+    var openLabel = burger.getAttribute('aria-label');
+    var closeLabel = document.documentElement.lang.indexOf('it') === 0 ? 'Chiudi menu' : 'Close menu';
+
+    function setMenu(open) {
+      burger.classList.toggle('open', open);
+      mobileMenu.classList.toggle('open', open);
+      document.body.classList.toggle('menu-open', open);
+      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+      burger.setAttribute('aria-label', open ? closeLabel : openLabel);
+      mobileMenu.setAttribute('aria-hidden', open ? 'false' : 'true');
+      if (open) {
+        mobileMenu.removeAttribute('inert');
+        var first = mobileMenu.querySelector('a');
+        if (first) first.focus();
+      } else {
+        mobileMenu.setAttribute('inert', '');
+      }
+    }
+
     burger.addEventListener('click', function() {
-      burger.classList.toggle('open');
-      mobileMenu.classList.toggle('open');
-      document.body.classList.toggle('menu-open');
+      setMenu(!mobileMenu.classList.contains('open'));
     });
 
     mobileMenu.querySelectorAll('a').forEach(function(link) {
-      link.addEventListener('click', function() {
-        burger.classList.remove('open');
-        mobileMenu.classList.remove('open');
-        document.body.classList.remove('menu-open');
-      });
+      link.addEventListener('click', function() { setMenu(false); });
+    });
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && mobileMenu.classList.contains('open')) {
+        setMenu(false);
+        burger.focus();
+      }
+    });
+  }
+
+
+  /* -----------------------------------------------
+     LANGUAGE SWITCHER — tap to open on touch screens
+     ----------------------------------------------- */
+  var langSwitcher = document.querySelector('.th-lang-switcher:not(.th-lang-switcher--mobile)');
+  var langBtn = langSwitcher && langSwitcher.querySelector('.th-lang-current');
+
+  if (langBtn) {
+    function setLang(open) {
+      langSwitcher.classList.toggle('open', open);
+      langBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+    langBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      setLang(!langSwitcher.classList.contains('open'));
+    });
+    document.addEventListener('click', function(e) {
+      if (!langSwitcher.contains(e.target)) setLang(false);
+    });
+    langSwitcher.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') { setLang(false); langBtn.focus(); }
     });
   }
 
@@ -47,7 +97,11 @@
      ----------------------------------------------- */
   var revealEls = document.querySelectorAll('.r, .rl, .rr');
 
-  if (revealEls.length > 0 && 'IntersectionObserver' in window) {
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (revealEls.length > 0 && (reduceMotion || !('IntersectionObserver' in window))) {
+    revealEls.forEach(function(el) { el.classList.add('in'); });
+  } else if (revealEls.length > 0) {
     var observer = new IntersectionObserver(function(entries) {
       entries.forEach(function(entry) {
         if (entry.isIntersecting) {
@@ -81,6 +135,7 @@
       slides.forEach(function(_, i) {
         var d = document.createElement('button');
         d.className = 'apt-dot' + (i === 0 ? ' active' : '');
+        d.type = 'button';
         d.setAttribute('aria-label', 'Slide ' + (i + 1));
         d.addEventListener('click', function() { go(i); });
         dotsEl.appendChild(d);
@@ -89,6 +144,9 @@
 
     function go(n) {
       idx = (n + total) % total;
+      // Slides after the first are lazy; load the target before it slides in.
+      var img = slides[idx].querySelector('img[loading="lazy"]');
+      if (img) img.loading = 'eager';
       track.style.transform = 'translateX(-' + idx * 100 + '%)';
       if (cur) cur.textContent = idx + 1;
       if (dotsEl) dotsEl.querySelectorAll('.apt-dot').forEach(function(d, i) { d.classList.toggle('active', i === idx); });

@@ -4,36 +4,34 @@ $it = (function_exists('pll_current_language') && pll_current_language() === 'it
 
 <!-- HERO — Full-width photo with logo + tagline overlay -->
 <section class="th-hero">
-  <?php
-    // 1) Check Customizer hero image first (global, language-independent)
-    $hero_img = get_theme_mod('th_hero_image', '');
-    // 2) Fall back to Featured Image on current page
-    if (empty($hero_img) && has_post_thumbnail()) {
-        $hero_img = get_the_post_thumbnail_url(get_the_ID(), 'full');
-    }
-    // 3) If on Italian page and still no image, get it from the English/default version
-    if (empty($hero_img) && function_exists('pll_get_post')) {
-        $en_page_id = pll_get_post(get_the_ID(), 'en');
-        if ($en_page_id && has_post_thumbnail($en_page_id)) {
-            $hero_img = get_the_post_thumbnail_url($en_page_id, 'full');
-        }
-    }
-  ?>
+  <?php $hero_img = th_get_hero_image(); ?>
   <?php if (!empty($hero_img)) : ?>
-    <div class="th-hero__photo" style="background-image:url('<?php echo esc_url($hero_img); ?>')"></div>
+    <div class="th-hero__photo">
+      <?php echo th_img($hero_img, array(
+        'class'         => 'th-hero__img',
+        'alt'           => '',
+        'sizes'         => '100vw',
+        'fetchpriority' => 'high',
+        'decoding'      => 'sync',
+      )); ?>
+    </div>
   <?php else : ?>
     <div class="th-hero__photo th-hero__photo--placeholder">
       <p>Go to Appearance → Customize → Hero Image to set your hero photo</p>
     </div>
   <?php endif; ?>
 
-  <!-- Overlay content: logo + tagline -->
+  <!-- Overlay content: logo + tagline + primary actions -->
   <div class="th-hero__overlay">
     <div class="th-hero__overlay-logo">
-      <img src="<?php echo get_template_directory_uri(); ?>/assets/images/th-symbol-transparent.png" alt="Tailor Homes">
+      <img src="<?php echo get_template_directory_uri(); ?>/assets/images/th-symbol-transparent.webp" alt="" width="150" height="150" decoding="async">
     </div>
     <h1 class="th-hero__tagline">Tailoring Your Experience</h1>
     <p class="th-hero__subtitle"><?php echo $it ? 'Gestione Immobiliare — Appartamenti &amp; Ville di Prestigio' : 'Property Management — Apartments &amp; Prestige Villas'; ?></p>
+    <div class="th-hero__actions">
+      <a href="<?php echo esc_url(th_booking_url()); ?>" class="th-hero__btn th-hero__btn--primary" target="_blank" rel="noopener"><?php echo esc_html(th_booking_label()); ?></a>
+      <a href="<?php echo esc_url(th_url('owners')); ?>" class="th-hero__btn th-hero__btn--ghost"><?php echo $it ? 'Sei un proprietario?' : 'Own a property?'; ?></a>
+    </div>
   </div>
 </section>
 
@@ -48,8 +46,16 @@ $it = (function_exists('pll_current_language') && pll_current_language() === 'it
 .th-hero__photo {
   position: absolute;
   inset: 0;
-  background-size: cover;
-  background-position: center;
+  background: #2a2722;
+}
+.th-hero__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: center;
 }
 /* Stronger cinematic overlay for text readability */
 .th-hero__photo::after {
@@ -108,7 +114,7 @@ $it = (function_exists('pll_current_language') && pll_current_language() === 'it
 
 .th-hero__overlay-logo img {
   height: 150px;
-  width: auto;
+  width: 150px;
   filter: drop-shadow(0 4px 24px rgba(0,0,0,0.4));
 }
 
@@ -136,8 +142,8 @@ $it = (function_exists('pll_current_language') && pll_current_language() === 'it
   background: linear-gradient(
     to right,
     rgba(245, 240, 232, 0) 0%,
-    rgba(245, 240, 232, 0.55) 20%,
-    rgba(245, 240, 232, 0.55) 80%,
+    rgba(245, 240, 232, 0.96) 18%,
+    rgba(245, 240, 232, 0.96) 82%,
     rgba(245, 240, 232, 0) 100%
   );
   padding: 12px 56px;
@@ -161,18 +167,68 @@ $it = (function_exists('pll_current_language') && pll_current_language() === 'it
   text-shadow: none;
 }
 
+/* Primary actions under the tagline */
+.th-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 36px;
+}
+.th-hero__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 15px 34px;
+  font-family: 'Jost', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  border-radius: 2px;
+  transition: background .3s ease, color .3s ease, border-color .3s ease, transform .3s ease;
+}
+.th-hero__btn--primary {
+  background: var(--th-red);
+  color: #fff;
+  border: 1px solid var(--th-red);
+}
+.th-hero__btn--primary:hover {
+  background: #fff;
+  color: var(--th-navy);
+  border-color: #fff;
+  transform: translateY(-2px);
+}
+.th-hero__btn--ghost {
+  background: rgba(17,17,17,.25);
+  color: #F5F0E8;
+  border: 1px solid rgba(245,240,232,.7);
+}
+.th-hero__btn--ghost:hover {
+  background: #F5F0E8;
+  color: var(--th-navy);
+  border-color: #F5F0E8;
+}
+.th-hero__photo--placeholder ~ .th-hero__overlay .th-hero__btn--ghost {
+  color: var(--th-navy);
+  border-color: var(--th-navy);
+  background: transparent;
+}
+
 /* ── MOBILE HERO FIX ── */
 @media (max-width: 768px) {
   .th-hero {
     height: 100svh; /* Use small viewport height for mobile browsers */
     min-height: 450px;
   }
-  .th-hero__photo {
+  .th-hero__img {
     /* Focus on the interesting part of the photo on mobile */
-    background-position: center 40%;
+    object-position: center 40%;
   }
   .th-hero__overlay-logo img {
     height: 85px;
+    width: 85px;
     margin-bottom: 10px;
   }
   .th-hero__overlay-logo {
@@ -186,6 +242,15 @@ $it = (function_exists('pll_current_language') && pll_current_language() === 'it
     font-size: 12px;
     letter-spacing: 0.22em;
     margin-top: 18px;
+    padding: 10px 28px;
+  }
+  .th-hero__actions {
+    margin-top: 28px;
+    gap: 10px;
+  }
+  .th-hero__btn {
+    padding: 14px 24px;
+    font-size: 11px;
   }
 }
 
@@ -195,6 +260,7 @@ $it = (function_exists('pll_current_language') && pll_current_language() === 'it
   }
   .th-hero__overlay-logo img {
     height: 65px;
+    width: 65px;
     margin-bottom: 8px;
   }
   .th-hero__overlay-logo {
@@ -221,7 +287,7 @@ $it = (function_exists('pll_current_language') && pll_current_language() === 'it
       <article class="th-bento__card th-bento__card--hero r d1">
         <div class="th-bento__card-num">01</div>
         <div class="th-bento__card-icon th-bento__card-icon--3d">
-          <img src="<?php echo get_template_directory_uri(); ?>/assets/images/icons/icon-home-01-gestione.svg" alt="" loading="lazy">
+          <img src="<?php echo get_template_directory_uri(); ?>/assets/images/icons/icon-home-01-gestione.svg" alt="" loading="lazy" width="108" height="108" decoding="async">
         </div>
         <h3 class="th-bento__card-title"><?php echo $it ? 'Gestione Completa Immobili' : 'Complete Property Management'; ?></h3>
         <p class="th-bento__card-lede"><?php echo $it ? "Trasformiamo il tuo immobile in una rendita ottimizzata e completamente gestita." : 'We turn your property into an optimised, fully-managed source of income.'; ?></p>
@@ -249,7 +315,7 @@ $it = (function_exists('pll_current_language') && pll_current_language() === 'it
       <article class="th-bento__card th-bento__card--accent r d2">
         <div class="th-bento__card-num">02</div>
         <div class="th-bento__card-icon th-bento__card-icon--3d">
-          <img src="<?php echo get_template_directory_uri(); ?>/assets/images/icons/icon-home-02-ottimizzazione.svg" alt="" loading="lazy">
+          <img src="<?php echo get_template_directory_uri(); ?>/assets/images/icons/icon-home-02-ottimizzazione.svg" alt="" loading="lazy" width="108" height="108" decoding="async">
         </div>
         <h3 class="th-bento__card-title"><?php echo $it ? 'Ottimizzazione e Valorizzazione' : 'Optimisation & Value'; ?></h3>
         <p class="th-bento__card-lede"><?php echo $it ? "Aumentiamo il valore percepito del tuo immobile per generare più rendimento." : 'We increase your property\'s perceived value to generate higher returns.'; ?></p>
@@ -277,7 +343,7 @@ $it = (function_exists('pll_current_language') && pll_current_language() === 'it
       <article class="th-bento__card th-bento__card--clean r d3">
         <div class="th-bento__card-num">03</div>
         <div class="th-bento__card-icon th-bento__card-icon--3d">
-          <img src="<?php echo get_template_directory_uri(); ?>/assets/images/icons/icon-home-03-clienti.svg" alt="" loading="lazy">
+          <img src="<?php echo get_template_directory_uri(); ?>/assets/images/icons/icon-home-03-clienti.svg" alt="" loading="lazy" width="108" height="108" decoding="async">
         </div>
         <h3 class="th-bento__card-title"><?php echo $it ? 'Clienti e Canali Garantiti' : 'Guaranteed Clients & Channels'; ?></h3>
         <p class="th-bento__card-lede"><?php echo $it ? "Flussi costanti di prenotazioni qualificate, oltre le OTA." : 'Steady streams of qualified bookings, beyond OTAs.'; ?></p>
@@ -305,7 +371,7 @@ $it = (function_exists('pll_current_language') && pll_current_language() === 'it
       <article class="th-bento__card th-bento__card--strategy r d4">
         <div class="th-bento__card-num">04</div>
         <div class="th-bento__card-icon th-bento__card-icon--3d">
-          <img src="<?php echo get_template_directory_uri(); ?>/assets/images/icons/icon-home-04-consulenza.svg" alt="" loading="lazy">
+          <img src="<?php echo get_template_directory_uri(); ?>/assets/images/icons/icon-home-04-consulenza.svg" alt="" loading="lazy" width="108" height="108" decoding="async">
         </div>
         <h3 class="th-bento__card-title"><?php echo $it ? 'Consulenza e Investimenti' : 'Consulting & Investments'; ?></h3>
         <p class="th-bento__card-lede"><?php echo $it ? "Ti supportiamo nelle decisioni immobiliari per massimizzare il valore nel tempo." : 'We support your real-estate decisions to maximise value over time.'; ?></p>
@@ -538,7 +604,8 @@ $th_corporate_img = get_theme_mod('th_corporate_card_image', '');
   <div class="w">
     <div class="th-promo-grid">
       <a href="<?php echo esc_url(th_url('students')); ?>" class="th-st-card th-promo-card r d1">
-        <div class="th-st-card__media"<?php if (!empty($th_students_img)) echo ' style="background-image:url(\'' . esc_url($th_students_img) . '\');"'; ?>>
+        <div class="th-st-card__media">
+          <?php if (!empty($th_students_img)) echo th_img($th_students_img, array('class' => 'th-st-card__img', 'sizes' => '(max-width: 960px) 100vw, 50vw')); ?>
           <?php if (empty($th_students_img)) : ?>
             <div class="th-st-card__placeholder">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
@@ -556,7 +623,8 @@ $th_corporate_img = get_theme_mod('th_corporate_card_image', '');
       </a>
 
       <a href="<?php echo esc_url(th_url('corporate-housing')); ?>" class="th-st-card th-st-card--corporate th-promo-card r d2">
-        <div class="th-st-card__media"<?php if (!empty($th_corporate_img)) echo ' style="background-image:url(\'' . esc_url($th_corporate_img) . '\');"'; ?>>
+        <div class="th-st-card__media">
+          <?php if (!empty($th_corporate_img)) echo th_img($th_corporate_img, array('class' => 'th-st-card__img', 'sizes' => '(max-width: 960px) 100vw, 50vw')); ?>
           <?php if (empty($th_corporate_img)) : ?>
             <div class="th-st-card__placeholder th-st-card__placeholder--corp">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M3 13h18"/><path d="M9 13v2h6v-2"/></svg>
@@ -593,6 +661,9 @@ $th_corporate_img = get_theme_mod('th_corporate_card_image', '');
   background-size: cover;
   background-position: center;
   background-color: var(--th-bg-warm);
+}
+.th-st-card__img {
+  position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: cover;
 }
 .th-st-card__placeholder {
   position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -645,21 +716,20 @@ $th_corporate_img = get_theme_mod('th_corporate_card_image', '');
   <div class="th-partners__track-wrap">
     <div class="th-partners__track">
       <?php
-      // Repeat logos 3 times for seamless infinite scroll
-      for ($set = 0; $set < 3; $set++) : ?>
-      <div class="th-partners__item">
-        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/partner-unipd.png" alt="University of Padova">
+      // Repeat logos 3 times for seamless infinite scroll; only the first set is exposed to screen readers.
+      $th_partners = array(
+        array('partner-unipd.webp', 'University of Padova', 200, 200, 'th-partners__logo--invert'),
+        array('partner-ospedale-padova-red.webp', 'Ospedale di Padova', 393, 200, ''),
+        array('partner-teatro.webp', 'Teatro Stabile Veneto', 200, 200, ''),
+        array('partner-urbs.webp', 'Padova Urbs Picta', 200, 200, ''),
+      );
+      for ($set = 0; $set < 3; $set++) :
+        foreach ($th_partners as $p) : ?>
+      <div class="th-partners__item"<?php echo $set ? ' aria-hidden="true"' : ''; ?>>
+        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/<?php echo $p[0]; ?>" alt="<?php echo $set ? '' : esc_attr($p[1]); ?>" width="<?php echo $p[2]; ?>" height="<?php echo $p[3]; ?>" fetchpriority="low" decoding="async"<?php echo $p[4] ? ' class="' . $p[4] . '"' : ''; ?>>
       </div>
-      <div class="th-partners__item">
-        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/partner-ospedale-padova-red.jpg" alt="Ospedale di Padova">
-      </div>
-      <div class="th-partners__item">
-        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/partner-teatro.jpg" alt="Teatro Stabile Veneto">
-      </div>
-      <div class="th-partners__item">
-        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/partner-urbs.png" alt="Padova Urbs Picta">
-      </div>
-      <?php endfor; ?>
+      <?php endforeach;
+      endfor; ?>
     </div>
   </div>
 </section>
@@ -691,6 +761,9 @@ $th_corporate_img = get_theme_mod('th_corporate_card_image', '');
 .th-partners__track:hover {
   animation-play-state: paused;
 }
+@media (prefers-reduced-motion: reduce) {
+  .th-partners__track { animation: none; }
+}
 .th-partners__item {
   display: flex;
   align-items: center;
@@ -710,11 +783,11 @@ $th_corporate_img = get_theme_mod('th_corporate_card_image', '');
   filter: grayscale(0%) opacity(1);
 }
 /* UniPD has black background — use screen blend to knock it out */
-.th-partners__item img[alt="University of Padova"] {
+.th-partners__item img.th-partners__logo--invert {
   mix-blend-mode: multiply;
   filter: grayscale(100%) opacity(0.5) invert(1);
 }
-.th-partners__item:hover img[alt="University of Padova"] {
+.th-partners__item:hover img.th-partners__logo--invert {
   filter: grayscale(0%) opacity(1) invert(1);
 }
 @keyframes th-partners-scroll {

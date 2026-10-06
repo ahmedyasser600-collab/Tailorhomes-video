@@ -21,7 +21,7 @@ include(get_template_directory() . '/templates/page-guests-langs.php');
 <!-- PHOTO BAND -->
 <?php $co_img = get_theme_mod('th_service_img_1',''); if (!empty($co_img)): ?>
 <section style="padding:0 0 20px;"><div class="w">
-  <div class="r" style="aspect-ratio:21/9;overflow:hidden;"><img src="<?php echo esc_url($co_img); ?>" alt="Corporate Housing — Tailor Homes" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+  <div class="r" style="aspect-ratio:21/9;overflow:hidden;"><?php echo th_img($co_img, array('alt' => 'Corporate Housing — Tailor Homes', 'style' => 'width:100%;height:100%;object-fit:cover;display:block;', 'sizes' => '(max-width: 1440px) 100vw, 1320px')); ?></div>
 </div></section>
 <?php endif; ?>
 

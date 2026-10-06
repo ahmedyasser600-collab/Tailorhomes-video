@@ -74,7 +74,7 @@ $s = array(
 
 $founder_img = get_theme_mod('th_founder_image', '');
 if (empty($founder_img)) {
-    $founder_img = get_template_directory_uri() . '/assets/images/team/alice-baggio.jpg';
+    $founder_img = get_template_directory_uri() . '/assets/images/team/alice-baggio.webp';
 }
 ?>
 <script>document.body.classList.add('th-solid-header');</script>
@@ -122,7 +122,7 @@ if (empty($founder_img)) {
       ?>
       <div class="th-area-mosaic__item">
         <?php if (!empty($img)) : ?>
-          <img src="<?php echo esc_url($img); ?>" alt="<?php echo esc_attr($area['label']); ?>">
+          <?php echo th_img($img, array('alt' => wp_strip_all_tags($area['label']), 'sizes' => '(max-width: 960px) 50vw, 25vw')); ?>
           <div class="th-area-mosaic__overlay">
             <span class="th-area-mosaic__overlay-icon"><?php echo $area['icon']; ?></span>
             <span class="th-area-mosaic__overlay-label"><?php echo $area['label']; ?></span>
@@ -246,7 +246,7 @@ if (empty($founder_img)) {
   <div class="w">
     <div class="th-founder__inner">
       <div class="th-founder__photo r d1">
-        <img src="<?php echo esc_url($founder_img); ?>" alt="<?php echo esc_attr($s['founder_name'] . ' — ' . $s['founder_role']); ?>">
+        <?php echo th_img($founder_img, array('alt' => $s['founder_name'] . ' — ' . $s['founder_role'], 'width' => 800, 'height' => 800, 'sizes' => '(max-width: 960px) 100vw, 40vw')); ?>
       </div>
       <div class="th-founder__content r d2">
         <h2 class="th-founder__name"><?php echo esc_html($s['founder_name']); ?></h2>

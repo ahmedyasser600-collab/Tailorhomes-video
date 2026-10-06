@@ -150,7 +150,7 @@ $apartments = array(
       <div class="apt-slider rl" data-slider>
         <div class="apt-slides">
           <?php foreach ($images as $i => $url) : ?>
-            <div class="apt-slide"><img src="<?php echo esc_url($url); ?>" alt="<?php echo esc_attr(wp_strip_all_tags($apt['name'])); ?> — Photo <?php echo $i + 1; ?>"></div>
+            <div class="apt-slide"><?php echo th_img($url, array('alt' => wp_strip_all_tags($apt['name']) . ' — Photo ' . ($i + 1), 'sizes' => '(max-width: 960px) 100vw, 60vw', 'loading' => $i === 0 ? 'eager' : 'lazy')); ?></div>
           <?php endforeach; ?>
         </div>
         <button class="apt-arrow apt-arrow--prev" aria-label="Previous"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button>
@@ -201,7 +201,7 @@ $apartments = array(
       <div class="apt-slider rl" data-slider>
         <div class="apt-slides">
           <?php foreach ($images as $i => $url) : ?>
-            <div class="apt-slide"><img src="<?php echo esc_url($url); ?>" alt="<?php echo esc_attr(wp_strip_all_tags($apt['name'])); ?> — Photo <?php echo $i + 1; ?>"></div>
+            <div class="apt-slide"><?php echo th_img($url, array('alt' => wp_strip_all_tags($apt['name']) . ' — Photo ' . ($i + 1), 'sizes' => '(max-width: 960px) 100vw, 60vw', 'loading' => $i === 0 ? 'eager' : 'lazy')); ?></div>
           <?php endforeach; ?>
         </div>
         <button class="apt-arrow apt-arrow--prev" aria-label="Previous"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button>
